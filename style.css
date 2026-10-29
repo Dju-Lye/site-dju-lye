@@ -78,7 +78,7 @@ a { color: inherit; }
 .courbe.c-a { --de: var(--creme); --vers: var(--aubergine); }
 
 /* Services */
-.cartes { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
+.cartes { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; align-items: stretch; }
 .carte {
   background: #ffffff;
   border: 2px solid var(--aubergine);
@@ -86,7 +86,7 @@ a { color: inherit; }
   padding: 1.25rem;
 }
 .carte .gros { font-size: 1.3rem; color: var(--aubergine); margin-bottom: .6rem; }
-.carte p { margin: 0; font-size: 1rem; }
+.carte p { margin: 0; font-size: 1.3rem; font-weight: 600; color: var(--aubergine); }
 .carte p::before, .modele::before {
   content: "";
   display: inline-block;
