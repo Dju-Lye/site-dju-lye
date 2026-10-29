@@ -246,3 +246,5 @@ footer a { display: inline-block; padding: .6rem 0; color: var(--miel); font-wei
 
 .logo-lien { display: inline-block; }
 .clair a { color: var(--aubergine); }
+
+.saison:empty { display: none; }

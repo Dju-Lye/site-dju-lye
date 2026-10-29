@@ -1,5 +1,11 @@
-/* Halloween 2026 : retirer cette ligne et la phrase « Joyeux Halloween » après le 1er novembre
-   (supprimer ce fichier, sa ligne <link> dans index.html et le <p class="saison">). */
+/* Saison : Halloween
+   Période conseillée : de mi-octobre au 1er novembre.
+   Emplacements utilisés :
+   1. au-dessus du logo (.accroche .contenu::after) : petite citrouille ;
+   2. ciel de l'en-tête, PC seulement (.accroche .contenu::before, dès 900px) : chauves-souris ;
+   3. au-dessus de « Écrire à Julie » (.ecrire h2::before) : citrouille ;
+   4. couleur des vagues (.courbe) : trait orange ;
+   5. phrase de saison (.saison), texte dans index.html. */
 
 /* Vagues citrouille : même forme et même fond que style.css, seul le trait change (#f28c28) */
 .courbe {
