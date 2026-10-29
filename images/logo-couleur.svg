@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 245 64">
+  <rect x="2" y="2" width="60" height="60" rx="18" fill="#4a2a6e"/>
+  <circle cx="21" cy="25" r="6" fill="#ffffff"/>
+  <circle cx="43" cy="25" r="6" fill="#ffffff"/>
+  <path d="M17 38 Q32 52 47 38" fill="none" stroke="#f5c33b" stroke-width="6" stroke-linecap="round"/>
+  <text x="85" y="45" font-family="Lexend, 'Segoe UI', sans-serif" font-size="40" font-weight="600" fill="#4a2a6e">Dju<tspan fill="#f5c33b" font-weight="700">-</tspan>Lye</text>
+</svg>
