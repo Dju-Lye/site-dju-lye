@@ -19,7 +19,7 @@ Enregistrés chez Infomaniak le 29/10/2026.
 - `mentions-legales.html` : mentions légales, avec des marqueurs « À compléter ».
 - `style.css` : feuille de style unique, mobile d'abord, mise en page élargie dès 48 em.
 - `polices/` : Lexend SemiBold, Source Sans 3 Regular et SemiBold (woff2, latin seulement, tirées de la charte) et leurs licences OFL.
-- `images/` : logo clair, logo blanc et symbole (copies des SVG de la charte).
+- `images/` : symbole (copie du SVG de la charte).
 
 HTML et CSS seulement : aucun JavaScript, aucun chargement externe.
 
