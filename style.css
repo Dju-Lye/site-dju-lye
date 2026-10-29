@@ -212,3 +212,6 @@ footer a { display: inline-block; padding: .6rem 0; color: var(--miel); font-wei
 @media (prefers-reduced-motion: no-preference) {
   .bouton { transition: background .2s; }
 }
+
+.logo-lien { display: inline-block; }
+.clair a { color: var(--aubergine); }

@@ -13,8 +13,19 @@ Enregistrés chez Infomaniak le 29/10/2026.
 
 `../charte-dju-lye/CHARTE.md` (à lire avant toute page).
 
+## Organisation
+
+- `index.html` : page unique (accroche, services, déroulement, tarif, qui est Julie, contact).
+- `mentions-legales.html` : mentions légales, avec des marqueurs « À compléter ».
+- `style.css` : feuille de style unique, mobile d'abord, mise en page élargie dès 48 em.
+- `polices/` : Lexend SemiBold, Source Sans 3 Regular et SemiBold (woff2, latin seulement, tirées de la charte) et leurs licences OFL.
+- `images/` : logo clair, logo blanc et symbole (copies des SVG de la charte).
+
+HTML et CSS seulement : aucun JavaScript, aucun chargement externe.
+
 ## État au 29/10/2026
 
-- Projet créé.
-- Contenu des pages à décider.
+- Page unique et mentions légales écrites, pas encore relues ni testées dans un navigateur.
+- Mentions légales : éditeur, SIRET, adresse et hébergeur à compléter.
 - Hébergement et DNS à faire.
+- Limite : le logo est en SVG en ligne pour utiliser la police Lexend chargée par la page.
