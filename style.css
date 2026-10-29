@@ -64,6 +64,8 @@ a { color: inherit; }
 /* Accroche */
 .accroche h1 span { color: var(--miel); }
 .accroche p { font-size: 1.25rem; margin-bottom: 0; }
+.accroche .bouton { margin: 1.5rem 0 0; }
+.accroche .bouton-libelle { margin-bottom: 0; }
 
 /* Séparateur : courbe miel (esprit du sourire), dessinée à part */
 .courbe {
