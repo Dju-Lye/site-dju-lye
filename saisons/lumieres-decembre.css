@@ -1,0 +1,65 @@
+/* Saison : Lumières de décembre (du 1er au 25 décembre)
+   Phrase de saison, à mettre dans <p class="saison"> d'index.html :
+   Les soirs sont longs&#8239;: si votre ordinateur boude, je viens y mettre un peu de lumière&#8239;!
+   Emplacements utilisés :
+   1. au-dessus du logo (.accroche .contenu::after) : étoile qui sourit ;
+   2. ciel de l'en-tête, PC seulement (.accroche .contenu::before, dès 900px) : guirlande d'ampoules et flocons ;
+   3. au-dessus de « Écrire à Julie » (.ecrire h2::before) : bougie qui sourit ;
+   4. couleur des vagues (.courbe) : pointillé de loupiotes miel ;
+   5. phrase de saison (.saison), texte dans index.html. */
+
+.courbe {
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='36' viewBox='0 0 120 36'%3E%3Cpath d='M0 12 Q30 32 60 12 T120 12' fill='none' stroke='%23f5c33b' stroke-width='7' stroke-dasharray='0 20' stroke-linecap='round'/%3E%3Cpath d='M0 12 Q30 32 60 12 T120 12' fill='none' stroke='%23fbf5e6' stroke-width='7' stroke-dasharray='0 20' stroke-dashoffset='-10' stroke-linecap='round'/%3E%3C/svg%3E") center / 120px 36px repeat-x,
+    linear-gradient(to bottom, var(--de) 50%, var(--vers) 50%);
+}
+
+:root {
+  --logo: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M24 3 L29.5 17.5 L45 18 L33 27.5 L37 42.5 L24 34 L11 42.5 L15 27.5 L3 18 L18.5 17.5 Z' fill='%23f5c33b' stroke='%234a2a6e' stroke-width='1.5' stroke-linejoin='round'/%3E%3Ccircle cx='20' cy='24' r='2.2' fill='%234a2a6e'/%3E%3Ccircle cx='28' cy='24' r='2.2' fill='%234a2a6e'/%3E%3Cpath d='M19 29 Q24 35 29 29' fill='none' stroke='%234a2a6e' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E");
+  --ecrire: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect x='16' y='22' width='16' height='22' rx='3' fill='%238e6bb5' stroke='%234a2a6e' stroke-width='1.5'/%3E%3Crect x='10' y='44' width='28' height='3.5' rx='1.75' fill='%234a2a6e'/%3E%3Cpath d='M24 21 V16' stroke='%234a2a6e' stroke-width='1.5'/%3E%3Cpath d='M24 2 Q32 11 24 18 Q16 11 24 2Z' fill='%23f5c33b' stroke='%234a2a6e' stroke-width='1.5' stroke-linejoin='round'/%3E%3Ccircle cx='21' cy='30' r='1.7' fill='%23fbf5e6'/%3E%3Ccircle cx='27' cy='30' r='1.7' fill='%23fbf5e6'/%3E%3Cpath d='M20.5 35 Q24 39 27.5 35' fill='none' stroke='%23f5c33b' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+.ecrire h2::before {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 56px;
+  margin-bottom: .5rem;
+  background: var(--ecrire) center / contain no-repeat;
+  pointer-events: none;
+}
+
+.saison { margin-top: 1rem; }
+
+/* Décor en haut à gauche de l'en-tête, au-dessus du logo (mobile et PC) */
+.accroche .contenu { position: relative; padding-top: 3.75rem; }
+.accroche .contenu::after {
+  content: "";
+  position: absolute;
+  top: .75rem;
+  left: 1.25rem;
+  width: 40px;
+  height: 40px;
+  background: var(--logo) center / contain no-repeat;
+  pointer-events: none;
+}
+
+@media (min-width: 48em) {
+  .accroche .contenu::after { left: 2rem; }
+}
+
+@media (min-width: 900px) {
+  .ecrire h2::before { margin-left: auto; margin-right: auto; }
+
+  /* Décor en haut de l'en-tête (à droite du logo jusqu'au coin) */
+  .accroche .contenu::before {
+    content: "";
+    position: absolute;
+    top: 1rem;
+    right: 2rem;
+    width: 34rem;
+    height: 7rem;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 340 70'%3E%3Cpath d='M0 8 Q42 38 85 8 Q127 38 170 8 Q212 38 255 8 Q297 38 340 8' fill='none' stroke='%238e6bb5' stroke-width='1.8'/%3E%3Crect x='19' y='18.25' width='4' height='4' fill='%238e6bb5'/%3E%3Ccircle cx='21' cy='25.25' r='4.5' fill='%23f5c33b'/%3E%3Crect x='40.5' y='22' width='4' height='4' fill='%238e6bb5'/%3E%3Ccircle cx='42.5' cy='29' r='4.5' fill='%23fbf5e6'/%3E%3Crect x='62' y='18.25' width='4' height='4' fill='%238e6bb5'/%3E%3Ccircle cx='64' cy='25.25' r='4.5' fill='%238e6bb5'/%3E%3Crect x='104' y='18.25' width='4' height='4' fill='%238e6bb5'/%3E%3Ccircle cx='106' cy='25.25' r='4.5' fill='%23f5c33b'/%3E%3Crect x='125.5' y='22' width='4' height='4' fill='%238e6bb5'/%3E%3Ccircle cx='127.5' cy='29' r='4.5' fill='%23fbf5e6'/%3E%3Crect x='147' y='18.25' width='4' height='4' fill='%238e6bb5'/%3E%3Ccircle cx='149' cy='25.25' r='4.5' fill='%238e6bb5'/%3E%3Crect x='189' y='18.25' width='4' height='4' fill='%238e6bb5'/%3E%3Ccircle cx='191' cy='25.25' r='4.5' fill='%23f5c33b'/%3E%3Crect x='210.5' y='22' width='4' height='4' fill='%238e6bb5'/%3E%3Ccircle cx='212.5' cy='29' r='4.5' fill='%23fbf5e6'/%3E%3Crect x='232' y='18.25' width='4' height='4' fill='%238e6bb5'/%3E%3Ccircle cx='234' cy='25.25' r='4.5' fill='%238e6bb5'/%3E%3Crect x='274' y='18.25' width='4' height='4' fill='%238e6bb5'/%3E%3Ccircle cx='276' cy='25.25' r='4.5' fill='%23f5c33b'/%3E%3Crect x='295.5' y='22' width='4' height='4' fill='%238e6bb5'/%3E%3Ccircle cx='297.5' cy='29' r='4.5' fill='%23fbf5e6'/%3E%3Crect x='317' y='18.25' width='4' height='4' fill='%238e6bb5'/%3E%3Ccircle cx='319' cy='25.25' r='4.5' fill='%238e6bb5'/%3E%3Cg stroke='%23fbf5e6' stroke-width='1.6' stroke-linecap='round' fill='none'%3E%3Cpath d='M30 46V58' transform='rotate(0 30 52)'/%3E%3Cpath d='M30 46V58' transform='rotate(60 30 52)'/%3E%3Cpath d='M30 46V58' transform='rotate(120 30 52)'/%3E%3C/g%3E%3Cg stroke='%23fbf5e6' stroke-width='1.6' stroke-linecap='round' fill='none'%3E%3Cpath d='M110 52V64' transform='rotate(0 110 58)'/%3E%3Cpath d='M110 52V64' transform='rotate(60 110 58)'/%3E%3Cpath d='M110 52V64' transform='rotate(120 110 58)'/%3E%3C/g%3E%3Cg stroke='%23fbf5e6' stroke-width='1.6' stroke-linecap='round' fill='none'%3E%3Cpath d='M190 44V56' transform='rotate(0 190 50)'/%3E%3Cpath d='M190 44V56' transform='rotate(60 190 50)'/%3E%3Cpath d='M190 44V56' transform='rotate(120 190 50)'/%3E%3C/g%3E%3Cg stroke='%23fbf5e6' stroke-width='1.6' stroke-linecap='round' fill='none'%3E%3Cpath d='M268 52V64' transform='rotate(0 268 58)'/%3E%3Cpath d='M268 52V64' transform='rotate(60 268 58)'/%3E%3Cpath d='M268 52V64' transform='rotate(120 268 58)'/%3E%3C/g%3E%3Cg stroke='%23fbf5e6' stroke-width='1.6' stroke-linecap='round' fill='none'%3E%3Cpath d='M318 42V54' transform='rotate(0 318 48)'/%3E%3Cpath d='M318 42V54' transform='rotate(60 318 48)'/%3E%3Cpath d='M318 42V54' transform='rotate(120 318 48)'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat;
+    pointer-events: none;
+  }
+}
