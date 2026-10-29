@@ -29,12 +29,12 @@
 
 * { box-sizing: border-box; }
 
-html { font-size: 112.5%; } /* 18 px : gros texte sur téléphone */
+html { font-size: 125%; } /* 20 px : texte courant, jamais sous 18 px */
 
 body {
   margin: 0;
   font-family: "Source Sans 3", "Segoe UI", sans-serif;
-  line-height: 1.55;
+  line-height: 1.6;
   color: var(--texte);
   background: var(--creme);
 }
@@ -45,9 +45,9 @@ h1, h2, .gros {
   line-height: 1.2;
   margin: 0 0 1rem;
 }
-h1 { font-size: 2.2rem; }
-h2 { font-size: 1.7rem; }
-p { margin: 0 0 1rem; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.6rem; }
+p { margin: 0 0 1rem; max-width: 65ch; }
 
 a { color: inherit; }
 :focus-visible { outline: 4px solid var(--focus); outline-offset: 3px; }
@@ -63,7 +63,7 @@ a { color: inherit; }
 
 /* Accroche */
 .accroche h1 span { color: var(--miel); }
-.accroche p { font-size: 1.25rem; max-width: 36rem; margin-bottom: 0; }
+.accroche p { font-size: 1.25rem; margin-bottom: 0; }
 
 /* Séparateur : courbe miel (esprit du sourire), dessinée à part */
 .courbe {
@@ -84,7 +84,7 @@ a { color: inherit; }
   padding: 1.25rem;
 }
 .carte .gros { font-size: 1.3rem; color: var(--aubergine); margin-bottom: .6rem; }
-.carte p { margin: 0; font-size: .95rem; }
+.carte p { margin: 0; font-size: 1rem; }
 .carte p::before, .modele::before {
   content: "";
   display: inline-block;
@@ -143,17 +143,17 @@ a { color: inherit; }
   background: var(--miel);
   border-radius: .2rem;
 }
-.petit { font-size: .9rem; }
+.petit { font-size: 1rem; }
 
 /* Qui est Julie */
 .qui .symbole { width: 4.5rem; height: 4.5rem; margin-bottom: 1rem; }
-.qui p { font-size: 1.15rem; max-width: 40rem; margin-bottom: 0; }
+.qui p { font-size: 1.15rem; margin-bottom: 0; }
 
 /* Écrire à Julie */
 .bouton {
   display: block;
   padding: 1.1rem 1rem;
-  min-height: 4rem;
+  min-height: 3.5rem;
   background: var(--miel);
   color: var(--aubergine);
   border: 3px solid var(--aubergine);
@@ -166,6 +166,8 @@ a { color: inherit; }
   overflow-wrap: anywhere;
   margin: 1rem 0 1.5rem;
 }
+.bouton span { display: block; }
+.bouton-libelle { font-size: 1.1rem; margin-bottom: .25rem; }
 .bouton:hover { background: #ffffff; }
 .modele {
   background: #ffffff;
@@ -177,9 +179,9 @@ a { color: inherit; }
 }
 
 /* Pied de page */
-footer .contenu { padding-top: 2rem; padding-bottom: 2rem; font-size: .95rem; }
+footer .contenu { padding-top: 2rem; padding-bottom: 2rem; font-size: 1rem; }
 footer p { margin: 0 0 .75rem; }
-footer a { display: inline-block; padding: .6rem 0; color: var(--miel); font-weight: 600; }
+footer a { display: inline-block; padding: .6rem 0; color: var(--miel); font-weight: 600; font-size: 1rem; text-decoration: underline; }
 
 /* Mentions légales */
 .texte-long { max-width: 40rem; }
@@ -187,8 +189,7 @@ footer a { display: inline-block; padding: .6rem 0; color: var(--miel); font-wei
 
 /* Ordinateur */
 @media (min-width: 48em) {
-  html { font-size: 125%; }
-  h1 { font-size: 3.2rem; }
+  h1 { font-size: 3rem; }
   h2 { font-size: 2.1rem; }
   .contenu { padding: 4rem 2rem; }
   .logo { width: 16rem; margin-bottom: 3rem; }
@@ -204,10 +205,6 @@ footer a { display: inline-block; padding: .6rem 0; color: var(--miel); font-wei
     height: 4px;
   }
   .bouton { display: inline-block; padding: 1.1rem 2.5rem; font-size: 1.5rem; }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .bouton { transition: background .2s; }
 }
 
 .logo-lien { display: inline-block; }
