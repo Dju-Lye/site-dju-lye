@@ -39,7 +39,7 @@ body {
   background: var(--creme);
 }
 
-h1, h2, h3, .gros {
+h1, h2, .gros {
   font-family: "Lexend", "Segoe UI", sans-serif;
   font-weight: 600;
   line-height: 1.2;
@@ -57,11 +57,9 @@ a { color: inherit; }
 /* Sections qui alternent aubergine / crème */
 .sombre { background: var(--aubergine); color: #ffffff; --focus: var(--miel); }
 .clair { background: var(--creme); color: var(--texte); }
-.sombre h1, .sombre h2 { color: #ffffff; }
 .clair h2 { color: var(--aubergine); }
 
 .logo { display: block; width: 13rem; height: auto; margin-bottom: 2rem; }
-.logo a { display: block; }
 
 /* Accroche */
 .accroche h1 span { color: var(--miel); }
@@ -107,7 +105,6 @@ a { color: inherit; }
   font-size: 1.3rem;
   font-family: "Lexend", "Segoe UI", sans-serif;
   font-weight: 600;
-  min-height: 3rem;
 }
 .etapes li::before {
   content: counter(etape);
