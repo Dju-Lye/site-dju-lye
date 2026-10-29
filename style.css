@@ -1,0 +1,214 @@
+/* Site Dju-Lye : mobile d'abord. Le trait d'union (miel) est le fil de la page. */
+
+@font-face {
+  font-family: "Lexend";
+  src: url("polices/Lexend-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Source Sans 3";
+  src: url("polices/SourceSans3-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Source Sans 3";
+  src: url("polices/SourceSans3-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-display: swap;
+}
+
+:root {
+  --aubergine: #4a2a6e;
+  --miel: #f5c33b;
+  --creme: #fbf5e6;
+  --texte: #222222;
+  --focus: var(--aubergine);
+}
+
+* { box-sizing: border-box; }
+
+html { font-size: 112.5%; } /* 18 px : gros texte sur téléphone */
+
+body {
+  margin: 0;
+  font-family: "Source Sans 3", "Segoe UI", sans-serif;
+  line-height: 1.55;
+  color: var(--texte);
+  background: var(--creme);
+}
+
+h1, h2, h3, .gros {
+  font-family: "Lexend", "Segoe UI", sans-serif;
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0 0 1rem;
+}
+h1 { font-size: 2.2rem; }
+h2 { font-size: 1.7rem; }
+p { margin: 0 0 1rem; }
+
+a { color: inherit; }
+:focus-visible { outline: 4px solid var(--focus); outline-offset: 3px; }
+
+.contenu { max-width: 62rem; margin: 0 auto; padding: 2.5rem 1.25rem; }
+
+/* Sections qui alternent aubergine / crème */
+.sombre { background: var(--aubergine); color: #ffffff; --focus: var(--miel); }
+.clair { background: var(--creme); color: var(--texte); }
+.sombre h1, .sombre h2 { color: #ffffff; }
+.clair h2 { color: var(--aubergine); }
+
+.logo { display: block; width: 13rem; height: auto; margin-bottom: 2rem; }
+.logo a { display: block; }
+
+/* Accroche */
+.accroche h1 span { color: var(--miel); }
+.accroche p { font-size: 1.25rem; max-width: 36rem; margin-bottom: 0; }
+
+/* Séparateur : courbe miel (esprit du sourire), dessinée à part */
+.courbe {
+  height: 2.25rem;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='36' viewBox='0 0 120 36'%3E%3Cpath d='M0 12 Q30 32 60 12 T120 12' fill='none' stroke='%23f5c33b' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E") center / 120px 36px repeat-x,
+    linear-gradient(to bottom, var(--de) 50%, var(--vers) 50%);
+}
+.courbe.a-c { --de: var(--aubergine); --vers: var(--creme); }
+.courbe.c-a { --de: var(--creme); --vers: var(--aubergine); }
+
+/* Services */
+.cartes { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
+.carte {
+  background: #ffffff;
+  border: 2px solid var(--aubergine);
+  border-radius: 1rem;
+  padding: 1.25rem;
+}
+.carte .gros { font-size: 1.3rem; color: var(--aubergine); margin-bottom: .6rem; }
+.carte p { margin: 0; font-size: .95rem; }
+.carte p::before, .modele::before {
+  content: "";
+  display: inline-block;
+  width: 1.1rem;
+  height: .25rem;
+  margin-right: .5rem;
+  vertical-align: middle;
+  background: var(--miel);
+  border-radius: .2rem;
+}
+
+/* Étapes reliées par le trait d'union */
+.etapes { list-style: none; margin: 0 0 1.5rem; padding: 0; counter-reset: etape; }
+.etapes li {
+  position: relative;
+  counter-increment: etape;
+  padding: .25rem 0 2rem 4rem;
+  font-size: 1.3rem;
+  font-family: "Lexend", "Segoe UI", sans-serif;
+  font-weight: 600;
+  min-height: 3rem;
+}
+.etapes li::before {
+  content: counter(etape);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 3rem;
+  height: 3rem;
+  display: grid;
+  place-items: center;
+  border: 3px solid var(--miel);
+  border-radius: 50%;
+  background: var(--aubergine);
+  color: #ffffff;
+}
+.etapes li:not(:last-child)::after { /* trait miel vertical */
+  content: "";
+  position: absolute;
+  left: calc(1.5rem - 2px);
+  top: 3rem;
+  bottom: 0;
+  width: 4px;
+  background: var(--miel);
+  border-radius: 2px;
+}
+.sans-jargon { font-size: 1.2rem; margin: 0; }
+
+/* Tarif */
+.prix { font-size: 2.6rem; color: var(--aubergine); margin-bottom: 1rem; }
+.prix::after {
+  content: "";
+  display: block;
+  width: 3rem;
+  height: .3rem;
+  margin-top: .6rem;
+  background: var(--miel);
+  border-radius: .2rem;
+}
+.petit { font-size: .9rem; }
+
+/* Qui est Julie */
+.qui .symbole { width: 4.5rem; height: 4.5rem; margin-bottom: 1rem; }
+.qui p { font-size: 1.15rem; max-width: 40rem; margin-bottom: 0; }
+
+/* Écrire à Julie */
+.bouton {
+  display: block;
+  padding: 1.1rem 1rem;
+  min-height: 4rem;
+  background: var(--miel);
+  color: var(--aubergine);
+  border: 3px solid var(--aubergine);
+  border-radius: 1rem;
+  font-family: "Lexend", "Segoe UI", sans-serif;
+  font-weight: 600;
+  font-size: 1.25rem;
+  text-align: center;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  margin: 1rem 0 1.5rem;
+}
+.bouton:hover { background: #ffffff; }
+.modele {
+  background: #ffffff;
+  border: 2px solid var(--aubergine);
+  border-radius: .75rem;
+  padding: 1rem;
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+/* Pied de page */
+footer .contenu { padding-top: 2rem; padding-bottom: 2rem; font-size: .95rem; }
+footer p { margin: 0 0 .75rem; }
+footer a { display: inline-block; padding: .6rem 0; color: var(--miel); font-weight: 600; }
+
+/* Mentions légales */
+.texte-long { max-width: 40rem; }
+.a-completer { background: var(--miel); color: var(--aubergine); padding: 0 .3rem; border-radius: .25rem; }
+
+/* Ordinateur */
+@media (min-width: 48em) {
+  html { font-size: 125%; }
+  h1 { font-size: 3.2rem; }
+  h2 { font-size: 2.1rem; }
+  .contenu { padding: 4rem 2rem; }
+  .logo { width: 16rem; margin-bottom: 3rem; }
+  .cartes { grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  .etapes { display: grid; grid-template-columns: repeat(3, 1fr); }
+  .etapes li { padding: 4.25rem 1.5rem 0 0; }
+  .etapes li:not(:last-child)::after { /* trait miel horizontal */
+    left: 3rem;
+    right: 0;
+    top: calc(1.5rem - 2px);
+    bottom: auto;
+    width: auto;
+    height: 4px;
+  }
+  .bouton { display: inline-block; padding: 1.1rem 2.5rem; font-size: 1.5rem; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .bouton { transition: background .2s; }
+}
