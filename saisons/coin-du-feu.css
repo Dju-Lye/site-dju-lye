@@ -1,0 +1,65 @@
+/* Saison : Coin du feu (du 16 février au 7 mars)
+   Phrase de saison, à mettre dans <p class="saison"> d'index.html :
+   Un plaid, un thé chaud, et on s'occupe de votre ordinateur à l'abri du froid.
+   Emplacements utilisés :
+   1. au-dessus du logo (.accroche .contenu::after) : tasse fumante qui sourit ;
+   2. ciel de l'en-tête, PC seulement (.accroche .contenu::before, dès 900px) : fauteuil, plaid et pelote de laine ;
+   3. au-dessus de « Écrire à Julie » (.ecrire h2::before) : chausson qui sourit ;
+   4. couleur des vagues (.courbe) : maille de tricot en tirets lilac et miel ;
+   5. phrase de saison (.saison), texte dans index.html. */
+
+.courbe {
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='36' viewBox='0 0 120 36'%3E%3Cpath d='M0 12 Q30 32 60 12 T120 12' fill='none' stroke='%238e6bb5' stroke-width='6' stroke-dasharray='7 3' stroke-linecap='butt'/%3E%3Cpath d='M0 12 Q30 32 60 12 T120 12' fill='none' stroke='%23f5c33b' stroke-width='2' stroke-dasharray='3 7' stroke-dashoffset='-2' stroke-linecap='round'/%3E%3C/svg%3E") center / 120px 36px repeat-x,
+    linear-gradient(to bottom, var(--de) 50%, var(--vers) 50%);
+}
+
+:root {
+  --logo: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M15 18 Q12 14 15 10 Q18 6 15 3 M25 18 Q22 14 25 10 Q28 6 25 3' fill='none' stroke='%238e6bb5' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M8 22 H38 V32 Q38 42 23 42 Q8 42 8 32 Z' fill='%23f5c33b' stroke='%234a2a6e' stroke-width='1.5'/%3E%3Cpath d='M38 25 Q46 25 46 31 Q46 37 37 36' fill='none' stroke='%234a2a6e' stroke-width='3' stroke-linecap='round'/%3E%3Cellipse cx='23' cy='44' rx='17' ry='2.5' fill='%238e6bb5'/%3E%3Ccircle cx='17' cy='30' r='2' fill='%234a2a6e'/%3E%3Ccircle cx='29' cy='30' r='2' fill='%234a2a6e'/%3E%3Cpath d='M18.5 34 Q23 38 27.5 34' fill='none' stroke='%234a2a6e' stroke-width='2.3' stroke-linecap='round'/%3E%3C/svg%3E");
+  --ecrire: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M4 40 H44 Q46 40 46 42 Q46 46 42 46 H8 Q4 46 4 42 Z' fill='%238e6bb5'/%3E%3Cpath d='M6 40 Q3 22 20 22 Q30 22 32 31 Q34 36 42 37 Q46 38 44 40 Z' fill='%23f5c33b' stroke='%234a2a6e' stroke-width='1.5' stroke-linejoin='round'/%3E%3Cellipse cx='14' cy='22' rx='10' ry='4' fill='%23fbf5e6' stroke='%234a2a6e' stroke-width='1.5'/%3E%3Ccircle cx='20' cy='32' r='1.9' fill='%234a2a6e'/%3E%3Ccircle cx='28' cy='34' r='1.9' fill='%234a2a6e'/%3E%3Cpath d='M21 37 Q24.5 40 28 37.5' fill='none' stroke='%234a2a6e' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+.ecrire h2::before {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 56px;
+  margin-bottom: .5rem;
+  background: var(--ecrire) center / contain no-repeat;
+  pointer-events: none;
+}
+
+.saison { margin-top: 1rem; }
+
+/* Décor en haut à gauche de l'en-tête, au-dessus du logo (mobile et PC) */
+.accroche .contenu { position: relative; padding-top: 3.75rem; }
+.accroche .contenu::after {
+  content: "";
+  position: absolute;
+  top: .75rem;
+  left: 1.25rem;
+  width: 40px;
+  height: 40px;
+  background: var(--logo) center / contain no-repeat;
+  pointer-events: none;
+}
+
+@media (min-width: 48em) {
+  .accroche .contenu::after { left: 2rem; }
+}
+
+@media (min-width: 900px) {
+  .ecrire h2::before { margin-left: auto; margin-right: auto; }
+
+  /* Décor en haut de l'en-tête (à droite du logo jusqu'au coin) */
+  .accroche .contenu::before {
+    content: "";
+    position: absolute;
+    top: 1rem;
+    right: 2rem;
+    width: 34rem;
+    height: 7rem;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 340 70'%3E%3Crect x='254' y='10' width='52' height='46' rx='14' fill='%238e6bb5'/%3E%3Crect x='244' y='32' width='14' height='26' rx='6' fill='%234a2a6e'/%3E%3Crect x='302' y='32' width='14' height='26' rx='6' fill='%234a2a6e'/%3E%3Crect x='252' y='42' width='56' height='16' rx='6' fill='%234a2a6e'/%3E%3Crect x='262' y='36' width='38' height='16' rx='4' fill='%23f5c33b'/%3E%3Cpath d='M270 36 V52 M280 36 V52 M290 36 V52' stroke='%23fbf5e6' stroke-width='2.5'/%3E%3Crect x='248' y='58' width='6' height='8' rx='2' fill='%234a2a6e'/%3E%3Crect x='306' y='58' width='6' height='8' rx='2' fill='%234a2a6e'/%3E%3Ccircle cx='335' cy='52' r='11' fill='%23f5c33b' stroke='%234a2a6e' stroke-width='1.5' transform='translate(-3 0)'/%3E%3Cpath d='M324 49 Q332 55 340 47 M324 55 Q332 61 338 55 M330 42 Q336 50 328 62' fill='none' stroke='%234a2a6e' stroke-width='1.5' transform='translate(-3 0)'/%3E%3Cpath d='M322 54 Q315 62 322 66 Q330 70 340 64' fill='none' stroke='%23f5c33b' stroke-width='1.5' transform='translate(-3 0)'/%3E%3Ccircle cx='30' cy='42' r='6' fill='%23fbf5e6'/%3E%3Ccircle cx='84' cy='22' r='6' fill='%23f5c33b'/%3E%3Ccircle cx='140' cy='50' r='6' fill='%238e6bb5'/%3E%3Ccircle cx='196' cy='26' r='6' fill='%23fbf5e6'/%3E%3C/svg%3E") center / contain no-repeat;
+    pointer-events: none;
+  }
+}
