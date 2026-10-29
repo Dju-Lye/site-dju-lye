@@ -41,6 +41,14 @@ Cinq emplacements :
 4. couleur des vagues (`.courbe`) ;
 5. phrase de saison (`<p class="saison">` dans `index.html`).
 
+Fichiers disponibles dans `saisons/` :
+- `geek.css` : geek rétro, du 3 au 30 novembre (en ligne) ;
+- `halloween.css` : du 15 octobre au 2 novembre ;
+- `lumieres-decembre.css` : du 1er au 25 décembre ;
+- `bonne-annee.css` : du 26 décembre au 4 janvier (sans chiffre d'année, sert chaque année) ;
+- `galette.css` : du 5 au 18 janvier.
+La phrase de saison de chaque fichier est en commentaire en tête.
+
 Changer de fête : dans `index.html`, remplacer le fichier du `<link>` (`saisons/noel.css`…) et le texte de la phrase.
 Revenir au site sobre : supprimer la ligne `<link>` de la saison et vider la balise `<p class="saison">` (`style.css` la masque quand elle est vide).
 
