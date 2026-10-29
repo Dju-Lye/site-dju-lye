@@ -46,7 +46,10 @@ Fichiers disponibles dans `saisons/` :
 - `halloween.css` : du 15 octobre au 2 novembre ;
 - `lumieres-decembre.css` : du 1er au 25 décembre ;
 - `bonne-annee.css` : du 26 décembre au 4 janvier (sans chiffre d'année, sert chaque année) ;
-- `galette.css` : du 5 au 18 janvier.
+- `galette.css` : du 5 au 18 janvier ;
+- `crepes.css` : du 28 janvier au 10 février ;
+- `mots-doux.css` : du 11 au 15 février ;
+- `coin-du-feu.css` : du 16 février au 7 mars.
 La phrase de saison de chaque fichier est en commentaire en tête.
 
 Changer de fête : dans `index.html`, remplacer le fichier du `<link>` (`saisons/noel.css`…) et le texte de la phrase.
