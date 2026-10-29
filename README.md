@@ -32,7 +32,7 @@ HTML et CSS seulement : aucun JavaScript, aucun chargement externe.
 
 ## Couche de saison
 
-Le décor de fête est une feuille de style à part, dans `saisons/` (aujourd'hui `halloween.css`), chargée après `style.css`. La base du site n'est pas modifiée pour changer de fête.
+Le décor de fête est une feuille de style à part, dans `saisons/` (aujourd'hui `geek.css`), chargée après `style.css`. La base du site n'est pas modifiée pour changer de fête.
 
 Cinq emplacements :
 1. au-dessus du logo (`.accroche .contenu::after`) ;

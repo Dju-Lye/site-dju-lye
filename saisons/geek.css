@@ -1,0 +1,64 @@
+/* Saison : Geek rétro (clins d'œil à Pac-Man, Tetris et Game Boy, dessins originaux, tout est fixe)
+   Emplacements utilisés :
+   1. au-dessus du logo (.accroche .contenu::after) : rond miel bouche ouverte ;
+   2. ciel de l'en-tête, PC seulement (.accroche .contenu::before, dès 900px) : rond qui mange des pastilles, visage pixel, pièces empilées ;
+   3. au-dessus de « Écrire à Julie » (.ecrire h2::before) : cœur pixel ;
+   4. couleur des vagues (.courbe) : ligne de pastilles miel ;
+   5. phrase de saison (.saison), texte dans index.html. */
+
+/* Vagues pastilles : même forme et même fond que style.css, trait miel en pointillé rond */
+.courbe {
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='36' viewBox='0 0 120 36'%3E%3Cpath d='M0 12 Q30 32 60 12 T120 12' fill='none' stroke='%23f5c33b' stroke-width='5' stroke-dasharray='0 10' stroke-linecap='round'/%3E%3C/svg%3E") center / 120px 36px repeat-x,
+    linear-gradient(to bottom, var(--de) 50%, var(--vers) 50%);
+}
+
+:root {
+  --rond: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M24 24 L42.3 15.9 A20 20 0 1 0 42.3 32.1 Z' fill='%23f5c33b'/%3E%3Ccircle cx='26' cy='12' r='2.6' fill='%234a2a6e'/%3E%3C/svg%3E");
+  --coeur: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' shape-rendering='crispEdges' viewBox='-1 -1 9 8'%3E%3Cpath d='M1 0H3V1H4V0H6V1H7V3H6V4H5V5H4V6H3V5H2V4H1V3H0V1H1Z' fill='%23f5c33b' stroke='%234a2a6e' stroke-width='.7' stroke-linejoin='miter'/%3E%3C/svg%3E");
+}
+
+.ecrire h2::before {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 56px;
+  margin-bottom: .5rem;
+  background: var(--coeur) center / contain no-repeat;
+  pointer-events: none;
+}
+
+.saison { margin-top: 1rem; }
+
+/* Rond miel en haut à gauche de l'en-tête, au-dessus du logo (mobile et PC) */
+.accroche .contenu { position: relative; padding-top: 3.75rem; }
+.accroche .contenu::after {
+  content: "";
+  position: absolute;
+  top: .75rem;
+  left: 1.25rem;
+  width: 40px;
+  height: 40px;
+  background: var(--rond) center / contain no-repeat;
+  pointer-events: none;
+}
+
+@media (min-width: 48em) {
+  .accroche .contenu::after { left: 2rem; }
+}
+
+@media (min-width: 900px) {
+  .ecrire h2::before { margin-left: auto; margin-right: auto; }
+
+  /* Rond qui mange des pastilles (visage pixel derrière lui) et petit tas de pièces dans le coin, en haut de l'en-tête */
+  .accroche .contenu::before {
+    content: "";
+    position: absolute;
+    top: 1rem;
+    right: 2rem;
+    width: 34rem;
+    height: 7rem;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' shape-rendering='crispEdges' viewBox='0 0 340 70'%3E%3Crect x='4' y='19' width='32' height='32' fill='%238e6bb5'/%3E%3Crect x='12' y='27' width='4' height='8' fill='%23fbf5e6'/%3E%3Crect x='24' y='27' width='4' height='8' fill='%23fbf5e6'/%3E%3Crect x='8' y='39' width='4' height='4' fill='%23f5c33b'/%3E%3Crect x='12' y='43' width='4' height='4' fill='%23f5c33b'/%3E%3Crect x='16' y='43' width='4' height='4' fill='%23f5c33b'/%3E%3Crect x='20' y='43' width='4' height='4' fill='%23f5c33b'/%3E%3Crect x='24' y='43' width='4' height='4' fill='%23f5c33b'/%3E%3Crect x='28' y='39' width='4' height='4' fill='%23f5c33b'/%3E%3Cg transform='translate(48 18) scale(.7)'%3E%3Cpath d='M24 24 L42.3 15.9 A20 20 0 1 0 42.3 32.1 Z' fill='%23f5c33b'/%3E%3Ccircle cx='26' cy='12' r='3' fill='%234a2a6e'/%3E%3C/g%3E%3Crect x='92' y='33' width='12' height='4' fill='%23f5c33b'/%3E%3Crect x='116' y='31' width='8' height='8' fill='%23f5c33b'/%3E%3Crect x='136' y='33' width='12' height='4' fill='%23f5c33b'/%3E%3Crect x='160' y='31' width='8' height='8' fill='%23f5c33b'/%3E%3Crect x='180' y='33' width='12' height='4' fill='%23f5c33b'/%3E%3Crect x='204' y='31' width='8' height='8' fill='%23f5c33b'/%3E%3Crect x='224' y='33' width='12' height='4' fill='%23f5c33b'/%3E%3Crect x='244' y='58' width='11' height='11' rx='1.5' fill='%23f5c33b'/%3E%3Crect x='256' y='58' width='11' height='11' rx='1.5' fill='%23f5c33b'/%3E%3Crect x='268' y='58' width='11' height='11' rx='1.5' fill='%23f5c33b'/%3E%3Crect x='268' y='46' width='11' height='11' rx='1.5' fill='%23f5c33b'/%3E%3Crect x='280' y='58' width='11' height='11' rx='1.5' fill='%238e6bb5'/%3E%3Crect x='292' y='58' width='11' height='11' rx='1.5' fill='%238e6bb5'/%3E%3Crect x='304' y='58' width='11' height='11' rx='1.5' fill='%238e6bb5'/%3E%3Crect x='292' y='46' width='11' height='11' rx='1.5' fill='%238e6bb5'/%3E%3Crect x='316' y='34' width='11' height='11' rx='1.5' fill='%23fbf5e6'/%3E%3Crect x='316' y='46' width='11' height='11' rx='1.5' fill='%23fbf5e6'/%3E%3Crect x='328' y='46' width='11' height='11' rx='1.5' fill='%23fbf5e6'/%3E%3Crect x='328' y='58' width='11' height='11' rx='1.5' fill='%23fbf5e6'/%3E%3C/svg%3E") center / contain no-repeat;
+    pointer-events: none;
+  }
+}
