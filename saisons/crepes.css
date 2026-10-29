@@ -1,0 +1,65 @@
+/* Saison : Les crêpes (du 28 janvier au 10 février)
+   Phrase de saison, à mettre dans <p class="saison"> d'index.html :
+   Sauter une crêpe est un art. Trier ses mails est plus simple&#8239;: je vous montre&#8239;!
+   Emplacements utilisés :
+   1. au-dessus du logo (.accroche .contenu::after) : crêpe qui sourit dans sa poêle ;
+   2. ciel de l'en-tête, PC seulement (.accroche .contenu::before, dès 900px) : pile de crêpes à la confiture ;
+   3. au-dessus de « Écrire à Julie » (.ecrire h2::before) : crêpe qui sourit et pièce de la Chandeleur ;
+   4. couleur des vagues (.courbe) : filet de caramel en traits longs et gouttes ;
+   5. phrase de saison (.saison), texte dans index.html. */
+
+.courbe {
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='36' viewBox='0 0 120 36'%3E%3Cpath d='M0 12 Q30 32 60 12 T120 12' fill='none' stroke='%23f5c33b' stroke-width='5' stroke-dasharray='34 5 4 5' stroke-linecap='round'/%3E%3C/svg%3E") center / 120px 36px repeat-x,
+    linear-gradient(to bottom, var(--de) 50%, var(--vers) 50%);
+}
+
+:root {
+  --logo: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect x='38' y='24' width='10' height='5' rx='2' fill='%234a2a6e'/%3E%3Cellipse cx='22' cy='26' rx='19' ry='15' fill='%234a2a6e'/%3E%3Cellipse cx='22' cy='25' rx='15' ry='11' fill='%23f5c33b'/%3E%3Ccircle cx='17' cy='23' r='2' fill='%234a2a6e'/%3E%3Ccircle cx='27' cy='23' r='2' fill='%234a2a6e'/%3E%3Cpath d='M17.5 28 Q22 32 26.5 28' fill='none' stroke='%234a2a6e' stroke-width='2.3' stroke-linecap='round'/%3E%3C/svg%3E");
+  --ecrire: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cellipse cx='20' cy='30' rx='17' ry='13' fill='%23f5c33b' stroke='%234a2a6e' stroke-width='1.5'/%3E%3Ccircle cx='15' cy='28' r='2' fill='%234a2a6e'/%3E%3Ccircle cx='25' cy='28' r='2' fill='%234a2a6e'/%3E%3Cpath d='M15.5 33 Q20 37 24.5 33' fill='none' stroke='%234a2a6e' stroke-width='2.2' stroke-linecap='round'/%3E%3Ccircle cx='38' cy='10' r='8' fill='%23fbf5e6' stroke='%234a2a6e' stroke-width='1.5'/%3E%3Ccircle cx='38' cy='10' r='4.5' fill='none' stroke='%238e6bb5' stroke-width='1.5'/%3E%3C/svg%3E");
+}
+
+.ecrire h2::before {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 56px;
+  margin-bottom: .5rem;
+  background: var(--ecrire) center / contain no-repeat;
+  pointer-events: none;
+}
+
+.saison { margin-top: 1rem; }
+
+/* Décor en haut à gauche de l'en-tête, au-dessus du logo (mobile et PC) */
+.accroche .contenu { position: relative; padding-top: 3.75rem; }
+.accroche .contenu::after {
+  content: "";
+  position: absolute;
+  top: .75rem;
+  left: 1.25rem;
+  width: 40px;
+  height: 40px;
+  background: var(--logo) center / contain no-repeat;
+  pointer-events: none;
+}
+
+@media (min-width: 48em) {
+  .accroche .contenu::after { left: 2rem; }
+}
+
+@media (min-width: 900px) {
+  .ecrire h2::before { margin-left: auto; margin-right: auto; }
+
+  /* Décor en haut de l'en-tête (à droite du logo jusqu'au coin) */
+  .accroche .contenu::before {
+    content: "";
+    position: absolute;
+    top: 1rem;
+    right: 2rem;
+    width: 34rem;
+    height: 7rem;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 340 70'%3E%3Cellipse cx='285' cy='58' rx='36' ry='8' fill='%23f5c33b' stroke='%234a2a6e' stroke-width='1.5'/%3E%3Cellipse cx='285' cy='48' rx='34' ry='8' fill='%23fbf5e6' stroke='%234a2a6e' stroke-width='1.5'/%3E%3Cellipse cx='285' cy='38' rx='32' ry='8' fill='%23f5c33b' stroke='%234a2a6e' stroke-width='1.5'/%3E%3Cellipse cx='285' cy='28' rx='30' ry='7.5' fill='%23fbf5e6' stroke='%234a2a6e' stroke-width='1.5'/%3E%3Cellipse cx='285' cy='24' rx='17' ry='4.5' fill='%238e6bb5'/%3E%3Cpath d='M270 28 Q270 36 274 36 Q278 36 278 29 M296 29 Q296 40 300 40 Q304 40 304 28' fill='none' stroke='%238e6bb5' stroke-width='3.5' stroke-linecap='round'/%3E%3Ccircle cx='24' cy='40' r='6' fill='%23fbf5e6'/%3E%3Ccircle cx='82' cy='20' r='6' fill='%23f5c33b'/%3E%3Ccircle cx='140' cy='48' r='6' fill='%238e6bb5'/%3E%3Ccircle cx='196' cy='24' r='6' fill='%23fbf5e6'/%3E%3Ccircle cx='228' cy='50' r='6' fill='%23f5c33b'/%3E%3C/svg%3E") center / contain no-repeat;
+    pointer-events: none;
+  }
+}
