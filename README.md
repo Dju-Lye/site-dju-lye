@@ -29,3 +29,19 @@ HTML et CSS seulement : aucun JavaScript, aucun chargement externe.
 - Mentions légales : éditeur, SIRET, adresse et hébergeur à compléter.
 - Hébergement et DNS à faire.
 - Limite : le logo est en SVG en ligne pour utiliser la police Lexend chargée par la page.
+
+## Couche de saison
+
+Le décor de fête est une feuille de style à part, dans `saisons/` (aujourd'hui `halloween.css`), chargée après `style.css`. La base du site n'est pas modifiée pour changer de fête.
+
+Cinq emplacements :
+1. au-dessus du logo (`.accroche .contenu::after`) ;
+2. ciel de l'en-tête, PC seulement dès 900 px (`.accroche .contenu::before`) ;
+3. au-dessus de « Écrire à Julie » (`.ecrire h2::before`) ;
+4. couleur des vagues (`.courbe`) ;
+5. phrase de saison (`<p class="saison">` dans `index.html`).
+
+Changer de fête : dans `index.html`, remplacer le fichier du `<link>` (`saisons/noel.css`…) et le texte de la phrase.
+Revenir au site sobre : supprimer la ligne `<link>` de la saison et vider la balise `<p class="saison">` (`style.css` la masque quand elle est vide).
+
+Règles : aucune animation ni JavaScript, rien qui gêne la lecture, décors en pseudo-éléments SVG en data URI (le `#` s'écrit `%23`), `pointer-events: none`, logo jamais déformé.
