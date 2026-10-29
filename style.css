@@ -37,7 +37,11 @@ body {
   line-height: 1.6;
   color: var(--texte);
   background: var(--creme);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
+footer { margin-top: auto; }
 
 h1, h2, .gros {
   font-family: "Lexend", "Segoe UI", sans-serif;
