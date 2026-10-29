@@ -96,16 +96,6 @@ a { color: inherit; }
 }
 .carte .gros { font-size: 1.3rem; color: var(--aubergine); margin-bottom: .6rem; }
 .carte p { margin: 0; font-size: 1.3rem; font-weight: 600; color: var(--aubergine); }
-.modele::before {
-  content: "";
-  display: inline-block;
-  width: 1.1rem;
-  height: .25rem;
-  margin-right: .5rem;
-  vertical-align: middle;
-  background: var(--miel);
-  border-radius: .2rem;
-}
 
 /* Étapes reliées par le trait d'union */
 .etapes { list-style: none; margin: 0 0 1rem; padding: 0; counter-reset: etape; }
@@ -172,14 +162,8 @@ a { color: inherit; }
 .bouton span { display: block; }
 .bouton-libelle { font-size: 1.1rem; margin-bottom: .25rem; }
 .bouton:hover { background: #ffffff; }
-.modele {
-  background: #ffffff;
-  border: 2px solid var(--aubergine);
-  border-radius: .75rem;
-  padding: 1rem;
-  font-size: 1.1rem;
-  margin: 0;
-}
+.exemple { margin-bottom: .25rem; }
+.modele { font-size: 1.1rem; font-style: italic; margin: 0; }
 
 /* Pied de page */
 footer .contenu { padding-top: 2rem; padding-bottom: 2rem; font-size: 1rem; }
