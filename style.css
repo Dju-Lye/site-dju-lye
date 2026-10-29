@@ -91,14 +91,14 @@ a { color: inherit; }
 .courbe.c-a { --de: var(--creme); --vers: var(--aubergine); }
 
 /* Services */
-.cartes { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; align-items: stretch; }
+.cartes { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
 .carte {
   background: #ffffff;
   border: 2px solid var(--aubergine);
   border-radius: 1rem;
   padding: 1.25rem;
 }
-.carte .gros { font-size: 1.3rem; color: var(--aubergine); margin-bottom: .6rem; }
+.carte .gros { margin-bottom: .6rem; }
 .carte p { margin: 0; font-size: 1.3rem; font-weight: 600; color: var(--aubergine); }
 
 /* Étapes reliées par le trait d'union */
@@ -139,8 +139,7 @@ a { color: inherit; }
 .sans-jargon { font-size: 1.2rem; margin: 0; }
 
 /* Tarif */
-.prix { font-size: 2.6rem; color: var(--aubergine); margin-bottom: 1rem; }
-.petit { font-size: 1rem; }
+.prix { font-size: 2.6rem; color: var(--aubergine); }
 
 /* Qui est Julie */
 .qui .symbole { width: 4.5rem; height: 4.5rem; margin-bottom: 1rem; }
@@ -170,9 +169,9 @@ a { color: inherit; }
 .modele { font-size: 1.1rem; font-style: italic; margin: 0; }
 
 /* Pied de page */
-footer .contenu { padding-top: 2rem; padding-bottom: 2rem; font-size: 1rem; }
+footer .contenu { padding-top: 2rem; padding-bottom: 2rem; }
 footer p { margin: 0 0 .75rem; }
-footer a { display: inline-block; padding: .6rem 0; color: var(--miel); font-weight: 600; font-size: 1rem; text-decoration: underline; }
+footer a { display: inline-block; padding: .6rem 0; color: var(--miel); font-weight: 600; text-decoration: underline; }
 
 /* Mentions légales */
 .texte-long { max-width: 40rem; }
