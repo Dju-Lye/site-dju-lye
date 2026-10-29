@@ -199,6 +199,28 @@ footer a { display: inline-block; padding: .6rem 0; color: var(--miel); font-wei
 
 /* Grand écran : on occupe la largeur */
 @media (min-width: 900px) {
+  html { font-size: 112.5%; } /* 18 px : texte courant, rien en dessous */
+  h1 { font-size: 2.45rem; } /* ~44 px */
+  h2 { font-size: 1.65rem; } /* ~30 px */
+  .contenu { max-width: 61rem; padding: 3rem 2rem; } /* ~1100 px */
+  .accroche .contenu {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    column-gap: 3rem;
+    align-items: center;
+  }
+  .accroche .logo { grid-column: 1 / -1; }
+  .accroche h1, .accroche p { grid-column: 1; }
+  .accroche p { font-size: 1.2rem; }
+  .accroche .bouton { grid-column: 2; grid-row: 2 / span 2; margin: 0; }
+  .carte p { font-size: 1.15rem; }
+  .etapes li { font-size: 1.2rem; }
+  .sans-jargon { font-size: 1.1rem; }
+  .prix { font-size: 2rem; }
+  .qui p { font-size: 1.05rem; }
+  .bouton { font-size: 1.25rem; }
+  .bouton-libelle { font-size: 1rem; }
+  .modele { font-size: 1rem; }
   .tarif .contenu {
     display: grid;
     grid-template-columns: 1fr 1fr;
