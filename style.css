@@ -47,6 +47,15 @@ h1, h2, .gros {
 }
 h1 { font-size: 2rem; }
 h2 { font-size: 1.6rem; }
+h2::after { /* le trait d'union, fil de la page */
+  content: "";
+  display: block;
+  width: 3rem;
+  height: .35rem;
+  margin-top: .6rem;
+  background: var(--miel);
+  border-radius: .2rem;
+}
 p { margin: 0 0 1rem; max-width: 65ch; }
 
 a { color: inherit; }
@@ -87,7 +96,7 @@ a { color: inherit; }
 }
 .carte .gros { font-size: 1.3rem; color: var(--aubergine); margin-bottom: .6rem; }
 .carte p { margin: 0; font-size: 1.3rem; font-weight: 600; color: var(--aubergine); }
-.carte p::before, .modele::before {
+.modele::before {
   content: "";
   display: inline-block;
   width: 1.1rem;
@@ -99,7 +108,7 @@ a { color: inherit; }
 }
 
 /* Étapes reliées par le trait d'union */
-.etapes { list-style: none; margin: 0 0 1.5rem; padding: 0; counter-reset: etape; }
+.etapes { list-style: none; margin: 0 0 1rem; padding: 0; counter-reset: etape; }
 .etapes li {
   position: relative;
   counter-increment: etape;
@@ -132,19 +141,11 @@ a { color: inherit; }
   background: var(--miel);
   border-radius: 2px;
 }
+.etapes li:last-child { padding-bottom: 0; min-height: 3rem; }
 .sans-jargon { font-size: 1.2rem; margin: 0; }
 
 /* Tarif */
 .prix { font-size: 2.6rem; color: var(--aubergine); margin-bottom: 1rem; }
-.prix::after {
-  content: "";
-  display: block;
-  width: 3rem;
-  height: .3rem;
-  margin-top: .6rem;
-  background: var(--miel);
-  border-radius: .2rem;
-}
 .petit { font-size: 1rem; }
 
 /* Qui est Julie */
@@ -229,6 +230,7 @@ footer a { display: inline-block; padding: .6rem 0; color: var(--miel); font-wei
   .qui .symbole { grid-row: 1 / span 2; width: 8rem; height: 8rem; margin: 0; }
   .qui h2, .qui p { grid-column: 2; }
   .ecrire .contenu { text-align: center; }
+  .ecrire h2::after { margin-left: auto; margin-right: auto; }
   .ecrire p { margin-left: auto; margin-right: auto; }
   .ecrire .bouton { display: block; max-width: 40rem; margin: 1rem auto 1.5rem; }
 }
