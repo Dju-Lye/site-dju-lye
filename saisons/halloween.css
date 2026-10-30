@@ -15,7 +15,7 @@
 
 /* Visiteur qui demande moins de mouvement : aucune animation */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation: none !important; transition: none !important; }
+  *, *::before, *::after { animation: none !important; }
 }
 
 /* Vagues citrouille : même forme et même fond que style.css, seul le trait change (#f28c28) */
@@ -49,20 +49,20 @@
   content: "";
   position: absolute;
   top: .75rem;
-  left: 1.25rem;
+  left: var(--marge);
   width: 40px;
   height: 40px;
   background: var(--citrouille) center / contain no-repeat;
   pointer-events: none;
 }
 
+.accroche { position: relative; z-index: 0; --marge: 1.25rem; --largeur: 62rem; }
+
 @media (min-width: 48em) {
-  .accroche .contenu::after { left: 2rem; }
   .accroche { --marge: 2rem; }
 }
 
 /* Halo miel derrière la citrouille du logo : dans la marge du haut, sans toucher le texte */
-.accroche { position: relative; z-index: 0; --marge: 1.25rem; --largeur: 62rem; }
 .accroche::after {
   content: "";
   position: absolute;
