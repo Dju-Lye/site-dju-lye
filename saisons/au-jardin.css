@@ -1,0 +1,66 @@
+/* Saison : Au jardin (du 6 avril au 19 mai)
+   Phrase de saison, à mettre dans <p class="saison"> d'index.html :
+   Ici, on sème des astuces tranquillement&#8239;: rien ne pousse trop vite&#8239;!
+   Emplacements utilisés :
+   1. au-dessus du logo (.accroche .contenu::after) : jeune pousse qui sourit ;
+   2. ciel de l'en-tête, PC seulement (.accroche .contenu::before, dès 900px) : rang de semis, arrosoir et abeille ;
+   3. au-dessus de « Écrire à Julie » (.ecrire h2::before) : pot « Julie » ;
+   4. couleur des vagues (.courbe) : trait miel avec des pousses semées ;
+   5. phrase de saison (.saison), texte dans index.html.
+   Vert en plus de la charte : #6f9a4d. */
+
+.courbe {
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='36' viewBox='0 0 120 36'%3E%3Cpath d='M0 12 Q30 32 60 12 T120 12' fill='none' stroke='%23f5c33b' stroke-width='4' stroke-linecap='round'/%3E%3Cpath d='M30 23 L30 14' stroke='%236f9a4d' stroke-width='2.5' stroke-linecap='round' fill='none'/%3E%3Cpath d='M30 18 C21 19 17 13 17 9 C25 9 30 12 30 18 Z' fill='%236f9a4d' stroke='%234a2a6e' stroke-width='1.2'/%3E%3Cpath d='M30 16 C30 10 36 6 43 7 C43 14 38 17 30 16 Z' fill='%236f9a4d' stroke='%234a2a6e' stroke-width='1.2'/%3E%3C/svg%3E") center / 120px 36px repeat-x,
+    linear-gradient(to bottom, var(--de) 50%, var(--vers) 50%);
+}
+
+:root {
+  --logo: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M6 44 Q6 26 24 26 Q42 26 42 44 Z' fill='%238e6bb5' stroke='%234a2a6e' stroke-width='1.5'/%3E%3Cpath d='M24 26 L24 13' stroke='%236f9a4d' stroke-width='2.5' stroke-linecap='round' fill='none'/%3E%3Cpath d='M24 17 C15 18 11 12 11 8 C19 8 24 11 24 17 Z' fill='%236f9a4d' stroke='%234a2a6e' stroke-width='1.2'/%3E%3Cpath d='M24 15 C24 9 30 5 37 6 C37 13 32 16 24 15 Z' fill='%236f9a4d' stroke='%234a2a6e' stroke-width='1.2'/%3E%3Ccircle cx='18' cy='35' r='2' fill='%234a2a6e'/%3E%3Ccircle cx='30' cy='35' r='2' fill='%234a2a6e'/%3E%3Cpath d='M19 39 Q24 43 29 39' fill='none' stroke='%23f5c33b' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E");
+  --ecrire: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M24 20 L24 10' stroke='%236f9a4d' stroke-width='2.5' stroke-linecap='round' fill='none'/%3E%3Cpath d='M24 14 C15 15 11 9 11 5 C19 5 24 8 24 14 Z' fill='%236f9a4d' stroke='%234a2a6e' stroke-width='1.2'/%3E%3Cpath d='M24 12 C24 6 30 2 37 3 C37 10 32 13 24 12 Z' fill='%236f9a4d' stroke='%234a2a6e' stroke-width='1.2'/%3E%3Cpath d='M8 20 L40 20 L36 45 L12 45 Z' fill='%23f5c33b' stroke='%234a2a6e' stroke-width='1.5' stroke-linejoin='round'/%3E%3Crect x='6' y='16' width='36' height='6' rx='2' fill='%23f5c33b' stroke='%234a2a6e' stroke-width='1.5'/%3E%3Ctext x='24' y='36' font-family='sans-serif' font-size='9' font-weight='bold' text-anchor='middle' fill='%234a2a6e'%3EJulie%3C/text%3E%3C/svg%3E");
+}
+
+.ecrire h2::before {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 56px;
+  margin-bottom: .5rem;
+  background: var(--ecrire) center / contain no-repeat;
+  pointer-events: none;
+}
+
+.saison { margin-top: 1rem; }
+
+/* Jeune pousse qui sourit en haut à gauche de l'en-tête, au-dessus du logo (mobile et PC) */
+.accroche .contenu { position: relative; padding-top: 3.75rem; }
+.accroche .contenu::after {
+  content: "";
+  position: absolute;
+  top: .75rem;
+  left: 1.25rem;
+  width: 40px;
+  height: 40px;
+  background: var(--logo) center / contain no-repeat;
+  pointer-events: none;
+}
+
+@media (min-width: 48em) {
+  .accroche .contenu::after { left: 2rem; }
+}
+
+@media (min-width: 900px) {
+  .ecrire h2::before { margin-left: auto; margin-right: auto; }
+
+  /* Rang de semis, arrosoir et abeille, en haut de l'en-tête (à droite du logo jusqu'au coin) */
+  .accroche .contenu::before {
+    content: "";
+    position: absolute;
+    top: 1rem;
+    right: 2rem;
+    width: 34rem;
+    height: 7rem;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 340 70'%3E%3Crect x='0' y='62' width='340' height='5' rx='2.5' fill='%238e6bb5' stroke='%234a2a6e' stroke-width='1.2'/%3E%3Cpath d='M30 62 L30 50' stroke='%236f9a4d' stroke-width='2.5' stroke-linecap='round' fill='none'/%3E%3Cpath d='M30 54 C21 55 17 49 17 45 C25 45 30 48 30 54 Z' fill='%236f9a4d' stroke='%234a2a6e' stroke-width='1.2'/%3E%3Cpath d='M30 52 C30 46 36 42 43 43 C43 50 38 53 30 52 Z' fill='%236f9a4d' stroke='%234a2a6e' stroke-width='1.2'/%3E%3Cpath d='M75 62 L75 42' stroke='%236f9a4d' stroke-width='2.5' stroke-linecap='round' fill='none'/%3E%3Cpath d='M75 46 C66 47 62 41 62 37 C70 37 75 40 75 46 Z' fill='%236f9a4d' stroke='%234a2a6e' stroke-width='1.2'/%3E%3Cpath d='M75 44 C75 38 81 34 88 35 C88 42 83 45 75 44 Z' fill='%236f9a4d' stroke='%234a2a6e' stroke-width='1.2'/%3E%3Cpath d='M120 62 L120 32' stroke='%236f9a4d' stroke-width='2.5' stroke-linecap='round' fill='none'/%3E%3Cpath d='M120 36 C111 37 107 31 107 27 C115 27 120 30 120 36 Z' fill='%236f9a4d' stroke='%234a2a6e' stroke-width='1.2'/%3E%3Cpath d='M120 34 C120 28 126 24 133 25 C133 32 128 35 120 34 Z' fill='%236f9a4d' stroke='%234a2a6e' stroke-width='1.2'/%3E%3Cpath d='M172 30 L222 30 L218 60 L176 60 Z' fill='%23f5c33b' stroke='%234a2a6e' stroke-width='1.5' stroke-linejoin='round'/%3E%3Cpath d='M222 38 L246 22' stroke='%234a2a6e' stroke-width='3' stroke-linecap='round'/%3E%3Cpath d='M243 18 L252 26' stroke='%234a2a6e' stroke-width='5' stroke-linecap='round'/%3E%3Cpath d='M172 36 Q158 40 174 54' fill='none' stroke='%234a2a6e' stroke-width='3' stroke-linecap='round'/%3E%3Cpath d='M180 30 Q197 8 214 30' fill='none' stroke='%234a2a6e' stroke-width='2.5' stroke-linecap='round'/%3E%3Ccircle cx='197' cy='43' r='2' fill='%234a2a6e'/%3E%3Ccircle cx='207' cy='43' r='2' fill='%234a2a6e'/%3E%3Cpath d='M197 49 Q202 53 207 49' fill='none' stroke='%234a2a6e' stroke-width='2' stroke-linecap='round'/%3E%3Ccircle cx='296' cy='24' r='9' fill='%23fbf5e6' stroke='%234a2a6e' stroke-width='1.2'/%3E%3Ccircle cx='312' cy='24' r='9' fill='%23fbf5e6' stroke='%234a2a6e' stroke-width='1.2'/%3E%3Cellipse cx='300' cy='36' rx='16' ry='11' fill='%23f5c33b' stroke='%234a2a6e' stroke-width='1.5'/%3E%3Cpath d='M296 26 L296 46 M304 26 L304 46' stroke='%234a2a6e' stroke-width='3'/%3E%3Ccircle cx='288' cy='33' r='1.8' fill='%234a2a6e'/%3E%3Cpath d='M285 38 Q289 41 292 38' fill='none' stroke='%234a2a6e' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E") center / contain no-repeat;
+    pointer-events: none;
+  }
+}
