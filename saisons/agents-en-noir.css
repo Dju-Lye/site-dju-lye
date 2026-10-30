@@ -1,0 +1,67 @@
+/* Saison : Agents en noir (thème libre, sans période de saison)
+   Phrase de saison, à mettre dans <p class="saison"> d'index.html :
+   Un petit flash, et l'ordinateur oublie ses soucis&#8239;: je vous aide&#8239;!
+   Évocations dessinées en formes simples, sans personnage : aucun portrait ni titre.
+   Emplacements utilisés :
+   1. au-dessus du logo (.accroche .contenu::after) : lunettes de soleil sombres, avec le sourire du logo dessiné en dessous ;
+   2. ciel de l'en-tête, PC seulement (.accroche .contenu::before, dès 900px) : costume sombre sur cintre avec cravate fine, petite soucoupe et étoiles, sur le fond aubergine de l'en-tête ;
+   3. au-dessus de « Écrire à Julie » (.ecrire h2::before) : petit stylo-lumière miel qui émet un éclair rond, comme un petit flash ;
+   4. couleur des vagues (.courbe) : trait miel en pointillé avec des étoiles et de petits points de lumière ;
+   5. phrase de saison (.saison), texte dans index.html.
+   Ce qui est sombre : seulement l'en-tête, qui est déjà aubergine dans style.css (ciel de l'emplacement 2) ; le reste du site garde son fond clair habituel. */
+
+.courbe {
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='36' viewBox='0 0 120 36'%3E%3Cpath d='M0 24 C20 14 40 14 60 24 S100 34 120 24' pathLength='120' fill='none' stroke='%23f5c33b' stroke-width='3' stroke-linecap='round' stroke-dasharray='0.1 7.9'/%3E%3Cpath d='M30 4 L31.3333 6.66667 L34 8 L31.3333 9.33333 L30 12 L28.6667 9.33333 L26 8 L28.6667 6.66667 Z' fill='%23f5c33b'/%3E%3Cpath d='M92 27 L93 29 L95 30 L93 31 L92 33 L91 31 L89 30 L91 29 Z' fill='%23f5c33b'/%3E%3Ccircle cx='60' cy='10' r='1.8' fill='%23f5c33b'/%3E%3Ccircle cx='10' cy='12' r='1.5' fill='%23f5c33b'/%3E%3Ccircle cx='112' cy='10' r='1.5' fill='%23f5c33b'/%3E%3Ccircle cx='76' cy='6' r='1.2' fill='%23f5c33b'/%3E%3Ccircle cx='44' cy='32' r='1.2' fill='%23f5c33b'/%3E%3C/svg%3E") center / 120px 36px repeat-x,
+    linear-gradient(to bottom, var(--de) 50%, var(--vers) 50%);
+}
+
+:root {
+  --logo: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Ccircle cx='24' cy='24' r='21' fill='%23fbf5e6' stroke='%234a2a6e' stroke-width='1.5'/%3E%3Cpath d='M7 16 L41 16 L41 18 L39 18 Q38 27 31 27 Q25 27 24.5 19 L23.5 19 Q23 27 17 27 Q10 27 9 18 L7 18 Z' fill='%234a2a6e' stroke='%234a2a6e' stroke-width='1.5' stroke-linejoin='round'/%3E%3Cpath d='M17 34 Q24 40 31 34' fill='none' stroke='%234a2a6e' stroke-width='2' stroke-linecap='round'/%3E%3Ccircle cx='9' cy='38' r='2' fill='%238e6bb5'/%3E%3Ccircle cx='24' cy='43' r='1.6' fill='%23f5c33b'/%3E%3Ccircle cx='39' cy='38' r='2' fill='%238e6bb5'/%3E%3C/svg%3E");
+  --ecrire: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Ccircle cx='24' cy='13' r='11' fill='%23f5c33b' fill-opacity='0.45'/%3E%3Ccircle cx='24' cy='13' r='6' fill='%23fbf5e6' stroke='%23f5c33b' stroke-width='2'/%3E%3Ccircle cx='24' cy='1.5' r='1.5' fill='%23f5c33b'/%3E%3Ccircle cx='10' cy='6' r='1.5' fill='%23f5c33b'/%3E%3Ccircle cx='38' cy='6' r='1.5' fill='%23f5c33b'/%3E%3Ccircle cx='8' cy='20' r='1.2' fill='%23f5c33b'/%3E%3Ccircle cx='40' cy='20' r='1.2' fill='%23f5c33b'/%3E%3Crect x='20' y='21' width='8' height='6' rx='2' fill='%238e6bb5' stroke='%234a2a6e' stroke-width='1.5'/%3E%3Crect x='20' y='26' width='8' height='20' rx='3' fill='%23f5c33b' stroke='%234a2a6e' stroke-width='1.5'/%3E%3C/svg%3E");
+}
+
+.ecrire h2::before {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 56px;
+  margin-bottom: .5rem;
+  background: var(--ecrire) center / contain no-repeat;
+  pointer-events: none;
+}
+
+.saison { margin-top: 1rem; }
+
+/* Lunettes au-dessus du logo, en haut à gauche de l'en-tête (mobile et PC) */
+.accroche .contenu { position: relative; padding-top: 3.75rem; }
+.accroche .contenu::after {
+  content: "";
+  position: absolute;
+  top: .75rem;
+  left: 1.25rem;
+  width: 40px;
+  height: 40px;
+  background: var(--logo) center / contain no-repeat;
+  pointer-events: none;
+}
+
+@media (min-width: 48em) {
+  .accroche .contenu::after { left: 2rem; }
+}
+
+@media (min-width: 900px) {
+  .ecrire h2::before { margin-left: auto; margin-right: auto; }
+
+  /* Ciel nocturne : costume sur cintre, petite soucoupe et étoiles, en haut de l'en-tête */
+  .accroche .contenu::before {
+    content: "";
+    position: absolute;
+    top: 1rem;
+    right: 2rem;
+    width: 34rem;
+    height: 7rem;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 340 70'%3E%3Ccircle cx='12' cy='10' r='1.6' fill='%23f5c33b'/%3E%3Ccircle cx='40' cy='30' r='1.6' fill='%23f5c33b'/%3E%3Ccircle cx='150' cy='40' r='1.6' fill='%23f5c33b'/%3E%3Ccircle cx='176' cy='9' r='1.6' fill='%23f5c33b'/%3E%3Ccircle cx='196' cy='55' r='1.6' fill='%23f5c33b'/%3E%3Ccircle cx='228' cy='14' r='1.6' fill='%23f5c33b'/%3E%3Ccircle cx='300' cy='26' r='1.6' fill='%23f5c33b'/%3E%3Ccircle cx='326' cy='12' r='1.6' fill='%23f5c33b'/%3E%3Ccircle cx='20' cy='52' r='1.6' fill='%23f5c33b'/%3E%3Ccircle cx='236' cy='60' r='1.6' fill='%23f5c33b'/%3E%3Ccircle cx='290' cy='58' r='1.6' fill='%23f5c33b'/%3E%3Cpath d='M120 10 L121.333 12.6667 L124 14 L121.333 15.3333 L120 18 L118.667 15.3333 L116 14 L118.667 12.6667 Z' fill='%23f5c33b'/%3E%3Cpath d='M262 36 L263.333 38.6667 L266 40 L263.333 41.3333 L262 44 L260.667 41.3333 L258 40 L260.667 38.6667 Z' fill='%23f5c33b'/%3E%3Cpath d='M48 9 L49 11 L51 12 L49 13 L48 15 L47 13 L45 12 L47 11 Z' fill='%23f5c33b'/%3E%3Cpath d='M84 12 L84 9 Q84 5 88 5 Q91 5 91 8' fill='none' stroke='%23fbf5e6' stroke-width='1.8' stroke-linecap='round'/%3E%3Cpath d='M84 12 L62 24 L106 24 Z' fill='none' stroke='%23fbf5e6' stroke-width='1.8' stroke-linejoin='round'/%3E%3Cpath d='M64 24 L84 17 L104 24 L99 64 L69 64 Z' fill='%238e6bb5' stroke='%23fbf5e6' stroke-width='1.8' stroke-linejoin='round'/%3E%3Cpath d='M77 19 L84 31 L91 19 Z' fill='%23fbf5e6'/%3E%3Cpath d='M84 27 L82.4 31 L84 52 L85.6 31 Z' fill='%23f5c33b'/%3E%3Cpath d='M84 31 L72 46 M84 31 L96 46' fill='none' stroke='%234a2a6e' stroke-width='1.5' stroke-linecap='round'/%3E%3Cellipse cx='214' cy='30' rx='9' ry='3' fill='%23fbf5e6'/%3E%3Cellipse cx='214' cy='27.5' rx='4' ry='3' fill='%23f5c33b'/%3E%3Ccircle cx='208' cy='31' r='0.9' fill='%234a2a6e'/%3E%3Ccircle cx='214' cy='32' r='0.9' fill='%234a2a6e'/%3E%3Ccircle cx='220' cy='31' r='0.9' fill='%234a2a6e'/%3E%3C/svg%3E") center / contain no-repeat;
+    pointer-events: none;
+  }
+}
