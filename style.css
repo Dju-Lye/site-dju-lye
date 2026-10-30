@@ -248,3 +248,60 @@ footer a { display: inline-block; padding: .6rem 0; color: var(--miel); font-wei
 .clair a { color: var(--aubergine); }
 
 .saison:empty { display: none; }
+
+/* Micro-interactions (CSS pur) : 200 ms, sur transform, opacity et background-size seulement */
+
+/* Boutons : montent de 2 px, l'ombre aubergine est un pseudo-élément dont seule l'opacité change */
+.bouton { position: relative; isolation: isolate; transition: transform 200ms; }
+.bouton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  box-shadow: 0 8px 16px rgba(74, 42, 110, .35);
+  opacity: 0;
+  transition: opacity 200ms;
+  pointer-events: none;
+}
+.bouton:hover, .bouton:focus-visible { transform: translateY(-2px); }
+.bouton:hover::after, .bouton:focus-visible::after { opacity: 1; }
+.bouton:active { transform: none; }
+.bouton:active::after { opacity: 0; }
+
+/* Cartes (non cliquables) : effet plus discret au survol, 3 px et ombre plus large */
+.carte { position: relative; isolation: isolate; transition: transform 200ms; }
+.carte::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  box-shadow: 0 12px 28px rgba(74, 42, 110, .2);
+  opacity: 0;
+  transition: opacity 200ms;
+  pointer-events: none;
+}
+.carte:hover { transform: translateY(-3px); }
+.carte:hover::after { opacity: 1; }
+
+/* Liens : un trait passe sous le texte de gauche à droite, sans décaler le texte.
+   Fond sombre : trait miel. Fond clair : trait aubergine fin sur fond miel pâle (texte aubergine, contraste > 10). */
+footer a, .logo-lien {
+  background: linear-gradient(var(--miel), var(--miel)) left bottom / 0 4px no-repeat;
+  transition: background-size 200ms;
+}
+footer a:hover, footer a:focus-visible, .logo-lien:hover, .logo-lien:focus-visible { background-size: 100% 4px; }
+.clair a:not(.bouton) {
+  background:
+    linear-gradient(var(--aubergine), var(--aubergine)) left bottom / 0 2px no-repeat,
+    linear-gradient(#fdf0c4, #fdf0c4) left bottom / 0 100% no-repeat;
+  transition: background-size 200ms;
+}
+.clair a:not(.bouton):hover, .clair a:not(.bouton):focus-visible { background-size: 100% 2px, 100% 100%; }
+
+/* Visiteur qui demande moins de mouvement : plus de mouvement, l'effet de couleur reste, instantané */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; }
+  .bouton:hover, .bouton:focus-visible, .carte:hover { transform: none; }
+}
