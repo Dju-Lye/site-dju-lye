@@ -305,3 +305,31 @@ footer a:hover, footer a:focus-visible, .logo-lien:hover, .logo-lien:focus-visib
   *, *::before, *::after { transition: none !important; }
   .bouton:hover, .bouton:focus-visible, .carte:hover { transform: none; }
 }
+
+/* Bouton « Arrêter les animations » (créé par js/animations.js) : pastille fixe en bas à gauche */
+#pause-animations {
+  position: fixed;
+  left: 1rem;
+  bottom: 1rem;
+  z-index: 10;
+  min-height: 2.75rem;
+  padding: .5rem 1rem;
+  background: var(--creme);
+  color: var(--aubergine);
+  border: 3px solid var(--aubergine);
+  border-radius: 1.5rem;
+  font-family: "Lexend", "Segoe UI", sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+}
+#pause-animations:hover { background: #ffffff; }
+html.avec-pause footer { padding-bottom: 4.5rem; } /* le bouton fixe ne masque pas le pied de page */
+
+/* Animations arrêtées par le visiteur : plus de mouvement, les effets de couleur restent */
+html.sans-animation *, html.sans-animation *::before, html.sans-animation *::after {
+  animation: none !important;
+  transition: none !important;
+}
+html.sans-animation .bouton:hover, html.sans-animation .bouton:focus-visible, html.sans-animation .carte:hover { transform: none; }
+#pause-animations:focus-visible { box-shadow: 0 0 0 3px var(--creme); } /* anneau crème : le contour reste visible sur le pied aubergine */
