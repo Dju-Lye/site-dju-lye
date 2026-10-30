@@ -1,0 +1,65 @@
+/* Saison : Pâques et les œufs (du 22 mars au 5 avril, dates 2027 : à recalculer chaque année)
+   Phrase de saison, à mettre dans <p class="saison"> d'index.html :
+   Chasse aux œufs dans le jardin, chasse aux photos dans l'ordinateur&#8239;: je vous aide à les retrouver&#8239;!
+   Emplacements utilisés :
+   1. au-dessus du logo (.accroche .contenu::after) : œuf qui sourit ;
+   2. ciel de l'en-tête, PC seulement (.accroche .contenu::before, dès 900px) : œufs dans un nid, avec un poussin ;
+   3. au-dessus de « Écrire à Julie » (.ecrire h2::before) : panier d'œufs ;
+   4. couleur des vagues (.courbe) : trait miel avec des œufs semés ;
+   5. phrase de saison (.saison), texte dans index.html. */
+
+.courbe {
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='36' viewBox='0 0 120 36'%3E%3Cpath d='M0 12 Q30 32 60 12 T120 12' fill='none' stroke='%23f5c33b' stroke-width='4' stroke-linecap='round'/%3E%3Cpath d='M30 15 C34 15 36 21 36 24 C36 28 33 30 30 30 C27 30 24 28 24 24 C24 21 26 15 30 15 Z' fill='%23fbf5e6' stroke='%234a2a6e' stroke-width='1.5'/%3E%3Cpath d='M24.5 24 L27 22 L30 25 L33 22 L35.5 24' fill='none' stroke='%238e6bb5' stroke-width='1.5'/%3E%3C/svg%3E") center / 120px 36px repeat-x,
+    linear-gradient(to bottom, var(--de) 50%, var(--vers) 50%);
+}
+
+:root {
+  --logo: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M24 4 C34 4 40 22 40 30 C40 41 33 45 24 45 C15 45 8 41 8 30 C8 22 14 4 24 4 Z' fill='%238e6bb5' stroke='%234a2a6e' stroke-width='1.5'/%3E%3Cpath d='M9 33 L14 29 L19 33 L24 29 L29 33 L34 29 L39 33' fill='none' stroke='%23fbf5e6' stroke-width='2'/%3E%3Ccircle cx='19' cy='24' r='2' fill='%234a2a6e'/%3E%3Ccircle cx='29' cy='24' r='2' fill='%234a2a6e'/%3E%3Cpath d='M19 38 Q24 42 29 38' fill='none' stroke='%23f5c33b' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E");
+  --ecrire: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M9 24 Q24 -4 39 24' fill='none' stroke='%234a2a6e' stroke-width='2.5' stroke-linecap='round'/%3E%3Cpath d='M14 24 C15 14 19 14 20 24 Z' fill='%23fbf5e6' stroke='%234a2a6e' stroke-width='1.5'/%3E%3Cpath d='M22 24 C23 12 29 12 30 24 Z' fill='%238e6bb5' stroke='%234a2a6e' stroke-width='1.5'/%3E%3Cpath d='M32 24 C33 16 37 16 38 24 Z' fill='%23fbf5e6' stroke='%234a2a6e' stroke-width='1.5'/%3E%3Cpath d='M4 24 L44 24 L39 44 L9 44 Z' fill='%23f5c33b' stroke='%234a2a6e' stroke-width='1.5' stroke-linejoin='round'/%3E%3Ccircle cx='19' cy='32' r='2' fill='%234a2a6e'/%3E%3Ccircle cx='29' cy='32' r='2' fill='%234a2a6e'/%3E%3Cpath d='M19.5 37 Q24 41 28.5 37' fill='none' stroke='%234a2a6e' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+.ecrire h2::before {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 56px;
+  margin-bottom: .5rem;
+  background: var(--ecrire) center / contain no-repeat;
+  pointer-events: none;
+}
+
+.saison { margin-top: 1rem; }
+
+/* Œuf qui sourit en haut à gauche de l'en-tête, au-dessus du logo (mobile et PC) */
+.accroche .contenu { position: relative; padding-top: 3.75rem; }
+.accroche .contenu::after {
+  content: "";
+  position: absolute;
+  top: .75rem;
+  left: 1.25rem;
+  width: 40px;
+  height: 40px;
+  background: var(--logo) center / contain no-repeat;
+  pointer-events: none;
+}
+
+@media (min-width: 48em) {
+  .accroche .contenu::after { left: 2rem; }
+}
+
+@media (min-width: 900px) {
+  .ecrire h2::before { margin-left: auto; margin-right: auto; }
+
+  /* Nid d'œufs et poussin, avec quelques œufs semés, en haut de l'en-tête (à droite du logo jusqu'au coin) */
+  .accroche .contenu::before {
+    content: "";
+    position: absolute;
+    top: 1rem;
+    right: 2rem;
+    width: 34rem;
+    height: 7rem;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 340 70'%3E%3Cg stroke='%234a2a6e' stroke-width='1.5'%3E%3Cpath d='M40 30 C48 30 52 44 52 50 C52 58 46 60 40 60 C34 60 28 58 28 50 C28 44 32 30 40 30 Z' fill='%23fbf5e6'/%3E%3Cpath d='M130 12 C137 12 141 24 141 29 C141 36 136 38 130 38 C124 38 119 36 119 29 C119 24 123 12 130 12 Z' fill='%238e6bb5'/%3E%3Cpath d='M205 36 C212 36 216 48 216 53 C216 60 211 62 205 62 C199 62 194 60 194 53 C194 48 198 36 205 36 Z' fill='%23f5c33b'/%3E%3C/g%3E%3Cellipse cx='270' cy='58' rx='44' ry='10' fill='%238e6bb5' stroke='%234a2a6e' stroke-width='1.5'/%3E%3Cg stroke='%234a2a6e' stroke-width='1.5'%3E%3Cpath d='M248 50 C252 40 258 40 260 50 C260 55 248 55 248 50 Z' fill='%23fbf5e6'/%3E%3Cpath d='M300 50 C298 41 292 41 290 50 C290 55 300 55 300 50 Z' fill='%23f5c33b'/%3E%3C/g%3E%3Ccircle cx='275' cy='34' r='13' fill='%23f5c33b' stroke='%234a2a6e' stroke-width='1.5'/%3E%3Cpath d='M287 33 L296 36 L287 39 Z' fill='%234a2a6e'/%3E%3Ccircle cx='279' cy='30' r='1.8' fill='%234a2a6e'/%3E%3Cpath d='M270 38 Q274 42 278 38' fill='none' stroke='%234a2a6e' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E") center / contain no-repeat;
+    pointer-events: none;
+  }
+}
