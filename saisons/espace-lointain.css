@@ -1,0 +1,66 @@
+/* Saison : Espace lointain (thème libre, sans période de saison)
+   Phrase de saison, à mettre dans <p class="saison"> d'index.html :
+   Il y a bien longtemps, dans un quartier tout proche&#8239;: une voisine vous aidait avec l'ordinateur.
+   Emplacements utilisés :
+   1. au-dessus du logo (.accroche .contenu::after) : petit vaisseau rond et simple, qui garde le sourire du logo comme hublot ;
+   2. ciel de l'en-tête, PC seulement (.accroche .contenu::before, dès 900px) : beaucoup de petites étoiles miel, une double lune crème et lilas, une traînée d'étoiles qui file en perspective, sur le fond aubergine de l'en-tête ;
+   3. au-dessus de « Écrire à Julie » (.ecrire h2::before) : petite capsule-message miel qui file entre les étoiles, avec une courte traînée ;
+   4. couleur des vagues (.courbe) : trait miel qui dessine des lignes de vitesse fines et légèrement incurvées ;
+   5. phrase de saison (.saison), texte dans index.html.
+   Ce qui est sombre : seulement l'en-tête, qui est déjà aubergine dans style.css (ciel de l'emplacement 2) ; le reste du site garde son fond clair habituel. */
+
+.courbe {
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='36' viewBox='0 0 120 36'%3E%3Cpath d='M6 10 Q30 7 54 12' stroke='%23f5c33b' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3Cpath d='M40 18 Q70 14 108 20' stroke='%23f5c33b' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3Cpath d='M14 26 Q40 23 70 28' stroke='%23f5c33b' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3Cpath d='M76 29 Q96 26 114 31' stroke='%23f5c33b' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") center / 120px 36px repeat-x,
+    linear-gradient(to bottom, var(--de) 50%, var(--vers) 50%);
+}
+
+:root {
+  --logo: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M24 12 L24 6' fill='none' stroke='%234a2a6e' stroke-width='1.5' stroke-linecap='round'/%3E%3Ccircle cx='24' cy='5' r='2' fill='%23f5c33b' stroke='%234a2a6e' stroke-width='1.5'/%3E%3Cellipse cx='24' cy='28' rx='21' ry='14' fill='%23fbf5e6' stroke='%234a2a6e' stroke-width='1.5'/%3E%3Ccircle cx='24' cy='26' r='10' fill='%23f5c33b' stroke='%234a2a6e' stroke-width='1.5'/%3E%3Ccircle cx='20.5' cy='24' r='1.6' fill='%234a2a6e'/%3E%3Ccircle cx='27.5' cy='24' r='1.6' fill='%234a2a6e'/%3E%3Cpath d='M20 28.5 Q24 32 28 28.5' fill='none' stroke='%234a2a6e' stroke-width='2' stroke-linecap='round'/%3E%3Ccircle cx='8' cy='33' r='2' fill='%238e6bb5'/%3E%3Ccircle cx='24' cy='40' r='2.2' fill='%23f5c33b'/%3E%3Ccircle cx='40' cy='33' r='2' fill='%238e6bb5'/%3E%3C/svg%3E");
+  --ecrire: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M2 30 L18 26' stroke='%23f5c33b' stroke-opacity='0.6' stroke-width='3' stroke-linecap='round'/%3E%3Cpath d='M8 22 L20 20' stroke='%23f5c33b' stroke-opacity='0.6' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M6 37 L17 34' stroke='%238e6bb5' stroke-opacity='0.6' stroke-width='2' stroke-linecap='round'/%3E%3Cg transform='rotate(-14 32 26)'%3E%3Cellipse cx='32' cy='26' rx='12' ry='7' fill='%23f5c33b' stroke='%234a2a6e' stroke-width='1.5'/%3E%3Ccircle cx='37' cy='26' r='3' fill='%23fbf5e6' stroke='%234a2a6e' stroke-width='1.5'/%3E%3Cpath d='M27 20.5 L27 31.5' stroke='%234a2a6e' stroke-width='1.5'/%3E%3C/g%3E%3Ccircle cx='26' cy='10' r='1.5' fill='%238e6bb5'/%3E%3Ccircle cx='42' cy='12' r='1.5' fill='%238e6bb5'/%3E%3Ccircle cx='40' cy='42' r='1.5' fill='%238e6bb5'/%3E%3Ccircle cx='12' cy='13' r='1.5' fill='%238e6bb5'/%3E%3C/svg%3E");
+}
+
+.ecrire h2::before {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 56px;
+  margin-bottom: .5rem;
+  background: var(--ecrire) center / contain no-repeat;
+  pointer-events: none;
+}
+
+.saison { margin-top: 1rem; }
+
+/* Vaisseau au-dessus du logo, en haut à gauche de l'en-tête (mobile et PC) */
+.accroche .contenu { position: relative; padding-top: 3.75rem; }
+.accroche .contenu::after {
+  content: "";
+  position: absolute;
+  top: .75rem;
+  left: 1.25rem;
+  width: 40px;
+  height: 40px;
+  background: var(--logo) center / contain no-repeat;
+  pointer-events: none;
+}
+
+@media (min-width: 48em) {
+  .accroche .contenu::after { left: 2rem; }
+}
+
+@media (min-width: 900px) {
+  .ecrire h2::before { margin-left: auto; margin-right: auto; }
+
+  /* Ciel nocturne : étoiles, double lune et traînée d'étoiles en perspective, en haut de l'en-tête */
+  .accroche .contenu::before {
+    content: "";
+    position: absolute;
+    top: 1rem;
+    right: 2rem;
+    width: 34rem;
+    height: 7rem;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 340 70'%3E%3Ccircle cx='10' cy='12' r='1.5' fill='%23f5c33b'/%3E%3Ccircle cx='30' cy='40' r='1.5' fill='%23f5c33b'/%3E%3Ccircle cx='46' cy='10' r='1.5' fill='%23f5c33b'/%3E%3Ccircle cx='62' cy='28' r='1.5' fill='%23f5c33b'/%3E%3Ccircle cx='74' cy='58' r='1.5' fill='%23f5c33b'/%3E%3Ccircle cx='96' cy='14' r='1.5' fill='%23f5c33b'/%3E%3Ccircle cx='112' cy='44' r='1.5' fill='%23f5c33b'/%3E%3Ccircle cx='126' cy='8' r='1.5' fill='%23f5c33b'/%3E%3Ccircle cx='142' cy='24' r='1.5' fill='%23f5c33b'/%3E%3Ccircle cx='170' cy='22' r='1.5' fill='%23f5c33b'/%3E%3Ccircle cx='204' cy='12' r='1.5' fill='%23f5c33b'/%3E%3Ccircle cx='218' cy='62' r='1.5' fill='%23f5c33b'/%3E%3Ccircle cx='236' cy='8' r='1.5' fill='%23f5c33b'/%3E%3Ccircle cx='246' cy='44' r='1.5' fill='%23f5c33b'/%3E%3Ccircle cx='262' cy='20' r='1.5' fill='%23f5c33b'/%3E%3Ccircle cx='270' cy='60' r='1.5' fill='%23f5c33b'/%3E%3Ccircle cx='280' cy='6' r='1.5' fill='%23f5c33b'/%3E%3Ccircle cx='10' cy='60' r='1.5' fill='%23f5c33b'/%3E%3Ccircle cx='52' cy='50' r='1.5' fill='%23f5c33b'/%3E%3Ccircle cx='90' cy='36' r='1.5' fill='%23f5c33b'/%3E%3Ccircle cx='150' cy='66' r='1.5' fill='%23f5c33b'/%3E%3Ccircle cx='334' cy='10' r='1.5' fill='%23f5c33b'/%3E%3Ccircle cx='334' cy='64' r='1.5' fill='%23f5c33b'/%3E%3Ccircle cx='196' cy='26' r='1.5' fill='%23f5c33b'/%3E%3Cpath d='M232 26 Q180 36 118 59' fill='none' stroke='%23f5c33b' stroke-opacity='0.4' stroke-width='1'/%3E%3Ccircle cx='226' cy='28' r='0.8' fill='%23f5c33b'/%3E%3Ccircle cx='206' cy='34' r='1.1' fill='%23f5c33b'/%3E%3Ccircle cx='182' cy='41' r='1.5' fill='%23f5c33b'/%3E%3Ccircle cx='154' cy='49' r='2' fill='%23f5c33b'/%3E%3Ccircle cx='122' cy='58' r='2.6' fill='%23f5c33b'/%3E%3Ccircle cx='300' cy='24' r='14' fill='%23fbf5e6'/%3E%3Ccircle cx='294' cy='20' r='3' fill='%238e6bb5' fill-opacity='0.5'/%3E%3Ccircle cx='322' cy='42' r='8' fill='%238e6bb5'/%3E%3C/svg%3E") center / contain no-repeat;
+    pointer-events: none;
+  }
+}
