@@ -57,7 +57,8 @@ Fichiers disponibles dans `saisons/` :
 - `ete-pique-nique.css` : du 23 juin au 31 juillet ;
 - `carte-postale.css` : du 1er au 29 août ;
 - `rentree.css` : du 30 août au 20 septembre ;
-- `feuilles-d-automne.css` : du 21 septembre au 14 octobre.
+- `feuilles-d-automne.css` : du 21 septembre au 14 octobre ;
+- `dinosaure.css` : thème libre, sans période.
 La phrase de saison de chaque fichier est en commentaire en tête.
 
 Changer de fête : dans `index.html`, remplacer le fichier du `<link>` (`saisons/noel.css`…) et le texte de la phrase.
