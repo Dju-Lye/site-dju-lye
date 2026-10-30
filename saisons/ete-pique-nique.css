@@ -1,0 +1,65 @@
+/* Saison : Été, pique-nique (du 23 juin au 31 juillet)
+   Phrase de saison, à mettre dans <p class="saison"> d'index.html :
+   Il fait chaud&#8239;: on laisse l'ordinateur à l'ombre, et on s'en occupe à la fraîche&#8239;!
+   Emplacements utilisés :
+   1. au-dessus du logo (.accroche .contenu::after) : soleil qui sourit ;
+   2. ciel de l'en-tête, PC seulement (.accroche .contenu::before, dès 900px) : parasol, soleil et chapeau de paille ;
+   3. au-dessus de « Écrire à Julie » (.ecrire h2::before) : panier de pique-nique ;
+   4. couleur des vagues (.courbe) : trait miel avec des reflets sur l'eau ;
+   5. phrase de saison (.saison), texte dans index.html. */
+
+.courbe {
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='36' viewBox='0 0 120 36'%3E%3Cpath d='M0 12 Q30 32 60 12 T120 12' fill='none' stroke='%23f5c33b' stroke-width='4' stroke-linecap='round'/%3E%3Cpath d='M14 30 L34 30 M44 34 L56 34 M76 30 L100 30' fill='none' stroke='%238e6bb5' stroke-width='2.5' stroke-linecap='round'/%3E%3Cpath d='M22 34 L30 34 M84 34 L92 34' fill='none' stroke='%234a2a6e' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E") center / 120px 36px repeat-x,
+    linear-gradient(to bottom, var(--de) 50%, var(--vers) 50%);
+}
+
+:root {
+  --logo: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M24 2 L24 8 M24 40 L24 46 M2 24 L8 24 M40 24 L46 24 M35.3 12.7 L39.6 8.4 M35.3 35.3 L39.6 39.6 M12.7 35.3 L8.4 39.6 M12.7 12.7 L8.4 8.4' fill='none' stroke='%234a2a6e' stroke-width='2.5' stroke-linecap='round'/%3E%3Ccircle cx='24' cy='24' r='13' fill='%23f5c33b' stroke='%234a2a6e' stroke-width='1.5'/%3E%3Ccircle cx='19' cy='22' r='1.6' fill='%234a2a6e'/%3E%3Ccircle cx='29' cy='22' r='1.6' fill='%234a2a6e'/%3E%3Cpath d='M18.5 28 Q24 33.5 29.5 28' fill='none' stroke='%234a2a6e' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
+  --ecrire: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M12 22 Q24 -2 36 22' fill='none' stroke='%234a2a6e' stroke-width='2.5' stroke-linecap='round'/%3E%3Cpath d='M8 24 L40 24 L36 44 L12 44 Z' fill='%23f5c33b' stroke='%234a2a6e' stroke-width='1.5' stroke-linejoin='round'/%3E%3Cpath d='M17 26 L18 42 M24 26 L24 42 M31 26 L30 42' fill='none' stroke='%234a2a6e' stroke-width='1.2'/%3E%3Crect x='5' y='19' width='38' height='7' rx='2' fill='%238e6bb5' stroke='%234a2a6e' stroke-width='1.5'/%3E%3Cpath d='M10 22.5 L38 22.5' fill='none' stroke='%23fbf5e6' stroke-width='1.5' stroke-dasharray='4 3'/%3E%3C/svg%3E");
+}
+
+.ecrire h2::before {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 56px;
+  margin-bottom: .5rem;
+  background: var(--ecrire) center / contain no-repeat;
+  pointer-events: none;
+}
+
+.saison { margin-top: 1rem; }
+
+/* Soleil qui sourit en haut à gauche de l'en-tête, au-dessus du logo (mobile et PC) */
+.accroche .contenu { position: relative; padding-top: 3.75rem; }
+.accroche .contenu::after {
+  content: "";
+  position: absolute;
+  top: .75rem;
+  left: 1.25rem;
+  width: 40px;
+  height: 40px;
+  background: var(--logo) center / contain no-repeat;
+  pointer-events: none;
+}
+
+@media (min-width: 48em) {
+  .accroche .contenu::after { left: 2rem; }
+}
+
+@media (min-width: 900px) {
+  .ecrire h2::before { margin-left: auto; margin-right: auto; }
+
+  /* Parasol, soleil et chapeau de paille, en haut de l'en-tête (à droite du logo jusqu'au coin) */
+  .accroche .contenu::before {
+    content: "";
+    position: absolute;
+    top: 1rem;
+    right: 2rem;
+    width: 34rem;
+    height: 7rem;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 340 70'%3E%3Crect x='0' y='62' width='340' height='5' rx='2.5' fill='%238e6bb5' stroke='%234a2a6e' stroke-width='1.2'/%3E%3Cpath d='M75 40 L75 62' fill='none' stroke='%234a2a6e' stroke-width='2.5' stroke-linecap='round'/%3E%3Cpath d='M20 40 Q75 -5 130 40 Q118 33 105 40 Q90 33 75 40 Q60 33 45 40 Q32 33 20 40 Z' fill='%238e6bb5'/%3E%3Cpath d='M75 17.5 Q60 25 52 38 Q63 34 75 40 Q87 34 98 38 Q90 25 75 17.5 Z' fill='%23f5c33b'/%3E%3Cpath d='M20 40 Q75 -5 130 40 Q118 33 105 40 Q90 33 75 40 Q60 33 45 40 Q32 33 20 40 Z' fill='none' stroke='%234a2a6e' stroke-width='1.5' stroke-linejoin='round'/%3E%3Ccircle cx='165' cy='42' r='14' fill='%23f5c33b' stroke='%234a2a6e' stroke-width='1.5'/%3E%3Ccircle cx='160' cy='40' r='1.8' fill='%234a2a6e'/%3E%3Ccircle cx='170' cy='40' r='1.8' fill='%234a2a6e'/%3E%3Cpath d='M159.5 46 Q165 51 170.5 46' fill='none' stroke='%234a2a6e' stroke-width='1.5' stroke-linecap='round'/%3E%3Cpath d='M222 54 Q222 26 252 26 Q282 26 282 54 Z' fill='%23f5c33b' stroke='%234a2a6e' stroke-width='1.5' stroke-linejoin='round'/%3E%3Cpath d='M223 47 Q252 55 281 47 L282 54 Q252 62 222 54 Z' fill='%234a2a6e'/%3E%3Cellipse cx='252' cy='56' rx='46' ry='6' fill='%23f5c33b' stroke='%234a2a6e' stroke-width='1.5'/%3E%3Cpath d='M236 36 L238 46 M252 32 L252 48 M268 36 L266 46' fill='none' stroke='%234a2a6e' stroke-width='1'/%3E%3C/svg%3E") center / contain no-repeat;
+    pointer-events: none;
+  }
+}
