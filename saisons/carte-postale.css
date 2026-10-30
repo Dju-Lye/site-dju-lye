@@ -1,0 +1,65 @@
+/* Saison : Carte postale (du 1er au 29 août)
+   Phrase de saison, à mettre dans <p class="saison"> d'index.html :
+   Vos photos de vacances méritent mieux qu'un téléphone plein&#8239;: on les met à l'abri ensemble.
+   Emplacements utilisés :
+   1. au-dessus du logo (.accroche .contenu::after) : timbre qui sourit ;
+   2. ciel de l'en-tête, PC seulement (.accroche .contenu::before, dès 900px) : carte postale avec cachet « Laval » ;
+   3. au-dessus de « Écrire à Julie » (.ecrire h2::before) : enveloppe par avion ;
+   4. couleur des vagues (.courbe) : trait miel avec un bord d'enveloppe aérienne ;
+   5. phrase de saison (.saison), texte dans index.html. */
+
+.courbe {
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='36' viewBox='0 0 120 36'%3E%3Cpath d='M0 12 Q30 32 60 12 T120 12' fill='none' stroke='%23f5c33b' stroke-width='4' stroke-linecap='round'/%3E%3Cpath d='M0 32 L120 32' fill='none' stroke='%238e6bb5' stroke-width='4' stroke-dasharray='10 10'/%3E%3Cpath d='M0 32 L120 32' fill='none' stroke='%23f5c33b' stroke-width='4' stroke-dasharray='10 10' stroke-dashoffset='-10'/%3E%3C/svg%3E") center / 120px 36px repeat-x,
+    linear-gradient(to bottom, var(--de) 50%, var(--vers) 50%);
+}
+
+:root {
+  --logo: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect x='5' y='3' width='38' height='42' fill='%23fbf5e6' stroke='%234a2a6e' stroke-width='2' stroke-dasharray='3 2'/%3E%3Crect x='9' y='7' width='30' height='34' fill='%238e6bb5' stroke='%234a2a6e' stroke-width='1.5'/%3E%3Ccircle cx='24' cy='24' r='10' fill='%23f5c33b' stroke='%234a2a6e' stroke-width='1.5'/%3E%3Ccircle cx='20' cy='22' r='1.8' fill='%234a2a6e'/%3E%3Ccircle cx='28' cy='22' r='1.8' fill='%234a2a6e'/%3E%3Cpath d='M19 27 Q24 32 29 27' fill='none' stroke='%234a2a6e' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+  --ecrire: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect x='4' y='10' width='40' height='30' fill='none' stroke='%234a2a6e' stroke-width='4' stroke-dasharray='6 6'/%3E%3Crect x='4' y='10' width='40' height='30' fill='none' stroke='%23f5c33b' stroke-width='4' stroke-dasharray='6 6' stroke-dashoffset='-6'/%3E%3Crect x='6' y='12' width='36' height='26' fill='%23fbf5e6' stroke='%234a2a6e' stroke-width='1.5'/%3E%3Cpath d='M6 12 L24 27 L42 12' fill='none' stroke='%234a2a6e' stroke-width='1.5' stroke-linejoin='round'/%3E%3Cpath d='M19 33 Q24 37 29 33' fill='none' stroke='%234a2a6e' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+.ecrire h2::before {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 56px;
+  margin-bottom: .5rem;
+  background: var(--ecrire) center / contain no-repeat;
+  pointer-events: none;
+}
+
+.saison { margin-top: 1rem; }
+
+/* Timbre qui sourit en haut à gauche de l'en-tête, au-dessus du logo (mobile et PC) */
+.accroche .contenu { position: relative; padding-top: 3.75rem; }
+.accroche .contenu::after {
+  content: "";
+  position: absolute;
+  top: .75rem;
+  left: 1.25rem;
+  width: 40px;
+  height: 40px;
+  background: var(--logo) center / contain no-repeat;
+  pointer-events: none;
+}
+
+@media (min-width: 48em) {
+  .accroche .contenu::after { left: 2rem; }
+}
+
+@media (min-width: 900px) {
+  .ecrire h2::before { margin-left: auto; margin-right: auto; }
+
+  /* Carte postale avec timbre et cachet « Laval », en haut de l'en-tête (à droite du logo jusqu'au coin) */
+  .accroche .contenu::before {
+    content: "";
+    position: absolute;
+    top: 1rem;
+    right: 2rem;
+    width: 34rem;
+    height: 7rem;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 340 70'%3E%3Crect x='60' y='6' width='220' height='58' rx='3' fill='%23fbf5e6' stroke='%234a2a6e' stroke-width='1.5'/%3E%3Cpath d='M165 12 L165 58' fill='none' stroke='%238e6bb5' stroke-width='1.5'/%3E%3Cpath d='M72 20 L152 20 M72 30 L148 30 M72 40 L152 40 M72 50 L130 50' fill='none' stroke='%238e6bb5' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M178 40 L250 40 M178 49 L250 49 M178 58 L230 58' fill='none' stroke='%234a2a6e' stroke-width='1.5' stroke-linecap='round'/%3E%3Crect x='244' y='12' width='28' height='24' fill='%23f5c33b' stroke='%234a2a6e' stroke-width='1.5' stroke-dasharray='3 2'/%3E%3Ccircle cx='258' cy='24' r='7' fill='%23fbf5e6' stroke='%234a2a6e' stroke-width='1.5'/%3E%3Ccircle cx='222' cy='24' r='14' fill='none' stroke='%234a2a6e' stroke-width='1.5'/%3E%3Ctext x='222' y='27' font-family='sans-serif' font-size='7' text-anchor='middle' fill='%234a2a6e'%3ELAVAL%3C/text%3E%3Cpath d='M172 16 Q180 12 188 16 T204 16 M172 24 Q180 20 188 24 T204 24 M172 32 Q180 28 188 32 T204 32' fill='none' stroke='%234a2a6e' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E") center / contain no-repeat;
+    pointer-events: none;
+  }
+}
