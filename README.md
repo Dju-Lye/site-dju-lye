@@ -32,7 +32,7 @@ HTML et CSS seulement : aucun JavaScript, aucun chargement externe.
 
 ## Couche de saison
 
-Le décor de fête est une feuille de style à part, dans `saisons/` (aujourd'hui `michael-jackson.css`), chargée après `style.css`. La base du site n'est pas modifiée pour changer de fête.
+Le décor de fête est une feuille de style à part, dans `saisons/` (aujourd'hui `halloween.css`), chargée après `style.css`. La base du site n'est pas modifiée pour changer de fête.
 
 Cinq emplacements :
 1. au-dessus du logo (`.accroche .contenu::after`) ;
@@ -43,7 +43,7 @@ Cinq emplacements :
 
 Fichiers disponibles dans `saisons/` :
 - `geek.css` : geek rétro, du 3 au 30 novembre (à venir) ;
-- `halloween.css` : du 15 octobre au 2 novembre ;
+- `halloween.css` : du 15 octobre au 2 novembre (en ligne) ;
 - `lumieres-decembre.css` : du 1er au 25 décembre ;
 - `bonne-annee.css` : du 26 décembre au 4 janvier (sans chiffre d'année, sert chaque année) ;
 - `galette.css` : du 5 au 18 janvier ;
@@ -61,7 +61,7 @@ Fichiers disponibles dans `saisons/` :
 - `dinosaure.css` : thème libre, sans période ;
 - `extraterrestre.css` : thème libre, sans période ;
 - `espace-lointain.css` : thème libre, sans période ;
-- `michael-jackson.css` : thème libre, sans période (en ligne).
+- `michael-jackson.css` : thème libre, sans période.
 La phrase de saison de chaque fichier est en commentaire en tête.
 
 Changer de fête : dans `index.html`, remplacer le fichier du `<link>` (`saisons/noel.css`…) et le texte de la phrase.
