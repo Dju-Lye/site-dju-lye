@@ -1,0 +1,65 @@
+/* Saison : Fête de la musique (du 15 au 22 juin)
+   Phrase de saison, à mettre dans <p class="saison"> d'index.html :
+   Fête de la musique&#8239;: et si votre tablette vous jouait enfin vos airs préférés&#8239;?
+   Emplacements utilisés :
+   1. au-dessus du logo (.accroche .contenu::after) : note qui sourit ;
+   2. ciel de l'en-tête, PC seulement (.accroche .contenu::before, dès 900px) : portée, accordéon et tambourin ;
+   3. au-dessus de « Écrire à Julie » (.ecrire h2::before) : micro ;
+   4. couleur des vagues (.courbe) : trait miel avec des notes ;
+   5. phrase de saison (.saison), texte dans index.html. */
+
+.courbe {
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='36' viewBox='0 0 120 36'%3E%3Cpath d='M0 12 Q30 32 60 12 T120 12' fill='none' stroke='%23f5c33b' stroke-width='4' stroke-linecap='round'/%3E%3Cpath d='M34.5 28 L34.5 10' fill='none' stroke='%234a2a6e' stroke-width='1.5' stroke-linecap='round'/%3E%3Cellipse cx='30' cy='28' rx='5' ry='3.6' fill='%234a2a6e'/%3E%3Cpath d='M85.5 14 L85.5 30' fill='none' stroke='%234a2a6e' stroke-width='1.5' stroke-linecap='round'/%3E%3Cellipse cx='90' cy='14' rx='5' ry='3.6' fill='%238e6bb5' stroke='%234a2a6e' stroke-width='1.2'/%3E%3C/svg%3E") center / 120px 36px repeat-x,
+    linear-gradient(to bottom, var(--de) 50%, var(--vers) 50%);
+}
+
+:root {
+  --logo: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Ccircle cx='20' cy='33' r='11' fill='%23f5c33b' stroke='%234a2a6e' stroke-width='1.5'/%3E%3Cpath d='M31 33 L31 7' fill='none' stroke='%234a2a6e' stroke-width='2.5' stroke-linecap='round'/%3E%3Cpath d='M31 7 Q40 12 40 21 Q36 15 31 15 Z' fill='%238e6bb5' stroke='%234a2a6e' stroke-width='1.2' stroke-linejoin='round'/%3E%3Ccircle cx='16' cy='31' r='1.6' fill='%234a2a6e'/%3E%3Ccircle cx='24' cy='31' r='1.6' fill='%234a2a6e'/%3E%3Cpath d='M16.5 36 Q20 39.5 23.5 36' fill='none' stroke='%234a2a6e' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
+  --ecrire: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M19 22 L29 22 L26 44 L22 44 Z' fill='%23f5c33b' stroke='%234a2a6e' stroke-width='1.5' stroke-linejoin='round'/%3E%3Ccircle cx='24' cy='14' r='10' fill='%238e6bb5' stroke='%234a2a6e' stroke-width='1.5'/%3E%3Cpath d='M15 12 L33 12 M15 17 L33 17 M24 5 L24 23' fill='none' stroke='%23fbf5e6' stroke-width='1.5'/%3E%3Cpath d='M38 8 Q43 14 38 20 M10 8 Q5 14 10 20' fill='none' stroke='%234a2a6e' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+.ecrire h2::before {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 56px;
+  margin-bottom: .5rem;
+  background: var(--ecrire) center / contain no-repeat;
+  pointer-events: none;
+}
+
+.saison { margin-top: 1rem; }
+
+/* Note qui sourit en haut à gauche de l'en-tête, au-dessus du logo (mobile et PC) */
+.accroche .contenu { position: relative; padding-top: 3.75rem; }
+.accroche .contenu::after {
+  content: "";
+  position: absolute;
+  top: .75rem;
+  left: 1.25rem;
+  width: 40px;
+  height: 40px;
+  background: var(--logo) center / contain no-repeat;
+  pointer-events: none;
+}
+
+@media (min-width: 48em) {
+  .accroche .contenu::after { left: 2rem; }
+}
+
+@media (min-width: 900px) {
+  .ecrire h2::before { margin-left: auto; margin-right: auto; }
+
+  /* Accordéon, tambourin et portée, en haut de l'en-tête (à droite du logo jusqu'au coin) */
+  .accroche .contenu::before {
+    content: "";
+    position: absolute;
+    top: 1rem;
+    right: 2rem;
+    width: 34rem;
+    height: 7rem;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 340 70'%3E%3Crect x='0' y='62' width='340' height='5' rx='2.5' fill='%238e6bb5' stroke='%234a2a6e' stroke-width='1.2'/%3E%3Cg stroke='%234a2a6e' stroke-width='1.5' stroke-linejoin='round'%3E%3Crect x='10' y='24' width='16' height='38' fill='%238e6bb5'/%3E%3Crect x='94' y='24' width='16' height='38' fill='%238e6bb5'/%3E%3Crect x='26' y='28' width='68' height='30' fill='%23fbf5e6'/%3E%3Cpath d='M34 28 L34 58 M42 28 L42 58 M50 28 L50 58 M58 28 L58 58 M66 28 L66 58 M74 28 L74 58 M82 28 L82 58 M90 28 L90 58' fill='none'/%3E%3C/g%3E%3Cg fill='%23f5c33b' stroke='%234a2a6e' stroke-width='1'%3E%3Ccircle cx='102' cy='34' r='3'/%3E%3Ccircle cx='102' cy='44' r='3'/%3E%3Ccircle cx='102' cy='54' r='3'/%3E%3C/g%3E%3Cg stroke='%234a2a6e' stroke-width='1.5'%3E%3Ccircle cx='150' cy='44' r='17' fill='%23f5c33b'/%3E%3Ccircle cx='150' cy='44' r='12' fill='%23fbf5e6'/%3E%3C/g%3E%3Cg fill='%238e6bb5' stroke='%234a2a6e' stroke-width='1'%3E%3Ccircle cx='150' cy='27' r='2.5'/%3E%3Ccircle cx='133' cy='44' r='2.5'/%3E%3Ccircle cx='167' cy='44' r='2.5'/%3E%3C/g%3E%3Ccircle cx='145' cy='41' r='1.8' fill='%234a2a6e'/%3E%3Ccircle cx='155' cy='41' r='1.8' fill='%234a2a6e'/%3E%3Cpath d='M144.5 47 Q150 52 155.5 47' fill='none' stroke='%234a2a6e' stroke-width='1.5' stroke-linecap='round'/%3E%3Cpath d='M190 14 L335 14 M190 22 L335 22 M190 30 L335 30 M190 38 L335 38 M190 46 L335 46' fill='none' stroke='%234a2a6e' stroke-width='1.2'/%3E%3Cg stroke='%234a2a6e' stroke-width='1.5' stroke-linecap='round'%3E%3Cpath d='M214 38 L214 12 M254 22 L254 46 M294 30 L294 6 M328 14 L328 38' fill='none'/%3E%3C/g%3E%3Cg fill='%234a2a6e'%3E%3Cellipse cx='209' cy='38' rx='5.5' ry='4'/%3E%3Cellipse cx='259' cy='22' rx='5.5' ry='4'/%3E%3Cellipse cx='299' cy='30' rx='5.5' ry='4' fill='%23f5c33b' stroke='%234a2a6e' stroke-width='1.2'/%3E%3Cellipse cx='333' cy='14' rx='5.5' ry='4'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat;
+    pointer-events: none;
+  }
+}
