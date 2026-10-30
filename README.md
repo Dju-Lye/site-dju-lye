@@ -55,7 +55,8 @@ Fichiers disponibles dans `saisons/` :
 - `fete-des-voisins.css` : du 20 au 31 mai ;
 - `fete-de-la-musique.css` : du 15 au 22 juin ;
 - `ete-pique-nique.css` : du 23 juin au 31 juillet ;
-- `carte-postale.css` : du 1er au 29 août.
+- `carte-postale.css` : du 1er au 29 août ;
+- `rentree.css` : du 30 août au 20 septembre.
 La phrase de saison de chaque fichier est en commentaire en tête.
 
 Changer de fête : dans `index.html`, remplacer le fichier du `<link>` (`saisons/noel.css`…) et le texte de la phrase.
