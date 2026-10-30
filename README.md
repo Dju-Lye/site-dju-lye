@@ -51,7 +51,8 @@ Fichiers disponibles dans `saisons/` :
 - `mots-doux.css` : du 11 au 15 février ;
 - `coin-du-feu.css` : du 16 février au 7 mars ;
 - `paques.css` : Pâques et les œufs, du 22 mars au 5 avril (dates 2027, à recalculer chaque année) ;
-- `au-jardin.css` : du 6 avril au 19 mai.
+- `au-jardin.css` : du 6 avril au 19 mai ;
+- `fete-des-voisins.css` : du 20 au 31 mai.
 La phrase de saison de chaque fichier est en commentaire en tête.
 
 Changer de fête : dans `index.html`, remplacer le fichier du `<link>` (`saisons/noel.css`…) et le texte de la phrase.
