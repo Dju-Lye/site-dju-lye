@@ -1,0 +1,67 @@
+/* Saison : Michael Jackson (thème libre, sans période de saison)
+   Évocations dessinées, aucun portrait ni titre : formes simples seulement, sans visage, sans photo, sans parole ni logo.
+   Phrase de saison, à mettre dans <p class="saison"> d'index.html :
+   Moonwalk ou pas, on avance ensemble, à votre rythme&#8239;!
+   Emplacements utilisés :
+   1. au-dessus du logo (.accroche .contenu::after) : un gant à paillettes, avec le sourire du logo dans la paume ;
+   2. ciel de l'en-tête, PC seulement (.accroche .contenu::before, dès 900px) : chapeau mou posé de côté, notes de musique et boule à facettes lilas et miel, sur le fond aubergine de l'en-tête ;
+   3. au-dessus de « Écrire à Julie » (.ecrire h2::before) : deux chaussures vues de profil, l'une sur la pointe, comme un pas de danse glissé ;
+   4. couleur des vagues (.courbe) : trait miel qui ondule, avec de petites étoiles et des notes ;
+   5. phrase de saison (.saison), texte dans index.html.
+   Ce qui est sombre : seulement l'en-tête, qui est déjà aubergine dans style.css (ciel de l'emplacement 2) ; le reste du site garde son fond clair habituel. */
+
+.courbe {
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='36' viewBox='0 0 120 36'%3E%3Cpath d='M0 24 C20 14 40 14 60 24 C80 34 100 34 120 24' fill='none' stroke='%23f5c33b' stroke-width='3' stroke-linecap='round'/%3E%3Cpath d='M28 4 L29.2 6.8 L32 8 L29.2 9.2 L28 12 L26.8 9.2 L24 8 L26.8 6.8 Z' fill='%23f5c33b'/%3E%3Cpath d='M92 17 L93.2 19.8 L96 21 L93.2 22.2 L92 25 L90.8 22.2 L88 21 L90.8 19.8 Z' fill='%23f5c33b'/%3E%3Cellipse cx='58' cy='12' rx='2.5600000000000005' ry='1.8399999999999999' transform='rotate(-20 58 12)' fill='%23f5c33b'/%3E%3Cpath d='M60.4 11.6 L60.4 3.1999999999999993 Q63.6 4.8 63.6 7.199999999999999' fill='none' stroke='%23f5c33b' stroke-width='1.2800000000000002' stroke-linecap='round'/%3E%3C/svg%3E") center / 120px 36px repeat-x,
+    linear-gradient(to bottom, var(--de) 50%, var(--vers) 50%);
+}
+
+:root {
+  --logo: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect x='11' y='6' width='6' height='18' rx='3' fill='%23fbf5e6' stroke='%234a2a6e' stroke-width='1.5'/%3E%3Crect x='17.5' y='2' width='6' height='20' rx='3' fill='%23fbf5e6' stroke='%234a2a6e' stroke-width='1.5'/%3E%3Crect x='24' y='2' width='6' height='20' rx='3' fill='%23fbf5e6' stroke='%234a2a6e' stroke-width='1.5'/%3E%3Crect x='30.5' y='6' width='6' height='18' rx='3' fill='%23fbf5e6' stroke='%234a2a6e' stroke-width='1.5'/%3E%3Cellipse cx='8' cy='29' rx='3.5' ry='7' transform='rotate(-30 8 29)' fill='%23fbf5e6' stroke='%234a2a6e' stroke-width='1.5'/%3E%3Ccircle cx='24' cy='28' r='13' fill='%23f5c33b' stroke='%234a2a6e' stroke-width='1.5'/%3E%3Crect x='14' y='40' width='20' height='6' rx='1.5' fill='%238e6bb5' stroke='%234a2a6e' stroke-width='1.5'/%3E%3Ccircle cx='20' cy='26' r='1.8' fill='%234a2a6e'/%3E%3Ccircle cx='28' cy='26' r='1.8' fill='%234a2a6e'/%3E%3Cpath d='M19 30 Q24 34.5 29 30' fill='none' stroke='%234a2a6e' stroke-width='2' stroke-linecap='round'/%3E%3Ccircle cx='14' cy='9' r='1' fill='%238e6bb5'/%3E%3Ccircle cx='20.5' cy='6' r='1' fill='%23f5c33b'/%3E%3Ccircle cx='27' cy='8' r='1' fill='%238e6bb5'/%3E%3Ccircle cx='33.5' cy='10' r='1' fill='%23f5c33b'/%3E%3Ccircle cx='15' cy='17' r='1' fill='%23f5c33b'/%3E%3Ccircle cx='32' cy='17' r='1' fill='%238e6bb5'/%3E%3C/svg%3E");
+  --ecrire: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M3 43 L3 35 Q3 33 6 33 L12 33 Q14 37 20 38 Q24 39 24 43 Z' fill='%234a2a6e'/%3E%3Cpath d='M3 43.5 H24' fill='none' stroke='%23f5c33b' stroke-width='2.5' stroke-linecap='round'/%3E%3Ccircle cx='9' cy='35.5' r='1.2' fill='%238e6bb5'/%3E%3Cg transform='translate(22 0) rotate(35 24 43)'%3E%3Cpath d='M3 43 L3 35 Q3 33 6 33 L12 33 Q14 37 20 38 Q24 39 24 43 Z' fill='%234a2a6e'/%3E%3Cpath d='M3 43.5 H24' fill='none' stroke='%23f5c33b' stroke-width='2.5' stroke-linecap='round'/%3E%3Ccircle cx='9' cy='35.5' r='1.2' fill='%238e6bb5'/%3E%3C/g%3E%3Cpath d='M30 6 L31.2 8.8 L34 10 L31.2 11.2 L30 14 L28.8 11.2 L26 10 L28.8 8.8 Z' fill='%23f5c33b'/%3E%3Cpath d='M10 12 L11.2 14.8 L14 16 L11.2 17.2 L10 20 L8.8 17.2 L6 16 L8.8 14.8 Z' fill='%238e6bb5'/%3E%3C/svg%3E");
+}
+
+.ecrire h2::before {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 56px;
+  margin-bottom: .5rem;
+  background: var(--ecrire) center / contain no-repeat;
+  pointer-events: none;
+}
+
+.saison { margin-top: 1rem; }
+
+/* Gant au-dessus du logo, en haut à gauche de l'en-tête (mobile et PC) */
+.accroche .contenu { position: relative; padding-top: 3.75rem; }
+.accroche .contenu::after {
+  content: "";
+  position: absolute;
+  top: .75rem;
+  left: 1.25rem;
+  width: 40px;
+  height: 40px;
+  background: var(--logo) center / contain no-repeat;
+  pointer-events: none;
+}
+
+@media (min-width: 48em) {
+  .accroche .contenu::after { left: 2rem; }
+}
+
+@media (min-width: 900px) {
+  .ecrire h2::before { margin-left: auto; margin-right: auto; }
+
+  /* Ciel de l'en-tête : chapeau, notes et boule à facettes */
+  .accroche .contenu::before {
+    content: "";
+    position: absolute;
+    top: 1rem;
+    right: 2rem;
+    width: 34rem;
+    height: 7rem;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 340 70'%3E%3Cg transform='rotate(-15 60 42)'%3E%3Cellipse cx='60' cy='46' rx='26' ry='5' fill='%238e6bb5' stroke='%23fbf5e6' stroke-width='1.5'/%3E%3Cpath d='M46 44 Q45 22 60 22 Q76 22 74 44 Z' fill='%238e6bb5' stroke='%23fbf5e6' stroke-width='1.5' stroke-linejoin='round'/%3E%3Cpath d='M46.5 39 Q60 43 74 39 L74 43 Q60 47 46 43 Z' fill='%23f5c33b'/%3E%3C/g%3E%3Cellipse cx='130' cy='34' rx='3.2' ry='2.3' transform='rotate(-20 130 34)' fill='%23fbf5e6'/%3E%3Cpath d='M133 33.5 L133 23 Q137 25 137 28' fill='none' stroke='%23fbf5e6' stroke-width='1.6' stroke-linecap='round'/%3E%3Cellipse cx='168' cy='20' rx='2.8800000000000003' ry='2.07' transform='rotate(-20 168 20)' fill='%23fbf5e6'/%3E%3Cpath d='M170.7 19.55 L170.7 10.1 Q174.3 11.9 174.3 14.6' fill='none' stroke='%23fbf5e6' stroke-width='1.4400000000000002' stroke-linecap='round'/%3E%3Cellipse cx='206' cy='44' rx='3.2' ry='2.3' transform='rotate(-20 206 44)' fill='%23fbf5e6'/%3E%3Cpath d='M209 43.5 L209 33 Q213 35 213 38' fill='none' stroke='%23fbf5e6' stroke-width='1.6' stroke-linecap='round'/%3E%3Cellipse cx='236' cy='16' rx='2.5600000000000005' ry='1.8399999999999999' transform='rotate(-20 236 16)' fill='%23fbf5e6'/%3E%3Cpath d='M238.4 15.6 L238.4 7.199999999999999 Q241.6 8.8 241.6 11.2' fill='none' stroke='%23fbf5e6' stroke-width='1.2800000000000002' stroke-linecap='round'/%3E%3Cpath d='M300 0 L300 20' fill='none' stroke='%23f5c33b' stroke-width='1.5'/%3E%3Ccircle cx='300' cy='38' r='18' fill='%238e6bb5'/%3E%3Cpath d='M283 38 H317 M285 30 H315 M285 46 H315 M290 22 H310 M290 54 H310' fill='none' stroke='%23fbf5e6' stroke-width='1'/%3E%3Cellipse cx='300' cy='38' rx='7' ry='18' fill='none' stroke='%23fbf5e6' stroke-width='1'/%3E%3Cpath d='M300 20 V56' fill='none' stroke='%23fbf5e6' stroke-width='1'/%3E%3Crect x='304' y='32' width='5' height='5' fill='%23f5c33b'/%3E%3Crect x='292' y='41' width='5' height='5' fill='%23f5c33b'/%3E%3Cpath d='M274 8 L275.2 10.8 L278 12 L275.2 13.2 L274 16 L272.8 13.2 L270 12 L272.8 10.8 Z' fill='%23f5c33b'/%3E%3Cpath d='M330 46 L331.2 48.8 L334 50 L331.2 51.2 L330 54 L328.8 51.2 L326 50 L328.8 48.8 Z' fill='%23f5c33b'/%3E%3Cpath d='M100 6 L101.2 8.8 L104 10 L101.2 11.2 L100 14 L98.8 11.2 L96 10 L98.8 8.8 Z' fill='%23f5c33b'/%3E%3Cpath d='M20 10 L21.2 12.8 L24 14 L21.2 15.2 L20 18 L18.8 15.2 L16 14 L18.8 12.8 Z' fill='%23f5c33b'/%3E%3Cpath d='M330 10 L331.2 12.8 L334 14 L331.2 15.2 L330 18 L328.8 15.2 L326 14 L328.8 12.8 Z' fill='%23f5c33b'/%3E%3C/svg%3E") center / contain no-repeat;
+    pointer-events: none;
+  }
+}

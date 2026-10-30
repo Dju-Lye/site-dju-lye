@@ -60,7 +60,8 @@ Fichiers disponibles dans `saisons/` :
 - `feuilles-d-automne.css` : du 21 septembre au 14 octobre ;
 - `dinosaure.css` : thème libre, sans période ;
 - `extraterrestre.css` : thème libre, sans période ;
-- `espace-lointain.css` : thème libre, sans période.
+- `espace-lointain.css` : thème libre, sans période ;
+- `michael-jackson.css` : thème libre, sans période.
 La phrase de saison de chaque fichier est en commentaire en tête.
 
 Changer de fête : dans `index.html`, remplacer le fichier du `<link>` (`saisons/noel.css`…) et le texte de la phrase.
