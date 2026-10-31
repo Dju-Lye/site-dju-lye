@@ -12,8 +12,8 @@
    6. croissant épais miel pâle #f7d98a avec liseré blanc, sans visage, 64 px, opacité 0,6, dans le coin du ciel,
       PC seulement (.accroche::before, dès 900px) ;
    7. halo miel derrière la citrouille du logo (.accroche::after), 64 px.
-   Citrouille : 3 lobes orange #f28c28, liseré blanc 1,5 px, queue aubergine clair #6b4a91 ; définie une fois
-   (--citrouille avec visage, --citrouille-nue sans visage pour moins de 40 px).
+   Citrouille : 3 lobes orange #f28c28, liseré blanc 1,5 px, queue aubergine clair #6b4a91 ; corps défini une fois
+   (--citrouille-nue, pour moins de 40 px) ; --citrouille ajoute le visage devant.
    Dessin de la chauve-souris : corps rond et trapu, ailes à 3 pointes arrondies, pas de crocs, liseré blanc 1,5 px.
    Décor : corps aubergine clair #6b4a91 ; yeux blancs et petit sourire miel #f5c33b seulement à 40 px et plus
    (à 28 px, pas de visage). Visiteuse (SVG en ligne de index.html, taille 44 px) : même dessin avec visage,
@@ -50,18 +50,30 @@
     linear-gradient(to bottom, var(--de) 50%, var(--vers) 50%);
 }
 
-/* Citrouille ronde et trapue : 3 lobes orange, liseré blanc, queue aubergine clair ; yeux et sourire pour les tailles de 40 px et plus */
-:root { --citrouille: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cg fill='%23f28c28' stroke='%23ffffff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'%3E%3Cellipse cx='14' cy='29' rx='10' ry='13'/%3E%3Cellipse cx='34' cy='29' rx='10' ry='13'/%3E%3Cellipse cx='24' cy='29' rx='9.5' ry='14'/%3E%3C/g%3E%3Cpath d='M24 15 Q24 10 29 9' fill='none' stroke='%23ffffff' stroke-width='6' stroke-linecap='round'/%3E%3Cpath d='M24 15 Q24 10 29 9' fill='none' stroke='%236b4a91' stroke-width='3.2' stroke-linecap='round'/%3E%3Ccircle cx='18' cy='27' r='2.4' fill='%23ffffff'/%3E%3Ccircle cx='30' cy='27' r='2.4' fill='%23ffffff'/%3E%3Cpath d='M18 34 Q24 39 30 34' fill='none' stroke='%23f5c33b' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E"); }
+/* Citrouille ronde et trapue : corps défini une fois (--citrouille-nue : 3 lobes orange, liseré blanc, queue aubergine clair) ; --citrouille = yeux et sourire (40 px et plus) posés devant le corps */
+:root {
+  --citrouille-nue: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cg fill='%23f28c28' stroke='%23ffffff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'%3E%3Cellipse cx='14' cy='29' rx='10' ry='13'/%3E%3Cellipse cx='34' cy='29' rx='10' ry='13'/%3E%3Cellipse cx='24' cy='29' rx='9.5' ry='14'/%3E%3C/g%3E%3Cpath d='M24 15 Q24 10 29 9' fill='none' stroke='%23ffffff' stroke-width='6' stroke-linecap='round'/%3E%3Cpath d='M24 15 Q24 10 29 9' fill='none' stroke='%236b4a91' stroke-width='3.2' stroke-linecap='round'/%3E%3C/svg%3E");
+  --citrouille: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Ccircle cx='18' cy='27' r='2.4' fill='%23ffffff'/%3E%3Ccircle cx='30' cy='27' r='2.4' fill='%23ffffff'/%3E%3Cpath d='M18 34 Q24 39 30 34' fill='none' stroke='%23f5c33b' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E"), var(--citrouille-nue);
+  --citrouille-taille: 40px;
+}
 
-:root { --citrouille-nue: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cg fill='%23f28c28' stroke='%23ffffff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'%3E%3Cellipse cx='14' cy='29' rx='10' ry='13'/%3E%3Cellipse cx='34' cy='29' rx='10' ry='13'/%3E%3Cellipse cx='24' cy='29' rx='9.5' ry='14'/%3E%3C/g%3E%3Cpath d='M24 15 Q24 10 29 9' fill='none' stroke='%23ffffff' stroke-width='6' stroke-linecap='round'/%3E%3Cpath d='M24 15 Q24 10 29 9' fill='none' stroke='%236b4a91' stroke-width='3.2' stroke-linecap='round'/%3E%3C/svg%3E"); }
+/* Citrouilles avec visage (haut du logo et au-dessus de « Écrire à Julie ») */
+.ecrire h2::before,
+.accroche .contenu::after {
+  /* en propriétés séparées : --citrouille contient deux images */
+  background-image: var(--citrouille);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+
 .ecrire h2::before {
   content: "";
   display: block;
   width: 56px;
   height: 56px;
   margin-bottom: .5rem;
-  background: var(--citrouille) center / contain no-repeat;
-  pointer-events: none;
   transform-origin: center bottom;
   animation: respire 6s ease-in-out infinite alternate;
 }
@@ -87,10 +99,8 @@
   position: absolute;
   top: .75rem;
   left: var(--marge);
-  width: 40px;
-  height: 40px;
-  background: var(--citrouille) center / contain no-repeat;
-  pointer-events: none;
+  width: var(--citrouille-taille);
+  height: var(--citrouille-taille);
 }
 
 .accroche { position: relative; z-index: 0; --marge: 1.25rem; --largeur: 62rem; }
@@ -104,8 +114,8 @@
   content: "";
   position: absolute;
   z-index: -1;
-  top: calc(.75rem - 12px);
-  left: calc((100% - min(100%, var(--largeur))) / 2 + var(--marge) - 12px);
+  top: calc(.75rem - (64px - var(--citrouille-taille)) / 2);
+  left: calc((100% - min(100%, var(--largeur))) / 2 + var(--marge) - (64px - var(--citrouille-taille)) / 2);
   width: 64px;
   height: 64px;
   background: radial-gradient(circle, #f5c33b 0%, transparent 70%);
