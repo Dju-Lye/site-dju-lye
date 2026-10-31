@@ -16,13 +16,19 @@
    (--citrouille-nue, pour moins de 40 px) ; --citrouille ajoute le visage devant.
    Dessin de la chauve-souris : corps rond et trapu, ailes à 3 pointes arrondies, pas de crocs, liseré blanc 1,5 px.
    Décor : corps aubergine clair #6b4a91 ; yeux blancs et petit sourire miel #f5c33b seulement à 40 px et plus
-   (à 28 px, pas de visage). Visiteuse (SVG en ligne de index.html, taille 44 px) : même dessin avec visage,
-   en orange #f28c28, couleur de saison propre au thème Halloween.
+   (à 28 px, pas de visage). Visiteuse (SVG en ligne de index.html, 56 px d'envergure, PC seulement dès 900 px) :
+   même dessin avec visage, en orange #f28c28, couleur de saison propre au thème Halloween. Elle se pose à côté du
+   logo (voisine, pas perchée), à une distance égale à la moitié de la hauteur du symbole mesurée à l'écran (zone de
+   protection de la charte), au milieu de sa hauteur. Sa trajectoire reste dans l'espace libre à droite du texte
+   « Dju-Lye », sous les chauves-souris du décor et la lune, sans jamais les recouvrir. js/halloween.js mesure le
+   logo au lancement et à chaque redimensionnement (gsap.matchMedia), tout en est déduit, rien en px fixes.
    Animations CSS (lentes, sans clignotement, coupées si le visiteur demande moins de mouvement) :
    - chauves-souris : dérive de 6 px et 1 degré d'inclinaison, 9 s ;
    - citrouille du bas : respire (échelle 1 à 1,03), 6 s ;
    - halo du logo : seule son opacité varie (0,35 à 0,7), 7 s ; la citrouille ne bouge pas.
-   Le logo lui-même (regard, clignement, rebond, sourire, chauve-souris qui se pose) est animé par js/halloween.js (GSAP). */
+   Le sourire du logo reste masqué avant son tracé (classe sourire-attendu posée dans le <head>, retirée par js/halloween.js
+   ou après 3 s ; sans JavaScript ou animations arrêtées, il reste visible).
+   Le logo lui-même (regard, clignement, rebond, sourire, visiteuse qui se pose) est animé par js/halloween.js (GSAP). */
 
 /* Visiteuse orange (PC) : ancrée au coin du .contenu, centrée sur son point par js/halloween.js, qui la place et la fait voler depuis le logo mesuré */
 .accroche .chauve-souris {

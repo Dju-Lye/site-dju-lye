@@ -11,6 +11,8 @@ Un seul dossier `saisons/` : ce guide y vit (le dossier `docs/` n'existait pas).
 - Fil conducteur aubergine, miel, blanc. Chaque thème a ses propres couleurs (2 couleurs et 1 accent) ; Halloween : orange `#f28c28` pour les citrouilles et la visiteuse.
 - Mouvements lents (6 à 9 s), faible amplitude, un seul mouvement principal ; deux mouvements très lents et de très faible amplitude peuvent coexister si l'un est une respiration sur place ; aucun clignotement ; les halos ne varient qu'en opacité.
 - Une seule visiteuse par thème, animée par GSAP, qui rend visite au logo puis s'efface. Tout le reste est fixe, en data URI.
+- Visiteuse (PC seulement, dès 900 px) : environ 56 px d'envergure, voisine du logo (à côté, pas perchée), posée à une distance égale à la moitié de la hauteur du symbole du logo mesurée à l'écran. Sa trajectoire reste hors du décor (chauves-souris, lune, citrouille, logo, texte). Tout est calculé depuis le logo mesuré et recalculé à chaque redimensionnement (`gsap.matchMedia`, avec nettoyage) ; rien en px fixes.
+- Un élément du logo masqué avant son animation (le sourire) l'est par une classe posée dans le `<head>` et retirée par le script ou après 3 s : jamais sans repli.
 - `prefers-reduced-motion` coupe tout (CSS et pause globale GSAP). Rien d'externe.
 - Poids : un thème pèse moins de 12 Ko de CSS.
 
