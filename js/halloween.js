@@ -5,6 +5,7 @@
 (function () {
   var racine = document.documentElement;
   var demarre = false;
+  var avecDessin = typeof DrawSVGPlugin !== "undefined";
 
   // Décalage des yeux, en unités du logo (environ 2 px à l'écran)
   var VERS_LUNE = { x: 1.9, y: -1.2 };
@@ -18,8 +19,8 @@
 
   function animationsArretees() { return racine.classList.contains("sans-animation"); }
 
-  function regarder(tl, yeux, cible, duree) {
-    tl.to(yeux, { x: cible.x, y: cible.y, duration: duree, ease: "power2.inOut" });
+  function regarder(tl, yeux, cible, duree, position, ease) {
+    tl.to(yeux, { x: cible.x, y: cible.y, duration: duree, ease: ease || "power2.inOut" }, position);
   }
 
   // Une fois : trois petits bonds du symbole (translateY seulement), puis le sourire se trace.
@@ -28,7 +29,7 @@
     var tl = gsap.timeline({ delay: 0.3 });
     tl.to(symbole, { y: -9, duration: 0.3, ease: "power2.out" })
       .to(symbole, { y: 0, duration: 1.1, ease: "bounce.out" });
-    if (typeof DrawSVGPlugin !== "undefined") {
+    if (avecDessin) {
       gsap.set(sourire, { drawSVG: "0% 0%", visibility: "hidden" });
       tl.set(sourire, { visibility: "visible" }, "+=0.1")
         .to(sourire, { drawSVG: "0% 100%", duration: 1, ease: "power1.inOut" });
@@ -67,10 +68,10 @@
   var RETOUR = [POSE, { x: 200, y: -40 }, { x: 420, y: -44 }, { x: 620, y: -30 }];
 
   // Retourne la chauve-souris prête, ou null (mobile, plugin absent, balise absente)
-  function preparerChauveSouris() {
+  function preparerChauveSouris(avecLune) {
     var chauve = document.querySelector(".accroche .chauve-souris");
     if (!chauve || typeof MotionPathPlugin === "undefined") return null;
-    if (!window.matchMedia("(min-width: 900px)").matches) return null;
+    if (!avecLune) return null;
     gsap.registerPlugin(MotionPathPlugin);
     gsap.set(chauve, { display: "block", autoAlpha: 0, xPercent: -50, yPercent: -100, x: DEPART.x, y: DEPART.y });
     return chauve;
@@ -88,15 +89,15 @@
       .addLabel("arrivee", 0)
       .to(chauve, { autoAlpha: 1, duration: 0.5 }, "arrivee");
     voler(tl, chauve, ailes, ALLER, "arrivee");
-    tl.to(yeux, { x: VERS_LUNE.x, y: VERS_LUNE.y, duration: 0.6, ease: "power2.inOut" }, "arrivee")
-      .to(yeux, { x: 1, y: -2, duration: 2.8, ease: "sine.inOut" }, "arrivee+=0.6")
-      .addLabel("pose", "arrivee+=3.4")
+    regarder(tl, yeux, VERS_LUNE, 0.6, "arrivee");
+    regarder(tl, yeux, { x: 1, y: -2 }, 2.8, "arrivee+=0.6", "sine.inOut");
+    tl.addLabel("pose", "arrivee+=3.4")
       .to(sourire, { scale: 1.1, duration: 0.6, ease: "sine.inOut", transformOrigin: "50% 50%" }, "pose")
       .addLabel("depart", "pose+=3.2")
       .to(sourire, { scale: 1, duration: 0.6, ease: "sine.inOut" }, "depart");
     voler(tl, chauve, ailes, RETOUR, "depart");
-    tl.to(chauve, { autoAlpha: 0, duration: 0.5 }, "depart+=2.9")
-      .to(yeux, { x: VERS_LUNE.x, y: VERS_LUNE.y, duration: 3.4, ease: "sine.inOut" }, "depart");
+    tl.to(chauve, { autoAlpha: 0, duration: 0.5 }, "depart+=2.9");
+    regarder(tl, yeux, VERS_LUNE, 3.4, "depart", "sine.inOut");
   }
 
   function demarrer() {
@@ -107,26 +108,32 @@
     var sourire = logo.querySelector(".logo-sourire");
     if (!symbole || yeux.length !== 2 || !sourire) return;
 
-    if (typeof DrawSVGPlugin !== "undefined") gsap.registerPlugin(DrawSVGPlugin);
+    if (avecDessin) gsap.registerPlugin(DrawSVGPlugin);
     logo.style.overflow = "visible"; // le symbole peut monter au-dessus de sa boîte pendant les bonds
 
     var apres = introduction(symbole, sourire);
     clignement(yeux, apres + 2);
     var avecLune = window.matchMedia("(min-width: 900px)").matches;
     var boucle = gsap.timeline({ repeat: -1, delay: apres + 0.5 });
-    var chauve = preparerChauveSouris();
+    var chauve = preparerChauveSouris(avecLune);
     if (chauve) visiteChauveSouris(boucle, yeux, sourire, chauve);
     regardLuneEtCitrouille(boucle, yeux, sourire, avecLune);
   }
+
+  var observateur = null;
 
   function essayer() {
     if (demarre || animationsArretees()) return;
     demarre = true;
     demarrer();
+    if (observateur) observateur.disconnect();
   }
 
   if (typeof gsap === "undefined" || !themeHalloweenActif()) return;
   essayer();
   // Si les animations étaient arrêtées au chargement, elles démarrent quand le visiteur les reprend.
-  if (!demarre) new MutationObserver(essayer).observe(racine, { attributes: true, attributeFilter: ["class"] });
+  if (!demarre) {
+    observateur = new MutationObserver(essayer);
+    observateur.observe(racine, { attributes: true, attributeFilter: ["class"] });
+  }
 })();

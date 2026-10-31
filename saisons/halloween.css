@@ -23,6 +23,11 @@
   pointer-events: none;
 }
 
+/* Fenêtre réduite sous 900 px pendant la visite : la chauve-souris disparaît */
+@media (max-width: 899px) {
+  .accroche .chauve-souris { display: none !important; }
+}
+
 /* Visiteur qui demande moins de mouvement : aucune animation */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; }
