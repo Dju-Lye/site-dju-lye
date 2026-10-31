@@ -4,12 +4,12 @@ Un seul dossier `saisons/` : ce guide y vit (le dossier `docs/` n'existait pas).
 
 ## Règles
 - Formes rondes, trapues, coins arrondis (`stroke-linejoin: round`), jamais pointues ni fines. Chaque objet reste lisible à 28 px.
-- Liseré blanc `#ffffff` de 1,5 px, `vector-effect: non-scaling-stroke`, sur tous les objets de saison (plus de contour aubergine).
+- Liseré blanc `#ffffff` de 1,5 px, `vector-effect: non-scaling-stroke`, sur tous les objets de saison (plus de contour aubergine). Exception : le liseré de la vague est volontairement fin (environ 0,75 px visible de chaque côté du trait). Le liseré blanc (et la lune pâle) ne valent que sur fond aubergine ; sur fond crème, on n'utilise pas de liseré blanc.
 - Remplissage : une couleur du thème, plus claire que le fond ; aubergine clair `#6b4a91` ou `#8e6bb5` pour les parties secondaires.
 - Visage : deux yeux blancs ronds et un sourire miel `#f5c33b` arrondi, seulement à partir de 40 px. Jamais de bouche ouverte ni de crocs.
-- Opacité du décor fixe à 0,6 ; objets proches du logo à 1 ; le texte n'est jamais recouvert.
+- Opacité du décor flottant du ciel fixe à 0,6 ; objets proches du logo à 1 ; les objets de la vague et la citrouille du bas de page restent aussi à 1 ; le texte n'est jamais recouvert.
 - Fil conducteur aubergine, miel, blanc. Chaque thème a ses propres couleurs (2 couleurs et 1 accent) ; Halloween : orange `#f28c28` pour les citrouilles et la visiteuse.
-- Mouvements lents (6 à 9 s), faible amplitude, un seul élément qui bouge à la fois, aucun clignotement ; les halos ne varient qu'en opacité.
+- Mouvements lents (6 à 9 s), faible amplitude, un seul mouvement principal ; deux mouvements très lents et de très faible amplitude peuvent coexister si l'un est une respiration sur place ; aucun clignotement ; les halos ne varient qu'en opacité.
 - Une seule visiteuse par thème, animée par GSAP, qui rend visite au logo puis s'efface. Tout le reste est fixe, en data URI.
 - `prefers-reduced-motion` coupe tout (CSS et pause globale GSAP). Rien d'externe.
 - Poids : un thème pèse moins de 12 Ko de CSS.
@@ -26,9 +26,5 @@ Une data URI ne partage rien avec le HTML ni avec un autre fichier. Le kit est d
 - 3 lobes orange `#f28c28` : ellipses `(14,29) 10x13`, `(34,29) 10x13`, `(24,29) 9,5x14`, liseré blanc 1,5 px.
 - Queue aubergine clair `#6b4a91` : `M24 15 Q24 10 29 9`, trait 3,2 arrondi sur un trait blanc de 6.
 - Visage (40 px et plus) : yeux blancs `circle (18,27) et (30,27) r=2.4` ; sourire miel `M18 34 Q24 39 30 34`, trait 2,6.
-- Dans `halloween.css`, la citrouille est définie une fois (`--citrouille`) ; la version sans visage (`--citrouille-nue`) sert aux objets de moins de 40 px.
-
-Chemin complet de la citrouille avec visage :
-```
-<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><g fill='#f28c28' stroke='#ffffff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'><ellipse cx='14' cy='29' rx='10' ry='13'/><ellipse cx='34' cy='29' rx='10' ry='13'/><ellipse cx='24' cy='29' rx='9.5' ry='14'/></g><path d='M24 15 Q24 10 29 9' fill='none' stroke='#ffffff' stroke-width='6' stroke-linecap='round'/><path d='M24 15 Q24 10 29 9' fill='none' stroke='#6b4a91' stroke-width='3.2' stroke-linecap='round'/><circle cx='18' cy='27' r='2.4' fill='#ffffff'/><circle cx='30' cy='27' r='2.4' fill='#ffffff'/><path d='M18 34 Q24 39 30 34' fill='none' stroke='#f5c33b' stroke-width='2.6' stroke-linecap='round'/></svg>
-```
+- Dans `halloween.css` (`:root`), le corps de la citrouille est défini une seule fois (`--citrouille-nue`, sans visage, pour les objets de moins de 40 px) ; `--citrouille` ajoute devant lui une couche yeux et sourire. La tuile de la vague en garde une copie, car une data URI ne peut rien partager.
+- Chemin complet : voir les variables `--citrouille-nue` (corps) et `--citrouille` (visage) dans `saisons/halloween.css`.
