@@ -45,8 +45,8 @@
     linear-gradient(to bottom, var(--de) 50%, var(--vers) 50%);
 }
 
-/* Citrouille qui sourit (sourire miel, clin d'œil au logo), utilisée au-dessus du logo et du titre du bas */
-:root { --citrouille: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cg fill='%23f28c28' stroke='%234a2a6e' stroke-width='1.5'%3E%3Cellipse cx='15' cy='28' rx='11' ry='14'/%3E%3Cellipse cx='33' cy='28' rx='11' ry='14'/%3E%3Cellipse cx='24' cy='28' rx='10' ry='15'/%3E%3C/g%3E%3Cpath d='M24 13 Q24 8 28 6' fill='none' stroke='%234a2a6e' stroke-width='3' stroke-linecap='round'/%3E%3Ccircle cx='18' cy='26' r='2.2' fill='%234a2a6e'/%3E%3Cpath d='M27 26 Q30 23 33 26' fill='none' stroke='%234a2a6e' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M16 34 Q24 42 32 34' fill='none' stroke='%23f5c33b' stroke-width='3.5' stroke-linecap='round'/%3E%3C/svg%3E"); }
+/* Citrouille ronde et trapue : 3 lobes orange, liseré blanc, queue aubergine clair ; yeux et sourire pour les tailles de 40 px et plus */
+:root { --citrouille: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cg fill='%23f28c28' stroke='%23ffffff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'%3E%3Cellipse cx='14' cy='29' rx='10' ry='13'/%3E%3Cellipse cx='34' cy='29' rx='10' ry='13'/%3E%3Cellipse cx='24' cy='29' rx='9.5' ry='14'/%3E%3C/g%3E%3Cpath d='M24 15 Q24 10 29 9' fill='none' stroke='%23ffffff' stroke-width='6' stroke-linecap='round'/%3E%3Cpath d='M24 15 Q24 10 29 9' fill='none' stroke='%236b4a91' stroke-width='3.2' stroke-linecap='round'/%3E%3Ccircle cx='18' cy='27' r='2.4' fill='%23ffffff'/%3E%3Ccircle cx='30' cy='27' r='2.4' fill='%23ffffff'/%3E%3Cpath d='M18 34 Q24 39 30 34' fill='none' stroke='%23f5c33b' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E"); }
 
 .ecrire h2::before {
   content: "";
