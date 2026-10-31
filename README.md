@@ -73,3 +73,5 @@ Règles : animations et JavaScript acceptés, GSAP hébergé en local. L'objecti
 ## Dépendance : GSAP
 
 GSAP 3.15.0 (`js/vendor/gsap.min.js`), sous licence « Standard No Charge » : https://gsap.com/standard-license. Julie maintient cette dépendance : version fixée, mise à jour seulement avec son accord.
+
+Plugins GSAP 3.15.0, mêmes conditions : `js/vendor/DrawSVGPlugin.min.js` (sourire du logo qui se dessine) et `js/vendor/MotionPathPlugin.min.js` (vol de la chauve-souris), utilisés par `js/halloween.js` (thème Halloween seulement).

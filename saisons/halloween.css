@@ -8,10 +8,11 @@
    5. phrase de saison (.saison), texte dans index.html ;
    6. lune croissante miel pâle dans le coin du ciel, PC seulement (.accroche::before, dès 900px) ;
    7. halo miel derrière la citrouille du logo (.accroche::after).
-   Animations (CSS pur, lentes, sans clignotement, coupées si le visiteur demande moins de mouvement) :
+   Animations CSS (lentes, sans clignotement, coupées si le visiteur demande moins de mouvement) :
    - chauves-souris : dérive de 6 px et 1 degré d'inclinaison, 9 s ;
    - citrouille du bas : respire (échelle 1 à 1,03), 6 s ;
-   - halo du logo : seule son opacité varie (0,35 à 0,7), 7 s ; la citrouille ne bouge pas. */
+   - halo du logo : seule son opacité varie (0,35 à 0,7), 7 s ; la citrouille ne bouge pas.
+   Le logo lui-même (regard, clignement, rebond, sourire, chauve-souris qui se pose) est animé par js/halloween.js (GSAP). */
 
 /* Chauve-souris qui fait coucou au logo (PC) : ancrée au coin du logo, déplacée par js/halloween.js */
 .accroche .chauve-souris {
