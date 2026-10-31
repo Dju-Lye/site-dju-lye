@@ -24,11 +24,11 @@
    - halo du logo : seule son opacité varie (0,35 à 0,7), 7 s ; la citrouille ne bouge pas.
    Le logo lui-même (regard, clignement, rebond, sourire, chauve-souris qui se pose) est animé par js/halloween.js (GSAP). */
 
-/* Chauve-souris qui fait coucou au logo (PC) : ancrée au coin du logo, déplacée par js/halloween.js */
+/* Visiteuse orange (PC) : ancrée au coin du .contenu, centrée sur son point par js/halloween.js, qui la place et la fait voler depuis le logo mesuré */
 .accroche .chauve-souris {
   position: absolute;
-  left: 2rem;
-  top: 3.75rem;
+  left: 0;
+  top: 0;
   z-index: 1;
   pointer-events: none;
 }
