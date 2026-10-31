@@ -38,16 +38,17 @@
   *, *::before, *::after { animation: none !important; }
 }
 
-/* Vagues citrouille : même forme et même fond que style.css, seul le trait change (#f28c28) */
+/* Vagues citrouille : même forme que style.css (décalée de 6 px), trait orange épais 6 px, liseré blanc, une petite citrouille sans visage tous les 120 px */
 .courbe {
   background:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='36' viewBox='0 0 120 36'%3E%3Cpath d='M0 12 Q30 32 60 12 T120 12' fill='none' stroke='%23f28c28' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E") center / 120px 36px repeat-x,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='36' viewBox='0 0 120 36'%3E%3Cpath d='M0 18 Q30 38 60 18 T120 18' fill='none' stroke='%23ffffff' stroke-width='7.5' stroke-linecap='round'/%3E%3Cpath d='M0 18 Q30 38 60 18 T120 18' fill='none' stroke='%23f28c28' stroke-width='6' stroke-linecap='round'/%3E%3Cg transform='translate(18 5) scale(.5)'%3E%3Cg fill='%23f28c28' stroke='%23ffffff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'%3E%3Cellipse cx='14' cy='29' rx='10' ry='13'/%3E%3Cellipse cx='34' cy='29' rx='10' ry='13'/%3E%3Cellipse cx='24' cy='29' rx='9.5' ry='14'/%3E%3C/g%3E%3Cpath d='M24 15 Q24 10 29 9' fill='none' stroke='%23ffffff' stroke-width='6' stroke-linecap='round'/%3E%3Cpath d='M24 15 Q24 10 29 9' fill='none' stroke='%236b4a91' stroke-width='3.2' stroke-linecap='round'/%3E%3C/g%3E%3C/svg%3E") center / 120px 36px repeat-x,
     linear-gradient(to bottom, var(--de) 50%, var(--vers) 50%);
 }
 
 /* Citrouille ronde et trapue : 3 lobes orange, liseré blanc, queue aubergine clair ; yeux et sourire pour les tailles de 40 px et plus */
 :root { --citrouille: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cg fill='%23f28c28' stroke='%23ffffff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'%3E%3Cellipse cx='14' cy='29' rx='10' ry='13'/%3E%3Cellipse cx='34' cy='29' rx='10' ry='13'/%3E%3Cellipse cx='24' cy='29' rx='9.5' ry='14'/%3E%3C/g%3E%3Cpath d='M24 15 Q24 10 29 9' fill='none' stroke='%23ffffff' stroke-width='6' stroke-linecap='round'/%3E%3Cpath d='M24 15 Q24 10 29 9' fill='none' stroke='%236b4a91' stroke-width='3.2' stroke-linecap='round'/%3E%3Ccircle cx='18' cy='27' r='2.4' fill='%23ffffff'/%3E%3Ccircle cx='30' cy='27' r='2.4' fill='%23ffffff'/%3E%3Cpath d='M18 34 Q24 39 30 34' fill='none' stroke='%23f5c33b' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E"); }
 
+:root { --citrouille-nue: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cg fill='%23f28c28' stroke='%23ffffff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'%3E%3Cellipse cx='14' cy='29' rx='10' ry='13'/%3E%3Cellipse cx='34' cy='29' rx='10' ry='13'/%3E%3Cellipse cx='24' cy='29' rx='9.5' ry='14'/%3E%3C/g%3E%3Cpath d='M24 15 Q24 10 29 9' fill='none' stroke='%23ffffff' stroke-width='6' stroke-linecap='round'/%3E%3Cpath d='M24 15 Q24 10 29 9' fill='none' stroke='%236b4a91' stroke-width='3.2' stroke-linecap='round'/%3E%3C/svg%3E"); }
 .ecrire h2::before {
   content: "";
   display: block;
@@ -62,6 +63,17 @@
 @keyframes respire { from { transform: scale(1); } to { transform: scale(1.03); } }
 
 .saison { margin-top: 1rem; }
+
+/* Puce de la phrase de saison : petite citrouille sans visage (28 px), devant le texte */
+.saison::before {
+  content: "";
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  margin-right: .5rem;
+  vertical-align: middle;
+  background: var(--citrouille-nue) center / contain no-repeat;
+}
 
 /* Petite citrouille en haut à gauche de l'en-tête, au-dessus du logo (mobile et PC) */
 .accroche .contenu { position: relative; padding-top: 3.75rem; }
@@ -101,7 +113,7 @@
   .ecrire h2::before { margin-left: auto; margin-right: auto; }
   .accroche { --largeur: 61rem; }
 
-  /* Lune croissante miel pâle dans le coin du ciel, derrière les chauves-souris */
+  /* Croissant épais miel pâle dans le coin du ciel, derrière les chauves-souris */
   .accroche::before {
     content: "";
     position: absolute;
@@ -110,7 +122,8 @@
     right: calc((100% - min(100%, var(--largeur))) / 2 + var(--marge) - 1rem);
     width: 4rem;
     height: 4rem;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M32 4 A20 20 0 0 0 32 44 A11 20 0 0 1 32 4 Z' fill='%23f5c33b' fill-opacity='.6'/%3E%3C/svg%3E") center / contain no-repeat;
+    opacity: .6;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M27.3 7.3 A17 17 0 1 0 39.9 30.0 A13 13 0 0 1 27.3 7.3 Z' fill='%23f7d98a' stroke='%23ffffff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") center / contain no-repeat;
     pointer-events: none;
   }
 
