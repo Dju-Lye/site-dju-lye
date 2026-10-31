@@ -1,22 +1,72 @@
 /* Saison : Lumières de décembre (du 1er au 25 décembre)
-   Phrase de saison, à mettre dans <p class="saison"> d'index.html :
+   Phrase de saison (<p class="saison"> d'index.html) :
    Les soirs sont longs&#8239;: si votre ordinateur boude, je viens y mettre un peu de lumière&#8239;!
-   Emplacements utilisés :
-   1. au-dessus du logo (.accroche .contenu::after) : étoile qui sourit ;
-   2. ciel de l'en-tête, PC seulement (.accroche .contenu::before, dès 900px) : guirlande d'ampoules et flocons ;
-   3. au-dessus de « Écrire à Julie » (.ecrire h2::before) : bougie qui sourit ;
-   4. couleur des vagues (.courbe) : pointillé de loupiotes miel ;
-   5. phrase de saison (.saison), texte dans index.html. */
+   Style : saisons/GUIDE-DE-STYLE.md (formes rondes et trapues, liseré blanc 1,5 px, visage seulement à 40 px et plus).
+   Couleurs : bleu nuit doux #2d3a6e (remplace l'aubergine des sections sombres et des vagues), crème #fbf5e6, miel #f5c33b.
+   Contrastes sur le bleu nuit : blanc 10,8 ; crème 9,9 ; miel 6,6.
+   Objets (data URI, fixes sauf mention) :
+   1. au-dessus du logo (.accroche .contenu::after) : étoile ronde miel, 40 px, opacité 1, visage aubergine #4a2a6e
+      (yeux blancs et sourire miel seraient invisibles sur le miel) ;
+   2. ciel, PC seulement (dès 900px), opacité 0,6 : guirlande à fil #8e6bb5, douze ampoules rondes (miel, crème, lilas, ~20 px
+      à l'écran), cinq flocons (étoiles rondes crème), en deux couches : .accroche .contenu::before (fil, flocons, ampoules
+      paires) et .accroche::before (ampoules impaires) ;
+   3. au-dessus de « Écrire à Julie » (.ecrire h2::before) : bougie ronde, corps #6b4a91, flamme miel, visage, 56 px, opacité 1 ;
+   4. vagues (.courbe) : trait #8e6bb5 de 6 px avec liseré blanc, ampoule ronde sans visage (24 px) tous les 120 px, fixe ;
+   5. phrase de saison (.saison) : puce ampoule sans visage, 28 px ;
+   6. halo miel derrière l'étoile du logo (.accroche::after), 64 px.
+   Visiteuse : étoile filante (SVG en ligne créé par js/lumieres-decembre.js, 56 px, étoile de 28 px sans visage et queue de ronds),
+   PC seulement. Arrive de la droite, se pose à côté du logo à la moitié de la hauteur du symbole (mesurée à l'écran), au milieu
+   de sa hauteur, repart et s'efface ; une visite toutes les 40 s environ, entre logo et texte, sous le ciel. Le script mesure
+   le logo à chaque redimensionnement (gsap.matchMedia). .accroche porte overflow-x: clip.
+   Animations CSS (lentes, coupées par « moins de mouvement » et par le bouton pause) :
+   - scintillement très doux des ampoules : les deux couches du ciel alternent entre l'opacité 1 et 0,7, 5 s par sens,
+     en opposition de phase (opacité seulement, ni flash ni blanc plein) ;
+   - bougie : respire (échelle 1 à 1,03), 6 s ; halo : opacité 0,35 à 0,7, 7 s.
+   Le sourire du logo reste masqué avant son tracé (classe sourire-attendu du <head>, retirée par le script ou après 3 s). */
 
+/* Étoile filante (PC) : ancrée au coin du .contenu, placée par le script */
+.accroche .etoile-filante {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Sourire masqué avant son tracé (classe du <head>) */
+html.sourire-attendu .logo-sourire { visibility: hidden; }
+
+/* Sous 900 px : pas d'étoile filante */
+@media (max-width: 899px) {
+  .accroche .etoile-filante { display: none !important; }
+}
+
+/* Moins de mouvement : aucune animation */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; }
+}
+
+/* Bleu nuit doux à la place de l'aubergine : sections sombres et moitié sombre des vagues */
+:root { --nuit: #2d3a6e; }
+.sombre { background: var(--nuit); }
+.courbe.a-c { --de: var(--nuit); }
+.courbe.c-a { --vers: var(--nuit); }
+
+/* Vagues : forme de style.css décalée de 6 px, trait épais, ampoule tous les 120 px */
 .courbe {
   background:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='36' viewBox='0 0 120 36'%3E%3Cpath d='M0 12 Q30 32 60 12 T120 12' fill='none' stroke='%23f5c33b' stroke-width='7' stroke-dasharray='0 20' stroke-linecap='round'/%3E%3Cpath d='M0 12 Q30 32 60 12 T120 12' fill='none' stroke='%23fbf5e6' stroke-width='7' stroke-dasharray='0 20' stroke-dashoffset='-10' stroke-linecap='round'/%3E%3C/svg%3E") center / 120px 36px repeat-x,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='36' viewBox='0 0 120 36'%3E%3Cpath d='M0 18 Q30 38 60 18 T120 18' fill='none' stroke='%23fff' stroke-width='7.5' stroke-linecap='round'/%3E%3Cpath d='M0 18 Q30 38 60 18 T120 18' fill='none' stroke='%238e6bb5' stroke-width='6' stroke-linecap='round'/%3E%3Cg transform='translate(14.6 -3) scale(.64)'%3E%3Ccircle cx='24' cy='29' r='14' fill='%23f5c33b' stroke='%23fff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3Crect x='18' y='6' width='12' height='11' rx='3.5' fill='%236b4a91' stroke='%23fff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3C/g%3E%3C/svg%3E") center / 120px 36px repeat-x,
     linear-gradient(to bottom, var(--de) 50%, var(--vers) 50%);
 }
 
+/* Corps définis une fois ; --etoile ajoute le visage (40 px et plus) */
 :root {
-  --logo: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M24 3 L29.5 17.5 L45 18 L33 27.5 L37 42.5 L24 34 L11 42.5 L15 27.5 L3 18 L18.5 17.5 Z' fill='%23f5c33b' stroke='%234a2a6e' stroke-width='1.5' stroke-linejoin='round'/%3E%3Ccircle cx='20' cy='24' r='2.2' fill='%234a2a6e'/%3E%3Ccircle cx='28' cy='24' r='2.2' fill='%234a2a6e'/%3E%3Cpath d='M19 29 Q24 35 29 29' fill='none' stroke='%234a2a6e' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E");
-  --ecrire: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect x='16' y='22' width='16' height='22' rx='3' fill='%238e6bb5' stroke='%234a2a6e' stroke-width='1.5'/%3E%3Crect x='10' y='44' width='28' height='3.5' rx='1.75' fill='%234a2a6e'/%3E%3Cpath d='M24 21 V16' stroke='%234a2a6e' stroke-width='1.5'/%3E%3Cpath d='M24 2 Q32 11 24 18 Q16 11 24 2Z' fill='%23f5c33b' stroke='%234a2a6e' stroke-width='1.5' stroke-linejoin='round'/%3E%3Ccircle cx='21' cy='30' r='1.7' fill='%23fbf5e6'/%3E%3Ccircle cx='27' cy='30' r='1.7' fill='%23fbf5e6'/%3E%3Cpath d='M20.5 35 Q24 39 27.5 35' fill='none' stroke='%23f5c33b' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+  --nuit: #2d3a6e;
+  --etoile-nue: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cg transform='translate(24 25.5)'%3E%3Cpath d='M-2.6 -16.5Q0.0 -21.0 2.6 -16.5L5.6 -11.4Q6.8 -9.3 9.1 -8.8L14.9 -7.6Q20.0 -6.5 16.5 -2.6L12.5 1.8Q10.9 3.6 11.2 5.9L11.8 11.8Q12.3 17.0 7.6 14.9L2.2 12.5Q0.0 11.5 -2.2 12.5L-7.6 14.9Q-12.3 17.0 -11.8 11.8L-11.2 5.9Q-10.9 3.6 -12.5 1.8L-16.5 -2.6Q-20.0 -6.5 -14.9 -7.6L-9.1 -8.8Q-6.8 -9.3 -5.6 -11.4Z' fill='%23f5c33b' stroke='%23fff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3C/g%3E%3C/svg%3E");
+  --etoile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Ccircle cx='20' cy='24' r='2.2' fill='%234a2a6e'/%3E%3Ccircle cx='28' cy='24' r='2.2' fill='%234a2a6e'/%3E%3Cpath d='M20 29.5 Q24 33.5 28 29.5' fill='none' stroke='%234a2a6e' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E"), var(--etoile-nue);
+  --etoile-taille: 40px;
+  --ampoule-nue: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Ccircle cx='24' cy='29' r='14' fill='%23f5c33b' stroke='%23fff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3Crect x='18' y='6' width='12' height='11' rx='3.5' fill='%236b4a91' stroke='%23fff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
+  --bougie: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect x='11' y='22' width='26' height='22' rx='9' fill='%236b4a91' stroke='%23fff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3Cpath d='M24 3 Q32 12 30.5 18 Q29.5 22.5 24 22.5 Q18.5 22.5 17.5 18 Q16 12 24 3 Z' fill='%23f5c33b' stroke='%23fff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3Ccircle cx='18.5' cy='30' r='2.2' fill='%23fff'/%3E%3Ccircle cx='29.5' cy='30' r='2.2' fill='%23fff'/%3E%3Cpath d='M19.5 36 Q24 40.5 28.5 36' fill='none' stroke='%23f5c33b' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E");
 }
 
 .ecrire h2::before {
@@ -25,33 +75,68 @@
   width: 56px;
   height: 56px;
   margin-bottom: .5rem;
-  background: var(--ecrire) center / contain no-repeat;
+  background: var(--bougie) center / contain no-repeat;
   pointer-events: none;
+  transform-origin: center bottom;
+  animation: respire 6s ease-in-out infinite alternate;
 }
+@keyframes respire { from { transform: scale(1); } to { transform: scale(1.03); } }
 
 .saison { margin-top: 1rem; }
 
-/* Décor en haut à gauche de l'en-tête, au-dessus du logo (mobile et PC) */
+/* Puce de la phrase de saison : petite ampoule sans visage (28 px), devant le texte */
+.saison::before {
+  content: "";
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  margin-right: .5rem;
+  vertical-align: middle;
+  background: var(--ampoule-nue) center / contain no-repeat;
+}
+
+/* Étoile en haut à gauche de l'en-tête, au-dessus du logo (mobile et PC) */
 .accroche .contenu { position: relative; padding-top: 3.75rem; }
 .accroche .contenu::after {
   content: "";
   position: absolute;
   top: .75rem;
-  left: 1.25rem;
-  width: 40px;
-  height: 40px;
-  background: var(--logo) center / contain no-repeat;
+  left: var(--marge);
+  width: var(--etoile-taille);
+  height: var(--etoile-taille);
+  background-image: var(--etoile); /* en propriétés séparées : --etoile contient deux images */
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
   pointer-events: none;
 }
 
+.accroche { position: relative; z-index: 0; --marge: 1.25rem; --largeur: 62rem; overflow-x: clip; }
+
 @media (min-width: 48em) {
-  .accroche .contenu::after { left: 2rem; }
+  .accroche { --marge: 2rem; }
 }
+
+/* Halo miel derrière l'étoile du logo */
+.accroche::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: calc(.75rem - (64px - var(--etoile-taille)) / 2);
+  left: calc((100% - min(100%, var(--largeur))) / 2 + var(--marge) - (64px - var(--etoile-taille)) / 2);
+  width: 64px;
+  height: 64px;
+  background: radial-gradient(circle, #f5c33b 0%, transparent 70%);
+  pointer-events: none;
+  animation: lueur 7s ease-in-out infinite alternate;
+}
+@keyframes lueur { from { opacity: .35; } to { opacity: .7; } }
 
 @media (min-width: 900px) {
   .ecrire h2::before { margin-left: auto; margin-right: auto; }
+  .accroche { --largeur: 61rem; }
 
-  /* Décor en haut de l'en-tête (à droite du logo jusqu'au coin) */
+  /* Ciel : guirlande, flocons, première couche d'ampoules */
   .accroche .contenu::before {
     content: "";
     position: absolute;
@@ -59,7 +144,23 @@
     right: 2rem;
     width: 34rem;
     height: 7rem;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 340 70'%3E%3Cpath d='M0 8 Q42 38 85 8 Q127 38 170 8 Q212 38 255 8 Q297 38 340 8' fill='none' stroke='%238e6bb5' stroke-width='1.8'/%3E%3Crect x='19' y='18.25' width='4' height='4' fill='%238e6bb5'/%3E%3Ccircle cx='21' cy='25.25' r='4.5' fill='%23f5c33b'/%3E%3Crect x='40.5' y='22' width='4' height='4' fill='%238e6bb5'/%3E%3Ccircle cx='42.5' cy='29' r='4.5' fill='%23fbf5e6'/%3E%3Crect x='62' y='18.25' width='4' height='4' fill='%238e6bb5'/%3E%3Ccircle cx='64' cy='25.25' r='4.5' fill='%238e6bb5'/%3E%3Crect x='104' y='18.25' width='4' height='4' fill='%238e6bb5'/%3E%3Ccircle cx='106' cy='25.25' r='4.5' fill='%23f5c33b'/%3E%3Crect x='125.5' y='22' width='4' height='4' fill='%238e6bb5'/%3E%3Ccircle cx='127.5' cy='29' r='4.5' fill='%23fbf5e6'/%3E%3Crect x='147' y='18.25' width='4' height='4' fill='%238e6bb5'/%3E%3Ccircle cx='149' cy='25.25' r='4.5' fill='%238e6bb5'/%3E%3Crect x='189' y='18.25' width='4' height='4' fill='%238e6bb5'/%3E%3Ccircle cx='191' cy='25.25' r='4.5' fill='%23f5c33b'/%3E%3Crect x='210.5' y='22' width='4' height='4' fill='%238e6bb5'/%3E%3Ccircle cx='212.5' cy='29' r='4.5' fill='%23fbf5e6'/%3E%3Crect x='232' y='18.25' width='4' height='4' fill='%238e6bb5'/%3E%3Ccircle cx='234' cy='25.25' r='4.5' fill='%238e6bb5'/%3E%3Crect x='274' y='18.25' width='4' height='4' fill='%238e6bb5'/%3E%3Ccircle cx='276' cy='25.25' r='4.5' fill='%23f5c33b'/%3E%3Crect x='295.5' y='22' width='4' height='4' fill='%238e6bb5'/%3E%3Ccircle cx='297.5' cy='29' r='4.5' fill='%23fbf5e6'/%3E%3Crect x='317' y='18.25' width='4' height='4' fill='%238e6bb5'/%3E%3Ccircle cx='319' cy='25.25' r='4.5' fill='%238e6bb5'/%3E%3Cdefs%3E%3Cg id='f' stroke='%23fbf5e6' stroke-width='1.6' stroke-linecap='round' fill='none'%3E%3Cpath d='M0 -6V6'/%3E%3Cpath d='M0 -6V6' transform='rotate(60)'/%3E%3Cpath d='M0 -6V6' transform='rotate(120)'/%3E%3C/g%3E%3C/defs%3E%3Cuse href='%23f' x='30' y='52'/%3E%3Cuse href='%23f' x='110' y='58'/%3E%3Cuse href='%23f' x='190' y='50'/%3E%3Cuse href='%23f' x='268' y='58'/%3E%3Cuse href='%23f' x='318' y='48'/%3E%3C/svg%3E") center / contain no-repeat;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 340 70'%3E%3Cdefs%3E%3Cpath id='s' transform='scale(.18)' d='M-2.6 -16.5Q0.0 -21.0 2.6 -16.5L5.6 -11.4Q6.8 -9.3 9.1 -8.8L14.9 -7.6Q20.0 -6.5 16.5 -2.6L12.5 1.8Q10.9 3.6 11.2 5.9L11.8 11.8Q12.3 17.0 7.6 14.9L2.2 12.5Q0.0 11.5 -2.2 12.5L-7.6 14.9Q-12.3 17.0 -11.8 11.8L-11.2 5.9Q-10.9 3.6 -12.5 1.8L-16.5 -2.6Q-20.0 -6.5 -14.9 -7.6L-9.1 -8.8Q-6.8 -9.3 -5.6 -11.4Z' stroke='%23fff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3Cg id='b' transform='scale(.39)'%3E%3Ccircle cx='24' cy='29' r='14' stroke='%23fff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3Crect x='18' y='6' width='12' height='11' rx='3.5' fill='%236b4a91' stroke='%23fff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3C/g%3E%3C/defs%3E%3Cg opacity='.6'%3E%3Cpath d='M0 8 Q42.5 24 85 8 Q127.5 24 170 8 Q212.5 24 255 8 Q297.5 24 340 8' fill='none' stroke='%238e6bb5' stroke-width='2.6' stroke-linecap='round'/%3E%3Cuse href='%23s' fill='%23fbf5e6' x='85' y='22'/%3E%3Cuse href='%23s' fill='%23fbf5e6' x='170' y='22'/%3E%3Cuse href='%23s' fill='%23fbf5e6' x='255' y='22'/%3E%3Cuse href='%23s' fill='%23fbf5e6' x='127.5' y='6'/%3E%3Cuse href='%23s' fill='%23fbf5e6' x='297.5' y='6'/%3E%3Cuse href='%23b' fill='%23f5c33b' x='11.8' y='11.7'/%3E%3Cuse href='%23b' fill='%238e6bb5' x='54.4' y='11.7'/%3E%3Cuse href='%23b' fill='%23fbf5e6' x='118.1' y='13.7'/%3E%3Cuse href='%23b' fill='%23f5c33b' x='181.8' y='11.7'/%3E%3Cuse href='%23b' fill='%238e6bb5' x='224.3' y='11.7'/%3E%3Cuse href='%23b' fill='%23fbf5e6' x='288.1' y='13.7'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat;
     pointer-events: none;
+    animation: scintille 5s ease-in-out infinite alternate;
   }
+
+  /* Deuxième couche d'ampoules, au même endroit, en opposition de phase */
+  .accroche::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 1rem;
+    right: calc((100% - min(100%, var(--largeur))) / 2 + 2rem);
+    width: 34rem;
+    height: 7rem;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 340 70'%3E%3Cdefs%3E%3Cg id='b' transform='scale(.39)'%3E%3Ccircle cx='24' cy='29' r='14' stroke='%23fff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3Crect x='18' y='6' width='12' height='11' rx='3.5' fill='%236b4a91' stroke='%23fff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3C/g%3E%3C/defs%3E%3Cg opacity='.6'%3E%3Cuse href='%23b' fill='%23fbf5e6' x='33.1' y='13.7'/%3E%3Cuse href='%23b' fill='%23f5c33b' x='96.8' y='11.7'/%3E%3Cuse href='%23b' fill='%238e6bb5' x='139.3' y='11.7'/%3E%3Cuse href='%23b' fill='%23fbf5e6' x='203.1' y='13.7'/%3E%3Cuse href='%23b' fill='%23f5c33b' x='266.9' y='11.7'/%3E%3Cuse href='%23b' fill='%238e6bb5' x='309.4' y='11.7'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat;
+    pointer-events: none;
+    animation: scintille 5s ease-in-out infinite alternate-reverse;
+  }
+  @keyframes scintille { from { opacity: 1; } to { opacity: .7; } }
 }
