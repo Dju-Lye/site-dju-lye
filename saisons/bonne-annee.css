@@ -1,22 +1,54 @@
 /* Saison : Bonne année (du 26 décembre au 4 janvier, sans année écrite : sert chaque année)
-   Phrase de saison, à mettre dans <p class="saison"> d'index.html :
+   Phrase de saison (<p class="saison"> d'index.html) :
    Bonne année&#8239;! Cette année, on range enfin les mots de passe, promis juré.
-   Emplacements utilisés :
-   1. au-dessus du logo (.accroche .contenu::after) : bouchon qui sourit ;
-   2. ciel de l'en-tête, PC seulement (.accroche .contenu::before, dès 900px) : confettis ;
-   3. au-dessus de « Écrire à Julie » (.ecrire h2::before) : feu d'artifice ;
-   4. couleur des vagues (.courbe) : ruban de fête en tirets miel ;
-   5. phrase de saison (.saison), texte dans index.html. */
+   Style : saisons/GUIDE-DE-STYLE.md (formes rondes et trapues, liseré blanc 1,5 px, visage seulement à 40 px et plus).
+   Couleurs : fond aubergine inchangé ; champagne #f1d9a0, rose poudré #e8a0b0, miel #f5c33b en accent, lilas #8e6bb5.
+   Contrastes sur l'aubergine #4a2a6e : blanc 11,4 ; champagne 8,2 ; rose poudré 5,5 ; miel 6,9.
+   Objets (data URI, fixes sauf mention) :
+   1. au-dessus du logo (.accroche .contenu::after) : étoile ronde champagne, 40 px, opacité 1, visage aubergine (le champagne est clair) ;
+   2. ciel, PC seulement (dès 900px), opacité 0,6 : 13 confettis (pastilles rondes de 4 tailles) et 3 étoiles rondes (~18 px),
+      champagne, rose, miel, lilas, tous dans le haut du ciel ;
+   3. au-dessus de « Écrire à Julie » (.ecrire h2::before) : bouquet (rond rose à visage, deux étoiles rondes miel, trois ronds épais), 56 px, opacité 1 ;
+   4. vagues (.courbe) : trait lilas de 6 px avec liseré blanc, étoile ronde rose poudré de 24 px tous les 120 px ;
+   5. phrase de saison (.saison) : puce étoile ronde rose poudré, sans visage, 28 px.
+   Visiteuse : bouchon de champagne (SVG créé par js/bonne-annee.js, 56 px, sans visage), PC seulement. Se pose à droite du logo
+   à la moitié de la hauteur du symbole, fait un petit bond lent (translateY) et laisse six confettis (opacité 0,6) se poser
+   dans la zone sûre mesurée (hors ciel, textes, bouton), puis s'efface. Deux passages au plus par visite de la page.
+   Aucune animation CSS. Le sourire du logo reste masqué avant son tracé (classe sourire-attendu du <head>, retirée par le
+   script ou après 3 s). .accroche porte overflow-x: clip. */
 
+/* Bouchon (PC) : ancré au coin du .contenu, placé par le script */
+.accroche .bouchon-pop {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  overflow: visible;
+  pointer-events: none;
+}
+
+/* Sourire masqué avant son tracé (classe du <head>) */
+html.sourire-attendu .logo-sourire { visibility: hidden; }
+
+/* Sous 900 px : pas de bouchon */
+@media (max-width: 899px) {
+  .accroche .bouchon-pop { display: none !important; }
+}
+
+.accroche { position: relative; z-index: 0; overflow-x: clip; }
+
+/* Vagues : forme de style.css décalée de 6 px, trait épais, étoile ronde tous les 120 px */
 .courbe {
   background:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='36' viewBox='0 0 120 36'%3E%3Cpath d='M0 12 Q30 32 60 12 T120 12' fill='none' stroke='%23f5c33b' stroke-width='4' stroke-dasharray='16 7' stroke-linecap='round'/%3E%3C/svg%3E") center / 120px 36px repeat-x,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='36' viewBox='0 0 120 36'%3E%3Cpath d='M0 18 Q30 38 60 18 T120 18' fill='none' stroke='%23fff' stroke-width='7.5' stroke-linecap='round'/%3E%3Cpath d='M0 18 Q30 38 60 18 T120 18' fill='none' stroke='%238e6bb5' stroke-width='6' stroke-linecap='round'/%3E%3Cpath d='M-2.6 -16.5Q0.0 -21.0 2.6 -16.5L5.6 -11.4Q6.8 -9.3 9.1 -8.8L14.9 -7.6Q20.0 -6.5 16.5 -2.6L12.5 1.8Q10.9 3.6 11.2 5.9L11.8 11.8Q12.3 17.0 7.6 14.9L2.2 12.5Q0.0 11.5 -2.2 12.5L-7.6 14.9Q-12.3 17.0 -11.8 11.8L-11.2 5.9Q-10.9 3.6 -12.5 1.8L-16.5 -2.6Q-20.0 -6.5 -14.9 -7.6L-9.1 -8.8Q-6.8 -9.3 -5.6 -11.4Z' transform='translate(30 15.5) scale(.57)' fill='%23e8a0b0' stroke='%23fff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") center / 120px 36px repeat-x,
     linear-gradient(to bottom, var(--de) 50%, var(--vers) 50%);
 }
 
+/* Corps définis une fois ; --etoile ajoute le visage (40 px et plus) */
 :root {
-  --logo: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M24 3 Q29 19 45 24 Q29 29 24 45 Q19 29 3 24 Q19 19 24 3Z' fill='%23f5c33b'/%3E%3Ccircle cx='21' cy='22.5' r='1.7' fill='%234a2a6e'/%3E%3Ccircle cx='27' cy='22.5' r='1.7' fill='%234a2a6e'/%3E%3Cpath d='M20.5 26.5 Q24 30 27.5 26.5' fill='none' stroke='%234a2a6e' stroke-width='2' stroke-linecap='round'/%3E%3Crect x='5' y='5' width='6' height='3' rx='.8' fill='%238e6bb5' transform='rotate(35 8 6.5)'/%3E%3Ccircle cx='41' cy='8' r='2.2' fill='%23fbf5e6'/%3E%3Crect x='37' y='39' width='6' height='3' rx='.8' fill='%23fbf5e6' transform='rotate(-30 40 40.5)'/%3E%3Ccircle cx='7' cy='41' r='2.2' fill='%238e6bb5'/%3E%3C/svg%3E");
-  --ecrire: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M24 14V5' stroke='%238e6bb5' stroke-width='3.5' stroke-linecap='round'/%3E%3Ccircle cx='24' cy='1' r='1.8' fill='%234a2a6e'/%3E%3Cpath d='M24 14V5' transform='rotate(45 24 22)' stroke='%23f5c33b' stroke-width='3.5' stroke-linecap='round'/%3E%3Ccircle cx='24' cy='1' r='1.8' fill='%234a2a6e' transform='rotate(45 24 22)'/%3E%3Cpath d='M24 14V5' transform='rotate(90 24 22)' stroke='%238e6bb5' stroke-width='3.5' stroke-linecap='round'/%3E%3Ccircle cx='24' cy='1' r='1.8' fill='%234a2a6e' transform='rotate(90 24 22)'/%3E%3Cpath d='M24 14V5' transform='rotate(135 24 22)' stroke='%23f5c33b' stroke-width='3.5' stroke-linecap='round'/%3E%3Ccircle cx='24' cy='1' r='1.8' fill='%234a2a6e' transform='rotate(135 24 22)'/%3E%3Cpath d='M24 14V5' transform='rotate(180 24 22)' stroke='%238e6bb5' stroke-width='3.5' stroke-linecap='round'/%3E%3Ccircle cx='24' cy='1' r='1.8' fill='%234a2a6e' transform='rotate(180 24 22)'/%3E%3Cpath d='M24 14V5' transform='rotate(225 24 22)' stroke='%23f5c33b' stroke-width='3.5' stroke-linecap='round'/%3E%3Ccircle cx='24' cy='1' r='1.8' fill='%234a2a6e' transform='rotate(225 24 22)'/%3E%3Cpath d='M24 14V5' transform='rotate(270 24 22)' stroke='%238e6bb5' stroke-width='3.5' stroke-linecap='round'/%3E%3Ccircle cx='24' cy='1' r='1.8' fill='%234a2a6e' transform='rotate(270 24 22)'/%3E%3Cpath d='M24 14V5' transform='rotate(315 24 22)' stroke='%23f5c33b' stroke-width='3.5' stroke-linecap='round'/%3E%3Ccircle cx='24' cy='1' r='1.8' fill='%234a2a6e' transform='rotate(315 24 22)'/%3E%3Ccircle cx='24' cy='22' r='4' fill='%234a2a6e'/%3E%3Cpath d='M24 32V46' stroke='%238e6bb5' stroke-width='2.5' stroke-linecap='round' stroke-dasharray='0 5'/%3E%3C/svg%3E");
+  --etoile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M-2.6 -16.5Q0.0 -21.0 2.6 -16.5L5.6 -11.4Q6.8 -9.3 9.1 -8.8L14.9 -7.6Q20.0 -6.5 16.5 -2.6L12.5 1.8Q10.9 3.6 11.2 5.9L11.8 11.8Q12.3 17.0 7.6 14.9L2.2 12.5Q0.0 11.5 -2.2 12.5L-7.6 14.9Q-12.3 17.0 -11.8 11.8L-11.2 5.9Q-10.9 3.6 -12.5 1.8L-16.5 -2.6Q-20.0 -6.5 -14.9 -7.6L-9.1 -8.8Q-6.8 -9.3 -5.6 -11.4Z' transform='translate(24 25.5)' fill='%23f1d9a0' stroke='%23fff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3Ccircle cx='20' cy='24' r='2.2' fill='%234a2a6e'/%3E%3Ccircle cx='28' cy='24' r='2.2' fill='%234a2a6e'/%3E%3Cpath d='M20 29.5 Q24.0 33.5 28 29.5' fill='none' stroke='%234a2a6e' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M-2.6 -16.5Q0.0 -21.0 2.6 -16.5L5.6 -11.4Q6.8 -9.3 9.1 -8.8L14.9 -7.6Q20.0 -6.5 16.5 -2.6L12.5 1.8Q10.9 3.6 11.2 5.9L11.8 11.8Q12.3 17.0 7.6 14.9L2.2 12.5Q0.0 11.5 -2.2 12.5L-7.6 14.9Q-12.3 17.0 -11.8 11.8L-11.2 5.9Q-10.9 3.6 -12.5 1.8L-16.5 -2.6Q-20.0 -6.5 -14.9 -7.6L-9.1 -8.8Q-6.8 -9.3 -5.6 -11.4Z' transform='translate(24 25.5)' fill='%23f1d9a0' stroke='%23fff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
+  --bouquet: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Ccircle cx='6' cy='30' r='4.5' fill='%238e6bb5' stroke='%23fff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3Ccircle cx='42' cy='30' r='4.5' fill='%23f5c33b' stroke='%23fff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3Ccircle cx='24' cy='6' r='4' fill='%238e6bb5' stroke='%23fff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3Cpath d='M-2.6 -16.5Q0.0 -21.0 2.6 -16.5L5.6 -11.4Q6.8 -9.3 9.1 -8.8L14.9 -7.6Q20.0 -6.5 16.5 -2.6L12.5 1.8Q10.9 3.6 11.2 5.9L11.8 11.8Q12.3 17.0 7.6 14.9L2.2 12.5Q0.0 11.5 -2.2 12.5L-7.6 14.9Q-12.3 17.0 -11.8 11.8L-11.2 5.9Q-10.9 3.6 -12.5 1.8L-16.5 -2.6Q-20.0 -6.5 -14.9 -7.6L-9.1 -8.8Q-6.8 -9.3 -5.6 -11.4Z' transform='translate(11 13) scale(.4)' fill='%23f5c33b' stroke='%23fff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3Cpath d='M-2.6 -16.5Q0.0 -21.0 2.6 -16.5L5.6 -11.4Q6.8 -9.3 9.1 -8.8L14.9 -7.6Q20.0 -6.5 16.5 -2.6L12.5 1.8Q10.9 3.6 11.2 5.9L11.8 11.8Q12.3 17.0 7.6 14.9L2.2 12.5Q0.0 11.5 -2.2 12.5L-7.6 14.9Q-12.3 17.0 -11.8 11.8L-11.2 5.9Q-10.9 3.6 -12.5 1.8L-16.5 -2.6Q-20.0 -6.5 -14.9 -7.6L-9.1 -8.8Q-6.8 -9.3 -5.6 -11.4Z' transform='translate(37 13) scale(.4)' fill='%23f5c33b' stroke='%23fff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3Ccircle cx='24' cy='29' r='12' fill='%23e8a0b0' stroke='%23fff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3Ccircle cx='20' cy='27' r='2.1' fill='%234a2a6e'/%3E%3Ccircle cx='28' cy='27' r='2.1' fill='%234a2a6e'/%3E%3Cpath d='M20 32 Q24.0 36 28 32' fill='none' stroke='%234a2a6e' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E");
+  --puce: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M-2.6 -16.5Q0.0 -21.0 2.6 -16.5L5.6 -11.4Q6.8 -9.3 9.1 -8.8L14.9 -7.6Q20.0 -6.5 16.5 -2.6L12.5 1.8Q10.9 3.6 11.2 5.9L11.8 11.8Q12.3 17.0 7.6 14.9L2.2 12.5Q0.0 11.5 -2.2 12.5L-7.6 14.9Q-12.3 17.0 -11.8 11.8L-11.2 5.9Q-10.9 3.6 -12.5 1.8L-16.5 -2.6Q-20.0 -6.5 -14.9 -7.6L-9.1 -8.8Q-6.8 -9.3 -5.6 -11.4Z' transform='translate(24 25.5) scale(1.1)' fill='%23e8a0b0' stroke='%23fff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
 }
 
 .ecrire h2::before {
@@ -25,13 +57,24 @@
   width: 56px;
   height: 56px;
   margin-bottom: .5rem;
-  background: var(--ecrire) center / contain no-repeat;
+  background: var(--bouquet) center / contain no-repeat;
   pointer-events: none;
 }
 
 .saison { margin-top: 1rem; }
 
-/* Décor en haut à gauche de l'en-tête, au-dessus du logo (mobile et PC) */
+/* Puce de la phrase de saison : étoile ronde sans visage (28 px), devant le texte */
+.saison::before {
+  content: "";
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  margin-right: .5rem;
+  vertical-align: middle;
+  background: var(--puce) center / contain no-repeat;
+}
+
+/* Étoile en haut à gauche de l'en-tête, au-dessus du logo (mobile et PC) */
 .accroche .contenu { position: relative; padding-top: 3.75rem; }
 .accroche .contenu::after {
   content: "";
@@ -40,7 +83,10 @@
   left: 1.25rem;
   width: 40px;
   height: 40px;
-  background: var(--logo) center / contain no-repeat;
+  background-image: var(--etoile); /* en propriétés séparées : --etoile contient deux images */
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
   pointer-events: none;
 }
 
@@ -51,7 +97,7 @@
 @media (min-width: 900px) {
   .ecrire h2::before { margin-left: auto; margin-right: auto; }
 
-  /* Décor en haut de l'en-tête (à droite du logo jusqu'au coin) */
+  /* Ciel : confettis et étoiles rondes, opacité 0,6 */
   .accroche .contenu::before {
     content: "";
     position: absolute;
@@ -59,7 +105,7 @@
     right: 2rem;
     width: 34rem;
     height: 7rem;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 340 70'%3E%3Crect x='112' y='13' width='7' height='3.5' rx='.8' fill='%23f5c33b' transform='rotate(166 112 13)'/%3E%3Crect x='20' y='55' width='7' height='3.5' rx='.8' fill='%23fbf5e6' transform='rotate(24 20 55)'/%3E%3Crect x='125' y='8' width='7' height='3.5' rx='.8' fill='%238e6bb5' transform='rotate(129 125 8)'/%3E%3Ccircle cx='75' cy='9' r='2.5' fill='%23f5c33b'/%3E%3Crect x='27' y='10' width='7' height='3.5' rx='.8' fill='%23fbf5e6' transform='rotate(108 27 10)'/%3E%3Crect x='24' y='39' width='7' height='3.5' rx='.8' fill='%238e6bb5' transform='rotate(57 24 39)'/%3E%3Crect x='213' y='40' width='7' height='3.5' rx='.8' fill='%23f5c33b' transform='rotate(15 213 40)'/%3E%3Ccircle cx='196' cy='29' r='2.5' fill='%23fbf5e6'/%3E%3Crect x='19' y='57' width='7' height='3.5' rx='.8' fill='%238e6bb5' transform='rotate(74 19 57)'/%3E%3Crect x='143' y='38' width='7' height='3.5' rx='.8' fill='%23f5c33b' transform='rotate(146 143 38)'/%3E%3Crect x='106' y='55' width='7' height='3.5' rx='.8' fill='%23fbf5e6' transform='rotate(46 106 55)'/%3E%3Ccircle cx='38' cy='39' r='2.5' fill='%238e6bb5'/%3E%3Crect x='128' y='38' width='7' height='3.5' rx='.8' fill='%23f5c33b' transform='rotate(16 128 38)'/%3E%3Crect x='191' y='42' width='7' height='3.5' rx='.8' fill='%23fbf5e6' transform='rotate(127 191 42)'/%3E%3Crect x='230' y='31' width='7' height='3.5' rx='.8' fill='%238e6bb5' transform='rotate(80 230 31)'/%3E%3Ccircle cx='159' cy='61' r='2.5' fill='%23f5c33b'/%3E%3Crect x='104' y='53' width='7' height='3.5' rx='.8' fill='%23fbf5e6' transform='rotate(62 104 53)'/%3E%3Crect x='31' y='23' width='7' height='3.5' rx='.8' fill='%238e6bb5' transform='rotate(126 31 23)'/%3E%3Crect x='295' y='49' width='7' height='3.5' rx='.8' fill='%23f5c33b' transform='rotate(73 295 49)'/%3E%3Ccircle cx='206' cy='9' r='2.5' fill='%23fbf5e6'/%3E%3Crect x='143' y='51' width='7' height='3.5' rx='.8' fill='%238e6bb5' transform='rotate(38 143 51)'/%3E%3Crect x='314' y='30' width='7' height='3.5' rx='.8' fill='%23f5c33b' transform='rotate(19 314 30)'/%3E%3Crect x='258' y='40' width='7' height='3.5' rx='.8' fill='%23fbf5e6' transform='rotate(80 258 40)'/%3E%3Ccircle cx='117' cy='26' r='2.5' fill='%238e6bb5'/%3E%3Crect x='197' y='32' width='7' height='3.5' rx='.8' fill='%23f5c33b' transform='rotate(23 197 32)'/%3E%3Crect x='318' y='33' width='7' height='3.5' rx='.8' fill='%23fbf5e6' transform='rotate(170 318 33)'/%3E%3C/svg%3E") center / contain no-repeat;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 340 70'%3E%3Cdefs%3E%3Cpath id='s' transform='scale(.22)' d='M-2.6 -16.5Q0.0 -21.0 2.6 -16.5L5.6 -11.4Q6.8 -9.3 9.1 -8.8L14.9 -7.6Q20.0 -6.5 16.5 -2.6L12.5 1.8Q10.9 3.6 11.2 5.9L11.8 11.8Q12.3 17.0 7.6 14.9L2.2 12.5Q0.0 11.5 -2.2 12.5L-7.6 14.9Q-12.3 17.0 -11.8 11.8L-11.2 5.9Q-10.9 3.6 -12.5 1.8L-16.5 -2.6Q-20.0 -6.5 -14.9 -7.6L-9.1 -8.8Q-6.8 -9.3 -5.6 -11.4Z' stroke='%23fff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3C/defs%3E%3Cg opacity='.6'%3E%3Ccircle cx='20' cy='18' r='6' fill='%23f1d9a0' stroke='%23fff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3Ccircle cx='52' cy='34' r='3.5' fill='%23e8a0b0' stroke='%23fff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3Ccircle cx='88' cy='12' r='5' fill='%23f5c33b' stroke='%23fff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3Ccircle cx='118' cy='30' r='4' fill='%238e6bb5' stroke='%23fff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3Ccircle cx='150' cy='16' r='6.5' fill='%23e8a0b0' stroke='%23fff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3Ccircle cx='186' cy='34' r='3.5' fill='%23f1d9a0' stroke='%23fff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3Ccircle cx='214' cy='14' r='5' fill='%238e6bb5' stroke='%23fff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3Ccircle cx='246' cy='30' r='6' fill='%23f5c33b' stroke='%23fff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3Ccircle cx='278' cy='12' r='4' fill='%23f1d9a0' stroke='%23fff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3Ccircle cx='306' cy='34' r='5' fill='%23e8a0b0' stroke='%23fff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3Ccircle cx='330' cy='16' r='3.5' fill='%23f5c33b' stroke='%23fff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3Ccircle cx='100' cy='40' r='3' fill='%23f1d9a0' stroke='%23fff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3Ccircle cx='168' cy='8' r='3' fill='%23f5c33b' stroke='%23fff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3Cuse href='%23s' fill='%23f1d9a0' x='66' y='20'/%3E%3Cuse href='%23s' fill='%23e8a0b0' x='196' y='28'/%3E%3Cuse href='%23s' fill='%23f5c33b' x='292' y='38'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat;
     pointer-events: none;
   }
 }
