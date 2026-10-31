@@ -68,4 +68,8 @@ La phrase de saison de chaque fichier est en commentaire en tête.
 Changer de fête : dans `index.html`, remplacer le fichier du `<link>` (`saisons/noel.css`…) et le texte de la phrase.
 Revenir au site sobre : supprimer la ligne `<link>` de la saison et vider la balise `<p class="saison">` (`style.css` la masque quand elle est vide).
 
-Règles : aucune animation ni JavaScript, rien qui gêne la lecture, décors en pseudo-éléments SVG en data URI (le `#` s'écrit `%23`), `pointer-events: none`, logo jamais déformé.
+Règles : animations et JavaScript acceptés, GSAP hébergé en local. L'objectif du site est d'être accessible et lisible (pour des clients de 75 ans y compris), plus « simple dans le code ». Garde-fous : `prefers-reduced-motion` respecté, bouton pause pour tout mouvement de plus de 5 secondes, rien chargé depuis un serveur externe, pas de clignotement rapide. Décors en pseudo-éléments SVG en data URI (le `#` s'écrit `%23`), `pointer-events: none`, logo jamais déformé.
+
+## Dépendance : GSAP
+
+GSAP 3.15.0 (`js/vendor/gsap.min.js`), sous licence « Standard No Charge » : https://gsap.com/standard-license. Julie maintient cette dépendance : version fixée, mise à jour seulement avec son accord.
