@@ -18,8 +18,15 @@
   bouton.type = "button";
   bouton.id = "pause-animations";
 
+  // GSAP (si présent) suit la même pause que les animations CSS.
+  function pauserGsap() {
+    if (typeof gsap === "undefined") return;
+    if (arretees) gsap.globalTimeline.pause(); else gsap.globalTimeline.resume();
+  }
+
   function afficher() {
     racine.classList.toggle("sans-animation", arretees);
+    pauserGsap();
     bouton.textContent = arretees ? "Reprendre les animations" : "Arrêter les animations";
   }
 
