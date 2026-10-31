@@ -17,6 +17,10 @@
     return !!lien && !lien.disabled;
   }
 
+  // Le sourire est masqué par le CSS (classe posée dans le <head>) en attendant son tracé : on rend la main
+  // à GSAP, ou on rend le sourire visible si rien ne démarre.
+  function rendreLeSourire() { racine.classList.remove("sourire-attendu"); }
+
   function animationsArretees() { return racine.classList.contains("sans-animation"); }
 
   function regarder(tl, yeux, cible, duree, position, ease) {
@@ -31,6 +35,7 @@
       .to(symbole, { y: 0, duration: 1.1, ease: "bounce.out" });
     if (avecDessin) {
       gsap.set(sourire, { drawSVG: "0% 0%", visibility: "hidden" });
+      rendreLeSourire();
       tl.set(sourire, { visibility: "visible" }, "+=0.1")
         .to(sourire, { drawSVG: "0% 100%", duration: 1, ease: "power1.inOut" });
     }
@@ -124,15 +129,16 @@
 
   function demarrer() {
     var logo = document.querySelector(".accroche .logo");
-    if (!logo) return;
+    if (!logo) return rendreLeSourire();
     var symbole = logo.querySelector(".logo-symbole");
     var yeux = gsap.utils.toArray(logo.querySelectorAll(".logo-oeil"));
     var sourire = logo.querySelector(".logo-sourire");
-    if (!symbole || yeux.length !== 2 || !sourire) return;
+    if (!symbole || yeux.length !== 2 || !sourire) return rendreLeSourire();
 
     if (avecDessin) gsap.registerPlugin(DrawSVGPlugin);
     logo.style.overflow = "visible"; // le symbole peut monter au-dessus de sa boîte pendant les bonds
 
+    if (!avecDessin) rendreLeSourire();
     var debut = gsap.globalTimeline.time();
     var apres = introduction(symbole, sourire);
     clignement(yeux, apres + 2);
@@ -170,7 +176,8 @@
     if (observateur) observateur.disconnect();
   }
 
-  if (typeof gsap === "undefined" || !themeHalloweenActif()) return;
+  if (typeof gsap === "undefined" || !themeHalloweenActif()) return rendreLeSourire();
+  if (animationsArretees()) rendreLeSourire();
   essayer();
   // Si les animations étaient arrêtées au chargement, elles démarrent quand le visiteur les reprend.
   if (!demarre) {

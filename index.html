@@ -10,6 +10,20 @@
   <link rel="stylesheet" href="style.css">
   <!-- Saison en cours : changer ce fichier (saisons/noel.css, saisons/paques.css…) ou supprimer la ligne pour revenir au site sobre. -->
   <link rel="stylesheet" href="saisons/halloween.css">
+  <!-- Halloween : le sourire du logo reste masqué jusqu'à son tracé, pour éviter un flash. Repli : la classe est
+       posée seulement si le thème est actif et les animations ne sont pas arrêtées, retirée par js/halloween.js,
+       et de toute façon après 3 s ; sans JavaScript, le sourire reste visible. -->
+  <script>
+    (function () {
+      var lien = document.querySelector('link[href$="saisons/halloween.css"]');
+      var choix; try { choix = localStorage.getItem("animations-arretees"); } catch (e) {}
+      var arretees = choix === "oui" || (choix !== "non" && matchMedia("(prefers-reduced-motion: reduce)").matches);
+      if (!lien || lien.disabled || arretees) return;
+      var racine = document.documentElement;
+      racine.classList.add("sourire-attendu");
+      setTimeout(function () { racine.classList.remove("sourire-attendu"); }, 3000);
+    })();
+  </script>
   <script defer src="js/vendor/gsap.min.js"></script>
   <script defer src="js/vendor/DrawSVGPlugin.min.js"></script>
   <script defer src="js/vendor/MotionPathPlugin.min.js"></script>

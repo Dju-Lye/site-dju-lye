@@ -33,6 +33,9 @@
   pointer-events: none;
 }
 
+/* Sourire du logo masqué avant son tracé (classe posée par le <head>, retirée par js/halloween.js ou après 3 s) */
+html.sourire-attendu .logo-sourire { visibility: hidden; }
+
 /* Fenêtre réduite sous 900 px pendant la visite : la chauve-souris disparaît */
 @media (max-width: 899px) {
   .accroche .chauve-souris { display: none !important; }
