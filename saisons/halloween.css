@@ -2,12 +2,17 @@
    Période conseillée : de mi-octobre au 1er novembre.
    Emplacements utilisés :
    1. au-dessus du logo (.accroche .contenu::after) : petite citrouille ;
-   2. ciel de l'en-tête, PC seulement (.accroche .contenu::before, dès 900px) : chauves-souris ;
+   2. ciel de l'en-tête, PC seulement (.accroche .contenu::before, dès 900px) : cinq chauves-souris trapues
+      (tailles 56, 40, 40, 28, 28 px, opacité 0,6) dans la bande du haut, au-dessus du titre ;
    3. au-dessus de « Écrire à Julie » (.ecrire h2::before) : citrouille ;
    4. couleur des vagues (.courbe) : trait orange ;
    5. phrase de saison (.saison), texte dans index.html ;
    6. lune croissante miel pâle dans le coin du ciel, PC seulement (.accroche::before, dès 900px) ;
    7. halo miel derrière la citrouille du logo (.accroche::after).
+   Dessin de la chauve-souris : corps rond et trapu, ailes à 3 pointes arrondies, pas de crocs, liseré blanc 1,5 px.
+   Décor : corps aubergine clair #6b4a91 ; yeux blancs et petit sourire miel #f5c33b seulement à 40 px et plus
+   (à 28 px, pas de visage). Visiteuse (SVG en ligne de index.html, taille 44 px) : même dessin avec visage,
+   en orange #f28c28, couleur de saison propre au thème Halloween.
    Animations CSS (lentes, sans clignotement, coupées si le visiteur demande moins de mouvement) :
    - chauves-souris : dérive de 6 px et 1 degré d'inclinaison, 9 s ;
    - citrouille du bas : respire (échelle 1 à 1,03), 6 s ;
@@ -109,7 +114,7 @@
     pointer-events: none;
   }
 
-  /* Cinq chauves-souris lilas en vol, en haut de l'en-tête (à droite du logo jusqu'au coin) */
+  /* Cinq chauves-souris trapues en vol, dans la bande du haut du ciel (à droite du logo jusqu'au coin) */
   .accroche .contenu::before {
     content: "";
     position: absolute;
@@ -117,7 +122,7 @@
     right: 2rem;
     width: 34rem;
     height: 7rem;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 340 70'%3E%3Cdefs%3E%3Cg id='b'%3E%3Cpath d='M-4 -1 C-12 -8 -20 -6 -26 -2 C-23 0 -22 3 -20 5 C-17 2 -15 3 -13 6 C-11 3 -8 4 -4 4 Z M4 -1 C12 -8 20 -6 26 -2 C23 0 22 3 20 5 C17 2 15 3 13 6 C11 3 8 4 4 4 Z M0 5 C-4 5 -5 -2 -4 -6 L-2 -3 L0 -4 L2 -3 L4 -6 C5 -2 4 5 0 5 Z' fill='%238e6bb5'/%3E%3Ccircle cx='-1.7' cy='-1' r='.8' fill='%234a2a6e'/%3E%3Ccircle cx='1.7' cy='-1' r='.8' fill='%234a2a6e'/%3E%3C/g%3E%3C/defs%3E%3Cuse href='%23b' transform='translate(45 24) scale(1.4)'/%3E%3Cuse href='%23b' transform='translate(125 50) scale(1.7)'/%3E%3Cuse href='%23b' transform='translate(205 20) scale(1.9)'/%3E%3Cuse href='%23b' transform='translate(262 52) scale(1.5)'/%3E%3Cuse href='%23b' transform='translate(308 16) scale(1.2)'/%3E%3C/svg%3E") center / contain no-repeat;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 340 70'%3E%3Cdefs%3E%3Cg id='a'%3E%3Cpath d='M6.5 -2 C12 -8 20 -9 26 -5 Q27.5 -3.5 25.5 -2 Q22.5 -0.5 22 2 Q22 4 20 4.5 Q17.5 3 15.5 6 Q14 7.5 12.5 6 Q10 4 7 6 Z' fill='%236b4a91' stroke='%23ffffff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3Cpath d='M6.5 -2 C12 -8 20 -9 26 -5 Q27.5 -3.5 25.5 -2 Q22.5 -0.5 22 2 Q22 4 20 4.5 Q17.5 3 15.5 6 Q14 7.5 12.5 6 Q10 4 7 6 Z' transform='scale(-1 1)' fill='%236b4a91' stroke='%23ffffff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3Cpath d='M-7 -3 Q-7.5 -9 -4.5 -8.5 Q-2 -7.2 0 -7.2 Q2 -7.2 4.5 -8.5 Q7.5 -9 7 -3 Q8.5 1 7 5 Q4 9 0 9 Q-4 9 -7 5 Q-8.5 1 -7 -3 Z' fill='%236b4a91' stroke='%23ffffff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3C/g%3E%3Cg id='v'%3E%3Cuse href='%23a'/%3E%3Ccircle cx='-3.2' cy='-1' r='1.9' fill='%23ffffff'/%3E%3Ccircle cx='3.2' cy='-1' r='1.9' fill='%23ffffff'/%3E%3Cpath d='M-2.6 3.2 Q0 6 2.6 3.2' fill='none' stroke='%23f5c33b' stroke-width='1.4' stroke-linecap='round'/%3E%3C/g%3E%3C/defs%3E%3Cg opacity='.6'%3E%3Cuse href='%23v' transform='translate(40 17) scale(0.555)'/%3E%3Cuse href='%23v' transform='translate(110 12) scale(0.4)'/%3E%3Cuse href='%23v' transform='translate(175 19) scale(0.4)'/%3E%3Cuse href='%23a' transform='translate(240 9) scale(0.278)'/%3E%3Cuse href='%23a' transform='translate(300 15) scale(0.278)'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat;
     pointer-events: none;
     animation: vol 9s ease-in-out infinite alternate;
   }
