@@ -22,6 +22,7 @@
    protection de la charte), au milieu de sa hauteur. Sa trajectoire reste dans l'espace libre à droite du texte
    « Dju-Lye », sous les chauves-souris du décor et la lune, sans jamais les recouvrir. js/halloween.js mesure le
    logo au lancement et à chaque redimensionnement (gsap.matchMedia), tout en est déduit, rien en px fixes.
+   Débordement : .accroche porte overflow-x: clip, la visiteuse ne crée jamais de défilement horizontal (même police à 200 %).
    Animations CSS (lentes, sans clignotement, coupées si le visiteur demande moins de mouvement) :
    - chauves-souris : dérive de 6 px et 1 degré d'inclinaison, 9 s ;
    - citrouille du bas : respire (échelle 1 à 1,03), 6 s ;
@@ -112,7 +113,7 @@ html.sourire-attendu .logo-sourire { visibility: hidden; }
   height: var(--citrouille-taille);
 }
 
-.accroche { position: relative; z-index: 0; --marge: 1.25rem; --largeur: 62rem; }
+.accroche { position: relative; z-index: 0; --marge: 1.25rem; --largeur: 62rem; overflow-x: clip; }
 
 @media (min-width: 48em) {
   .accroche { --marge: 2rem; }
