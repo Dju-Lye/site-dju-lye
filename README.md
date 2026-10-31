@@ -45,8 +45,8 @@ Fichiers disponibles dans `saisons/` :
 - `geek.css` : geek rétro, du 3 au 30 novembre (à venir) ;
 - `halloween.css` : du 15 octobre au 2 novembre (en ligne) ;
 - `lumieres-decembre.css` : du 1er au 25 décembre, bleu nuit, étoile filante animée par `js/lumieres-decembre.js` (à brancher avec son script, la classe `sourire-attendu` du `<head>` et la phrase ; pas encore en ligne) ;
-- `bonne-annee.css` : du 26 décembre au 4 janvier (sans chiffre d'année, sert chaque année) ;
-- `galette.css` : du 5 au 18 janvier ;
+- `bonne-annee.css` : du 26 décembre au 4 janvier (sans chiffre d'année, sert chaque année), champagne et rose poudré, bouchon de champagne animé par `js/bonne-annee.js` (à brancher avec son script, la classe `sourire-attendu` du `<head>` et la phrase ; pas encore en ligne) ;
+- `galette.css` : du 5 au 18 janvier, brun beurre, fève qui se cache animée par `js/galette.js` (même branchement ; pas encore en ligne) ;
 - `crepes.css` : du 28 janvier au 10 février ;
 - `mots-doux.css` : du 11 au 15 février ;
 - `coin-du-feu.css` : du 16 février au 7 mars ;
@@ -74,4 +74,4 @@ Règles : animations et JavaScript acceptés, GSAP hébergé en local. L'objecti
 
 GSAP 3.15.0 (`js/vendor/gsap.min.js`), sous licence « Standard No Charge » : https://gsap.com/standard-license. Julie maintient cette dépendance : version fixée, mise à jour seulement avec son accord.
 
-Plugins GSAP 3.15.0, mêmes conditions : `js/vendor/DrawSVGPlugin.min.js` (sourire du logo qui se dessine) et `js/vendor/MotionPathPlugin.min.js` (vol de la chauve-souris), utilisés par `js/halloween.js` (thème Halloween seulement) et, pour l'étoile filante, par `js/lumieres-decembre.js` (thème Lumières de décembre seulement).
+Plugins GSAP 3.15.0, mêmes conditions : `js/vendor/DrawSVGPlugin.min.js` (sourire du logo qui se dessine) et `js/vendor/MotionPathPlugin.min.js` (vol de la chauve-souris), utilisés par `js/halloween.js` (thème Halloween seulement) et, pour l'étoile filante, par `js/lumieres-decembre.js` (thème Lumières de décembre seulement). `js/bonne-annee.js` et `js/galette.js` n'utilisent que GSAP et DrawSVG (pas MotionPath).
