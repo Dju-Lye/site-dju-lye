@@ -1,14 +1,19 @@
 /* Saison : Halloween
    Période conseillée : de mi-octobre au 1er novembre.
-   Emplacements utilisés :
-   1. au-dessus du logo (.accroche .contenu::after) : petite citrouille ;
+   Style : voir saisons/GUIDE-DE-STYLE.md (formes rondes et trapues, liseré blanc 1,5 px, visage seulement à 40 px et plus).
+   Objets (tous en data URI, fixes sauf mention) :
+   1. au-dessus du logo (.accroche .contenu::after) : citrouille avec visage, 40 px, opacité 1 ;
    2. ciel de l'en-tête, PC seulement (.accroche .contenu::before, dès 900px) : cinq chauves-souris trapues
       (tailles 56, 40, 40, 28, 28 px, opacité 0,6) dans la bande du haut, au-dessus du titre ;
-   3. au-dessus de « Écrire à Julie » (.ecrire h2::before) : citrouille ;
-   4. couleur des vagues (.courbe) : trait orange ;
-   5. phrase de saison (.saison), texte dans index.html ;
-   6. lune croissante miel pâle dans le coin du ciel, PC seulement (.accroche::before, dès 900px) ;
-   7. halo miel derrière la citrouille du logo (.accroche::after).
+   3. au-dessus de « Écrire à Julie » (.ecrire h2::before) : citrouille avec visage, 56 px, opacité 1 ;
+   4. vagues (.courbe) : trait orange #f28c28 de 6 px avec liseré blanc, petite citrouille sans visage (24 px)
+      tous les 120 px, opacité 1, sans mouvement ;
+   5. phrase de saison (.saison) : puce citrouille sans visage de 28 px devant le texte (texte dans index.html) ;
+   6. croissant épais miel pâle #f7d98a avec liseré blanc, sans visage, 64 px, opacité 0,6, dans le coin du ciel,
+      PC seulement (.accroche::before, dès 900px) ;
+   7. halo miel derrière la citrouille du logo (.accroche::after), 64 px.
+   Citrouille : 3 lobes orange #f28c28, liseré blanc 1,5 px, queue aubergine clair #6b4a91 ; définie une fois
+   (--citrouille avec visage, --citrouille-nue sans visage pour moins de 40 px).
    Dessin de la chauve-souris : corps rond et trapu, ailes à 3 pointes arrondies, pas de crocs, liseré blanc 1,5 px.
    Décor : corps aubergine clair #6b4a91 ; yeux blancs et petit sourire miel #f5c33b seulement à 40 px et plus
    (à 28 px, pas de visage). Visiteuse (SVG en ligne de index.html, taille 44 px) : même dessin avec visage,
