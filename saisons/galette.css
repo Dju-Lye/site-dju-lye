@@ -1,22 +1,60 @@
 /* Saison : La galette (du 5 au 18 janvier)
-   Phrase de saison, à mettre dans <p class="saison"> d'index.html :
+   Phrase de saison (<p class="saison"> d'index.html) :
    Qui aura la fève&#8239;? En tout cas, vos photos, elles, n'ont rien à craindre&#8239;!
-   Emplacements utilisés :
-   1. au-dessus du logo (.accroche .contenu::after) : part de galette qui sourit ;
-   2. ciel de l'en-tête, PC seulement (.accroche .contenu::before, dès 900px) : couronne et fèves ;
-   3. au-dessus de « Écrire à Julie » (.ecrire h2::before) : fève qui sourit dans son nid ;
-   4. couleur des vagues (.courbe) : dorure striée miel ;
-   5. phrase de saison (.saison), texte dans index.html. */
+   Style : saisons/GUIDE-DE-STYLE.md (formes rondes et trapues, liseré blanc 1,5 px, visage seulement à 40 px et plus).
+   Couleurs : brun beurre #5c3d1e (remplace l'aubergine des sections sombres et des vagues), crème doré #f7e2a8, miel #f5c33b,
+   brun clair #a87a45 (secondaire). Contrastes sur le brun beurre : blanc 9,8 ; crème doré 7,7 ; miel 6,0.
+   Le carré aubergine du logo reste visible grâce à son contour blanc.
+   Objets (data URI, fixes sauf mention) :
+   1. au-dessus du logo (.accroche .contenu::after) : part de galette ronde et trapue (crème doré, croûte miel), 40 px, opacité 1,
+      visage aubergine ;
+   2. ciel, PC seulement (dès 900px), opacité 0,6 : couronne arrondie remplie miel avec 3 boules blanches fixes (~90 px), quatre
+      petites fèves rondes (~14 px, sans visage) et trois ronds ;
+   3. au-dessus de « Écrire à Julie » (.ecrire h2::before) : fève ronde miel avec visage aubergine, 56 px, opacité 1 ;
+   4. vagues (.courbe) : trait miel de 5 px en dents arrondies (liseré blanc fin), fève ronde crème doré de 24 px tous les 120 px ;
+   5. phrase de saison (.saison) : puce fève ronde miel sans visage, 28 px.
+   Visiteuse : la fève qui se cache (SVG créé par js/galette.js, 44 px, avec visage), PC seulement. Posée contre la couronne
+   du ciel (position calculée sur le ciel), elle sourit, glisse un peu derrière la couronne en s'effaçant (opacité, 3 s), reste
+   cachée 8 s, puis réapparaît en fondu (2,5 s) ; cycle d'environ 19 s. Rien d'interactif. Le SVG est derrière le ciel
+   (z-index -1 dans .accroche). Le sourire du logo reste masqué avant son tracé (classe sourire-attendu du <head>). */
 
+/* Fève (PC) : ancrée au coin du .contenu, placée par le script, derrière la couronne du ciel */
+.accroche .feve-cachee {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Sourire masqué avant son tracé (classe du <head>) */
+html.sourire-attendu .logo-sourire { visibility: hidden; }
+
+/* Sous 900 px : pas de fève animée */
+@media (max-width: 899px) {
+  .accroche .feve-cachee { display: none !important; }
+}
+
+/* Brun beurre à la place de l'aubergine : sections sombres et moitié sombre des vagues */
+:root { --beurre: #5c3d1e; }
+.sombre { background: var(--beurre); }
+.courbe.a-c { --de: var(--beurre); }
+.courbe.c-a { --vers: var(--beurre); }
+
+.accroche { position: relative; z-index: 0; overflow-x: clip; }
+
+/* Vagues : forme de style.css décalée de 6 px, dents arrondies, fève tous les 120 px */
 .courbe {
   background:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='36' viewBox='0 0 120 36'%3E%3Cpath d='M0 12 Q30 32 60 12 T120 12' fill='none' stroke='%23f5c33b' stroke-width='6' stroke-dasharray='2 4' stroke-linecap='butt'/%3E%3C/svg%3E") center / 120px 36px repeat-x,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='36' viewBox='0 0 120 36'%3E%3Cpath d='M0 22a7.5 7.5 0 0 1 15 0a7.5 7.5 0 0 1 15 0a7.5 7.5 0 0 1 15 0a7.5 7.5 0 0 1 15 0a7.5 7.5 0 0 1 15 0a7.5 7.5 0 0 1 15 0a7.5 7.5 0 0 1 15 0a7.5 7.5 0 0 1 15 0' fill='none' stroke='%23fff' stroke-width='6.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M0 22a7.5 7.5 0 0 1 15 0a7.5 7.5 0 0 1 15 0a7.5 7.5 0 0 1 15 0a7.5 7.5 0 0 1 15 0a7.5 7.5 0 0 1 15 0a7.5 7.5 0 0 1 15 0a7.5 7.5 0 0 1 15 0a7.5 7.5 0 0 1 15 0' fill='none' stroke='%23f5c33b' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cg transform='translate(48 5.5) scale(.5)'%3E%3Cellipse cx='24' cy='25' rx='19' ry='17' fill='%23f7e2a8' stroke='%23fff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3C/g%3E%3C/svg%3E") center / 120px 36px repeat-x,
     linear-gradient(to bottom, var(--de) 50%, var(--vers) 50%);
 }
 
+/* Corps définis une fois ; --part ajoute le visage (40 px et plus) */
 :root {
-  --logo: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M6 40 L4 14 L15 25 L24 8 L33 25 L44 14 L42 40 Z' fill='%23f5c33b'/%3E%3Crect x='6' y='34' width='36' height='6' rx='2' fill='%238e6bb5'/%3E%3Ccircle cx='4' cy='12' r='3.2' fill='%23fbf5e6'/%3E%3Ccircle cx='24' cy='6' r='3.2' fill='%23fbf5e6'/%3E%3Ccircle cx='44' cy='12' r='3.2' fill='%23fbf5e6'/%3E%3Ccircle cx='18' cy='26' r='2.2' fill='%234a2a6e'/%3E%3Ccircle cx='30' cy='26' r='2.2' fill='%234a2a6e'/%3E%3Cpath d='M20 29.5 Q24 32.5 28 29.5' fill='none' stroke='%234a2a6e' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E");
-  --ecrire: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cellipse cx='24' cy='22' rx='14' ry='11' fill='%23f5c33b' stroke='%234a2a6e' stroke-width='1.5'/%3E%3Ccircle cx='18.5' cy='20' r='2' fill='%234a2a6e'/%3E%3Ccircle cx='29.5' cy='20' r='2' fill='%234a2a6e'/%3E%3Cpath d='M19 26 Q24 31 29 26' fill='none' stroke='%234a2a6e' stroke-width='2.2' stroke-linecap='round'/%3E%3Cpath d='M2 24 Q4 46 24 46 Q44 46 46 24' fill='none' stroke='%238e6bb5' stroke-width='5' stroke-linecap='round'/%3E%3Cpath d='M6 30 Q24 40 42 30 M8 37 Q24 46 40 37' fill='none' stroke='%234a2a6e' stroke-width='2.5' stroke-linecap='round'/%3E%3Cpath d='M4 28 L14 41 M44 28 L34 41 M24 39 L17 45 M24 39 L31 45' fill='none' stroke='%234a2a6e' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+  --part: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M24 7Q27 7 29 11L43 34Q46 40 40 41Q24 45 8 41Q2 40 5 34L19 11Q21 7 24 7Z' fill='%23f7e2a8' stroke='%23fff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3Cpath d='M10 37Q24 42 38 37' fill='none' stroke='%23f5c33b' stroke-width='3' stroke-linecap='round'/%3E%3Ccircle cx='18.5' cy='26' r='2.1' fill='%234a2a6e'/%3E%3Ccircle cx='29.5' cy='26' r='2.1' fill='%234a2a6e'/%3E%3Cpath d='M18.5 31 Q24.0 36 29.5 31' fill='none' stroke='%234a2a6e' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E");
+  --feve: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cellipse cx='24' cy='25' rx='19' ry='17' fill='%23f5c33b' stroke='%23fff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3Ccircle cx='18.5' cy='23' r='2.2' fill='%234a2a6e'/%3E%3Ccircle cx='29.5' cy='23' r='2.2' fill='%234a2a6e'/%3E%3Cpath d='M18.5 28.5 Q24.0 33.5 29.5 28.5' fill='none' stroke='%234a2a6e' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E");
+  --feve-nue: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cellipse cx='24' cy='25' rx='19' ry='17' fill='%23f5c33b' stroke='%23fff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
 }
 
 .ecrire h2::before {
@@ -25,13 +63,24 @@
   width: 56px;
   height: 56px;
   margin-bottom: .5rem;
-  background: var(--ecrire) center / contain no-repeat;
+  background: var(--feve) center / contain no-repeat;
   pointer-events: none;
 }
 
 .saison { margin-top: 1rem; }
 
-/* Décor en haut à gauche de l'en-tête, au-dessus du logo (mobile et PC) */
+/* Puce de la phrase de saison : fève ronde sans visage (28 px), devant le texte */
+.saison::before {
+  content: "";
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  margin-right: .5rem;
+  vertical-align: middle;
+  background: var(--feve-nue) center / contain no-repeat;
+}
+
+/* Part de galette en haut à gauche de l'en-tête, au-dessus du logo (mobile et PC) */
 .accroche .contenu { position: relative; padding-top: 3.75rem; }
 .accroche .contenu::after {
   content: "";
@@ -40,7 +89,7 @@
   left: 1.25rem;
   width: 40px;
   height: 40px;
-  background: var(--logo) center / contain no-repeat;
+  background: var(--part) center / contain no-repeat;
   pointer-events: none;
 }
 
@@ -51,7 +100,7 @@
 @media (min-width: 900px) {
   .ecrire h2::before { margin-left: auto; margin-right: auto; }
 
-  /* Décor en haut de l'en-tête (à droite du logo jusqu'au coin) */
+  /* Ciel : couronne, petites fèves, ronds (opacité 0,6) */
   .accroche .contenu::before {
     content: "";
     position: absolute;
@@ -59,7 +108,7 @@
     right: 2rem;
     width: 34rem;
     height: 7rem;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 340 70'%3E%3Cpath d='M250 60 L246 26 L266 42 L282 18 L298 42 L318 26 L314 60 Z' fill='%23f5c33b'/%3E%3Crect x='250' y='50' width='64' height='9' rx='2' fill='%238e6bb5'/%3E%3Ccircle cx='246' cy='24' r='4' fill='%23fbf5e6'/%3E%3Ccircle cx='282' cy='15' r='4' fill='%23fbf5e6'/%3E%3Ccircle cx='318' cy='24' r='4' fill='%23fbf5e6'/%3E%3Ccircle cx='260' cy='54.5' r='2.2' fill='%23f5c33b'/%3E%3Ccircle cx='272' cy='54.5' r='2.2' fill='%23fbf5e6'/%3E%3Ccircle cx='284' cy='54.5' r='2.2' fill='%23f5c33b'/%3E%3Ccircle cx='296' cy='54.5' r='2.2' fill='%23fbf5e6'/%3E%3Ccircle cx='308' cy='54.5' r='2.2' fill='%23f5c33b'/%3E%3Cellipse cx='24' cy='44' rx='8' ry='5.5' fill='%23fbf5e6' transform='rotate(-20 24 44)'/%3E%3Cellipse cx='76' cy='22' rx='8' ry='5.5' fill='%23f5c33b' transform='rotate(30 76 22)'/%3E%3Cellipse cx='130' cy='50' rx='8' ry='5.5' fill='%238e6bb5' transform='rotate(10 130 50)'/%3E%3Cellipse cx='184' cy='26' rx='8' ry='5.5' fill='%23fbf5e6' transform='rotate(-35 184 26)'/%3E%3Cellipse cx='212' cy='52' rx='8' ry='5.5' fill='%23f5c33b' transform='rotate(50 212 52)'/%3E%3C/svg%3E") center / contain no-repeat;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 340 70'%3E%3Cg opacity='.6'%3E%3Cg transform='translate(258.4 2.4) scale(1.4)'%3E%3Cpath d='M8 36Q4 20 8 14Q12 12 16 22Q20 10 24 10Q28 10 32 22Q36 12 40 14Q44 20 40 36Q24 42 8 36Z' fill='%23f5c33b' stroke='%23fff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3Ccircle cx='9' cy='13' r='3.2' fill='%23fff'/%3E%3Ccircle cx='24' cy='9' r='3.2' fill='%23fff'/%3E%3Ccircle cx='39' cy='13' r='3.2' fill='%23fff'/%3E%3C/g%3E%3Cg transform='translate(28.8 16.5) scale(.3)'%3E%3Cellipse cx='24' cy='25' rx='19' ry='17' fill='%23f7e2a8' stroke='%23fff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3C/g%3E%3Cg transform='translate(90.8 30.5) scale(.3)'%3E%3Cellipse cx='24' cy='25' rx='19' ry='17' fill='%23a87a45' stroke='%23fff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3C/g%3E%3Cg transform='translate(142.8 10.5) scale(.3)'%3E%3Cellipse cx='24' cy='25' rx='19' ry='17' fill='%23f5c33b' stroke='%23fff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3C/g%3E%3Cg transform='translate(198.8 32.5) scale(.3)'%3E%3Cellipse cx='24' cy='25' rx='19' ry='17' fill='%23f7e2a8' stroke='%23fff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3C/g%3E%3Ccircle cx='68' cy='14' r='3.5' fill='%23f7e2a8' stroke='%23fff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3Ccircle cx='124' cy='30' r='3' fill='%23f5c33b' stroke='%23fff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3Ccircle cx='180' cy='34' r='3.5' fill='%23a87a45' stroke='%23fff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat;
     pointer-events: none;
   }
 }
