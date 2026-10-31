@@ -13,6 +13,15 @@
    - citrouille du bas : respire (échelle 1 à 1,03), 6 s ;
    - halo du logo : seule son opacité varie (0,35 à 0,7), 7 s ; la citrouille ne bouge pas. */
 
+/* Chauve-souris qui fait coucou au logo (PC) : ancrée au coin du logo, déplacée par js/halloween.js */
+.accroche .chauve-souris {
+  position: absolute;
+  left: 2rem;
+  top: 3.75rem;
+  z-index: 1;
+  pointer-events: none;
+}
+
 /* Visiteur qui demande moins de mouvement : aucune animation */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; }

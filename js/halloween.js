@@ -59,6 +59,46 @@
     tl.to({}, { duration: 3 });
   }
 
+  // Trajets de la chauve-souris, en px depuis le coin haut-gauche du logo (PC) : du ciel jusqu'à
+  // la gouttière au-dessus de l'écart carré / texte, hors citrouille, et retour.
+  var DEPART = { x: 620, y: -36 };
+  var POSE = { x: 77, y: -6 };
+  var ALLER = [DEPART, { x: 450, y: -44 }, { x: 230, y: -30 }, POSE];
+  var RETOUR = [POSE, { x: 200, y: -40 }, { x: 420, y: -44 }, { x: 620, y: -30 }];
+
+  // Retourne la chauve-souris prête, ou null (mobile, plugin absent, balise absente)
+  function preparerChauveSouris() {
+    var chauve = document.querySelector(".accroche .chauve-souris");
+    if (!chauve || typeof MotionPathPlugin === "undefined") return null;
+    if (!window.matchMedia("(min-width: 900px)").matches) return null;
+    gsap.registerPlugin(MotionPathPlugin);
+    gsap.set(chauve, { display: "block", autoAlpha: 0, xPercent: -50, yPercent: -100, x: DEPART.x, y: DEPART.y });
+    return chauve;
+  }
+
+  function voler(tl, chauve, ailes, trajet, position) {
+    tl.to(chauve, { motionPath: { path: trajet, curviness: 1.2 }, duration: 3.4, ease: "sine.inOut" }, position)
+      .to(ailes, { scaleY: 0.5, duration: 0.34, repeat: 9, yoyo: true, ease: "sine.inOut", svgOrigin: "0 0" }, position);
+  }
+
+  // Un passage : arrive, se pose, repart. Les yeux la suivent, le sourire s'agrandit pendant qu'elle est là.
+  function visiteChauveSouris(tl, yeux, sourire, chauve) {
+    var ailes = chauve.querySelector(".chauve-souris-ailes");
+    tl.set(chauve, { x: DEPART.x, y: DEPART.y, autoAlpha: 0 }, 0)
+      .addLabel("arrivee", 0)
+      .to(chauve, { autoAlpha: 1, duration: 0.5 }, "arrivee");
+    voler(tl, chauve, ailes, ALLER, "arrivee");
+    tl.to(yeux, { x: VERS_LUNE.x, y: VERS_LUNE.y, duration: 0.6, ease: "power2.inOut" }, "arrivee")
+      .to(yeux, { x: 1, y: -2, duration: 2.8, ease: "sine.inOut" }, "arrivee+=0.6")
+      .addLabel("pose", "arrivee+=3.4")
+      .to(sourire, { scale: 1.1, duration: 0.6, ease: "sine.inOut", transformOrigin: "50% 50%" }, "pose")
+      .addLabel("depart", "pose+=3.2")
+      .to(sourire, { scale: 1, duration: 0.6, ease: "sine.inOut" }, "depart");
+    voler(tl, chauve, ailes, RETOUR, "depart");
+    tl.to(chauve, { autoAlpha: 0, duration: 0.5 }, "depart+=2.9")
+      .to(yeux, { x: VERS_LUNE.x, y: VERS_LUNE.y, duration: 3.4, ease: "sine.inOut" }, "depart");
+  }
+
   function demarrer() {
     var logo = document.querySelector(".accroche .logo");
     if (!logo) return;
@@ -74,6 +114,8 @@
     clignement(yeux, apres + 2);
     var avecLune = window.matchMedia("(min-width: 900px)").matches;
     var boucle = gsap.timeline({ repeat: -1, delay: apres + 0.5 });
+    var chauve = preparerChauveSouris();
+    if (chauve) visiteChauveSouris(boucle, yeux, sourire, chauve);
     regardLuneEtCitrouille(boucle, yeux, sourire, avecLune);
   }
 
