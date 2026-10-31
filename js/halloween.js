@@ -35,7 +35,6 @@
       .to(symbole, { y: 0, duration: 1.1, ease: "bounce.out" });
     if (avecDessin) {
       gsap.set(sourire, { drawSVG: "0% 0%", visibility: "hidden" });
-      rendreLeSourire();
       tl.set(sourire, { visibility: "visible" }, "+=0.1")
         .to(sourire, { drawSVG: "0% 100%", duration: 1, ease: "power1.inOut" });
     }
@@ -85,7 +84,6 @@
     var pose = { x: mesure.droite + h / 2 + largeurVisiteuse / 2, y: mesure.milieu };
     function point(dx, dy) { return { x: pose.x + dx * h, y: pose.y + dy * h }; }
     return {
-      depart: point(5, 0.45),
       aller: [point(5, 0.45), point(3.2, 0.55), point(1.6, 0.3), pose],
       retour: [pose, point(1.4, 0.5), point(3.2, 0.6), point(5, 0.35)]
     };
@@ -98,7 +96,6 @@
     gsap.registerPlugin(MotionPathPlugin);
     gsap.set(chauve, { display: "block", autoAlpha: 0, xPercent: -50, yPercent: -50 });
     var trajets = calculerTrajets(mesurerLogo(logo, symbole), chauve.getBoundingClientRect().width);
-    gsap.set(chauve, { x: trajets.depart.x, y: trajets.depart.y });
     return { chauve: chauve, trajets: trajets };
   }
 
@@ -112,7 +109,7 @@
     var chauve = visiteuse.chauve;
     var trajets = visiteuse.trajets;
     var ailes = chauve.querySelector(".chauve-souris-ailes");
-    tl.set(chauve, { x: trajets.depart.x, y: trajets.depart.y, autoAlpha: 0 }, 0)
+    tl.set(chauve, { x: trajets.aller[0].x, y: trajets.aller[0].y, autoAlpha: 0 }, 0)
       .addLabel("arrivee", 0)
       .to(chauve, { autoAlpha: 1, duration: 0.5 }, "arrivee");
     voler(tl, chauve, ailes, trajets.aller, "arrivee");
@@ -128,35 +125,38 @@
   }
 
   function demarrer() {
+    rendreLeSourire(); // sans tracé, le sourire reste visible ; sinon l'introduction le recache aussitôt (même passage synchrone)
     var logo = document.querySelector(".accroche .logo");
-    if (!logo) return rendreLeSourire();
+    if (!logo) return;
     var symbole = logo.querySelector(".logo-symbole");
     var yeux = gsap.utils.toArray(logo.querySelectorAll(".logo-oeil"));
     var sourire = logo.querySelector(".logo-sourire");
-    if (!symbole || yeux.length !== 2 || !sourire) return rendreLeSourire();
+    if (!symbole || yeux.length !== 2 || !sourire) return;
 
     if (avecDessin) gsap.registerPlugin(DrawSVGPlugin);
     logo.style.overflow = "visible"; // le symbole peut monter au-dessus de sa boîte pendant les bonds
 
-    if (!avecDessin) rendreLeSourire();
     var debut = gsap.globalTimeline.time();
     var apres = introduction(symbole, sourire);
     clignement(yeux, apres + 2);
-    monterBoucle(logo, symbole, yeux, sourire, debut + apres + 0.5);
+    departBoucle = debut + apres + 0.5;
+    monterBoucle(logo, symbole, yeux, sourire);
     // Le logo change de taille avec la fenêtre ou le zoom : on remesure et on recrée la boucle.
     var minuteur = null;
     window.addEventListener("resize", function () {
       clearTimeout(minuteur);
-      minuteur = setTimeout(function () { monterBoucle(logo, symbole, yeux, sourire, 0); }, 150);
+      minuteur = setTimeout(function () { monterBoucle(logo, symbole, yeux, sourire); }, 150);
     });
   }
 
   // La boucle (regards, visite de la visiteuse) est recréée selon la largeur : visiteuse seulement
   // à partir de 900 px. Le nettoyage (revert) rend yeux, sourire et visiteuse à leur état d'origine.
+  // Au redimensionnement, la boucle garde l'instant de départ prévu : la visite ne coupe pas l'introduction.
   var largeurs = null;
-  function monterBoucle(logo, symbole, yeux, sourire, instantDepart) {
+  var departBoucle = 0;
+  function monterBoucle(logo, symbole, yeux, sourire) {
     if (largeurs) largeurs.kill(true);
-    var delai = Math.max(0.3, instantDepart - gsap.globalTimeline.time());
+    var delai = Math.max(0.3, departBoucle - gsap.globalTimeline.time());
     largeurs = gsap.matchMedia();
     largeurs.add({ pc: "(min-width: 900px)" }, function (contexte) {
       var avecLune = contexte.conditions.pc;
@@ -170,14 +170,14 @@
   var observateur = null;
 
   function essayer() {
-    if (demarre || animationsArretees()) return;
+    if (demarre) return;
+    if (animationsArretees()) return rendreLeSourire();
     demarre = true;
     demarrer();
     if (observateur) observateur.disconnect();
   }
 
   if (typeof gsap === "undefined" || !themeHalloweenActif()) return rendreLeSourire();
-  if (animationsArretees()) rendreLeSourire();
   essayer();
   // Si les animations étaient arrêtées au chargement, elles démarrent quand le visiteur les reprend.
   if (!demarre) {

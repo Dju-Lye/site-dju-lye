@@ -15,7 +15,7 @@
        et de toute façon après 3 s ; sans JavaScript, le sourire reste visible. -->
   <script>
     (function () {
-      var lien = document.querySelector('link[href$="saisons/halloween.css"]');
+      var lien = document.querySelector('link[rel="stylesheet"][href$="saisons/halloween.css"]');
       var choix; try { choix = localStorage.getItem("animations-arretees"); } catch (e) {}
       var arretees = choix === "oui" || (choix !== "non" && matchMedia("(prefers-reduced-motion: reduce)").matches);
       if (!lien || lien.disabled || arretees) return;
