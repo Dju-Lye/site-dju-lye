@@ -249,6 +249,9 @@ footer a { display: inline-block; padding: .6rem 0; color: var(--miel); font-wei
 
 .saison:empty { display: none; }
 
+/* Ornements vides d'un thème (Bip, manette…) : invisibles tant qu'un thème ne les affiche pas */
+.deco-theme { display: none; }
+
 /* Micro-interactions (CSS pur) : 200 ms, sur transform, opacity et background-size seulement */
 
 /* Boutons : montent de 2 px, l'ombre aubergine est un pseudo-élément dont seule l'opacité change */
@@ -306,25 +309,51 @@ footer a:hover, footer a:focus-visible, .logo-lien:hover, .logo-lien:focus-visib
   .bouton:hover, .bouton:focus-visible, .carte:hover { transform: none; }
 }
 
-/* Bouton « Arrêter les animations » (créé par js/animations.js) : pastille fixe en bas à gauche */
+/* Bouton « Arrêter les animations » (créé par js/animations.js) : pastille ronde de 44 px, en bas à droite, translucide
+   (pleine au survol et au focus). Le nom accessible est un libellé masqué (.sr-seul) ; le symbole est dessiné en CSS. */
+.sr-seul {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
 #pause-animations {
   position: fixed;
-  left: 1rem;
-  bottom: 1rem;
+  right: .75rem;
+  bottom: .75rem;
   z-index: 10;
-  min-height: 2.75rem;
-  padding: .5rem 1rem;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
   background: var(--creme);
   color: var(--aubergine);
   border: 3px solid var(--aubergine);
-  border-radius: 1.5rem;
-  font-family: "Lexend", "Segoe UI", sans-serif;
-  font-weight: 600;
-  font-size: 1rem;
+  border-radius: 50%;
+  opacity: .65;
+  transition: opacity 200ms;
   cursor: pointer;
 }
+#pause-animations:hover, #pause-animations:focus-visible { opacity: 1; }
 #pause-animations:hover { background: #ffffff; }
+.pause-icone { /* ⏸ : deux barres */
+  width: 14px;
+  height: 14px;
+  background: linear-gradient(90deg, var(--aubergine) 0 35%, transparent 35% 65%, var(--aubergine) 65% 100%);
+  border-radius: 1px;
+}
+html.sans-animation .pause-icone { /* ▶ : triangle */
+  background: var(--aubergine);
+  clip-path: polygon(15% 0, 100% 50%, 15% 100%);
+}
 html.avec-pause footer { padding-bottom: 4.5rem; } /* le bouton fixe ne masque pas le pied de page */
+@media (max-width: 47.99em) { /* mobile : le bouton ne suit pas le défilement, il reste en bas de page sous le texte */
+  body { position: relative; }
+  #pause-animations { position: absolute; }
+}
 
 /* Animations arrêtées par le visiteur : plus de mouvement, les effets de couleur restent */
 html.sans-animation *, html.sans-animation *::before, html.sans-animation *::after {
