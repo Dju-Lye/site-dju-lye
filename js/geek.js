@@ -194,7 +194,8 @@
       if (observateur) observateur.disconnect();
       if (tween) tween.kill();
       afficher(50);
-      gsap.set(bonus, { opacity: 1, y: 0 });
+      bonus.style.opacity = 1; // en direct : la ligne de temps de GSAP peut être en pause
+      bonus.style.transform = "none";
     }
     function compter() {
       var etat = { v: 0 };
@@ -359,6 +360,7 @@
         actif = true;
         construire();
         ecoute = auChangementDeLargeur(function () { construire(); majMarche(); });
+        if (document.fonts) document.fonts.ready.then(function () { if (actif) { construire(); majMarche(); } }); // la police change la largeur du lien
         window.addEventListener("resize", ecoute);
         observateur = new IntersectionObserver(auVu);
         observateur.observe(bipHaut);
@@ -370,8 +372,7 @@
         if (observateur) observateur.disconnect();
         if (tl) tl.kill();
         tl = null;
-        gsap.set(marcheur, { clearProps: "all" });
-        marcheur.style.left = "";
+        marcheur.style.cssText = ""; // en direct : la ligne de temps de GSAP peut être en pause
         piste.classList.add("immobile");
       }
     };
@@ -390,13 +391,13 @@
     message.setAttribute("aria-live", "polite");
     var danseur = bip.cloneNode(true); // copie du Bip, créée avant toute classe d'état
     danseur.setAttribute("class", "bip-danse");
-    danseur.hidden = true;
+    danseur.setAttribute("hidden", ""); // attribut (un SVG n'a pas de propriété hidden)
     document.body.append(message, danseur);
 
     function ranger() {
       if (tl) tl.kill();
       tl = null;
-      danseur.hidden = true;
+      danseur.setAttribute("hidden", "");
       message.textContent = "";
       document.body.classList.remove("bip-ailleurs");
       if (pied) pied.maj();
@@ -407,7 +408,7 @@
       document.body.classList.add("bip-ailleurs"); // Bip du haut et Bip du pied s'effacent : un seul Bip à la fois
       if (pied) pied.maj();
       message.textContent = "Bravo, vous avez trouvé la porte secrète\u202f!";
-      danseur.hidden = false;
+      danseur.removeAttribute("hidden");
       gsap.set(danseur, { x: -60, y: 0, rotation: 0, transformOrigin: "50% 100%" });
       tl = gsap.timeline({
         onComplete: function () { ranger(); visite.debut(20); }
@@ -546,7 +547,7 @@
     var phrase = zone && zone.querySelector("p:not(.prix)");
     var noeud = phrase && phrase.firstChild;
     var cible = "25\u00a0€";
-    var rebond = null;
+    var rebond = null, rebondi = null;
     while (noeud && !(noeud.nodeType === 3 && noeud.nodeValue.indexOf(cible) >= 0)) noeud = noeud.nextSibling;
     if (!noeud) return null;
     var plage = document.createRange();
@@ -570,6 +571,7 @@
       var element = evenement.target.closest(".vingt-cinq, .bonus-25");
       if (!element || rebond || getComputedStyle(element).opacity < 0.5) return;
       bonus(element.getBoundingClientRect());
+      rebondi = element;
       rebond = gsap.fromTo(element, { y: -36 }, {
         y: 0, duration: 1.1, ease: "bounce.out",
         onComplete: function () { rebond = null; }
@@ -577,7 +579,10 @@
     }
     return {
       debut: function () { zone.addEventListener("click", auClic); },
-      fin: function () { zone.removeEventListener("click", auClic); if (rebond) rebond.progress(1); }
+      fin: function () {
+        zone.removeEventListener("click", auClic);
+        if (rebond) { rebond.kill(); rebond = null; rebondi.style.transform = ""; }
+      }
     };
   }
 
