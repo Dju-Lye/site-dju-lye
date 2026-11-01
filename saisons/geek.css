@@ -1,56 +1,96 @@
-/* Saison : Geek rétro (clins d'œil aux jeux vidéo rétro, dessins originaux, tout est fixe)
-   Emplacements utilisés :
-   1. au-dessus du logo (.accroche .contenu::after) : rond miel bouche ouverte ;
-   2. ciel de l'en-tête, PC seulement (.accroche .contenu::before, dès 900px) : rond qui mange des pastilles, visage pixel, pièces empilées ;
-   3. au-dessus de « Écrire à Julie » (.ecrire h2::before) : cœur pixel ;
-   4. couleur des vagues (.courbe) : ligne de pastilles miel ;
-   5. phrase de saison (.saison), texte dans index.html. */
+/* Saison : Geek, « Pixels de quartier » (thème de repos : sans période, il reste en place hors fête)
+   Phrase de saison (<p class="saison"> d'index.html) :
+   Ici, on joue la partie sans stress&#8239;: une voisine, un ordi, et on le répare ensemble&#8239;!
+   Style : saisons/GUIDE-DE-STYLE.md (formes rondes-carrées, pixels aux coins arrondis, liseré blanc 1,5 px sur fond sombre).
+   Exception validée par Julie : le poids du CSS de ce thème n'est pas limité à 12 Ko.
+   Palette : nuit aubergine #2a1646 (remplace l'aubergine des sections sombres et des vagues), aubergine clair #6b4a91 et
+   #8e6bb5, miel #f5c33b, menthe #7ee0b5, rose bonbon #ff8fb1, crème #fbf5e6. Menthe et rose : fonds sombres et décors
+   seulement, jamais en texte sur fond clair. Le fil aubergine et miel de Dju-Lye est conservé.
+   Personnage : Bip, petit robot-cube aubergine clair, deux yeux blancs, sourire miel, antenne à bout rond (SVG en ligne
+   dans index.html, caché par défaut par style.css). Un seul personnage, qui pourra apparaître à deux endroits, jamais en même temps.
+   Aucune marque ni personnage protégé : manette et disquette génériques.
+   Emplacements :
+   1. au-dessus du logo : Bip (.accroche .bip, SVG en ligne) ; coucou toutes les 10 s, bond à l'arrivée, antenne qui s'allume ;
+   2. ciel de l'en-tête, PC seulement (.accroche .contenu::before, dès 900px) : étoiles-pixels, manette, disquette, dérive de ~9 s ;
+   3. au-dessus de « Écrire à Julie » : manette à deux boutons ronds (.manette, SVG en ligne) ; un bouton s'enfonce quand on
+      survole le bouton « Écrire à Julie » (dès 900px) ;
+   4. vagues (.courbe) : pastilles menthe et miel qui défilent très lentement (.courbe::before, 80 s) ;
+   5. phrase de saison (.saison) : écrite lettre par lettre par js/geek.js, puis curseur ▌ à 1 Hz.
+   Autres décors :
+   - icône-pixel de 28 px devant chaque titre de section (h2::before : ampoule, drapeau, pièce, cœur, enveloppe) ;
+   - jetons miel pour les étapes (.etapes li::before), demi-tour au survol, ligne de pastilles entre les étapes ;
+   - bouton de contact : petit ▶ miel dans un rond aubergine, qui pulse en opacité (2 s) devant l'enveloppe ;
+   - « Qui est Julie » : le symbole cligne des yeux toutes les 9 s, trois étoiles-pixels scintillent en alternance.
+   Sécurité du mouvement : aucun élément ne change plus de 3 fois par seconde, pas de flash ; fondus lents ; moins de mouvement
+   (prefers-reduced-motion) et bouton pause (html.sans-animation) coupent tout ; sous 900 px, ni ciel ni manette animée.
+   Le sourire du logo reste masqué avant son tracé (classe sourire-attendu du <head>, retirée par js/geek.js ou après 3 s). */
 
-/* Vagues pastilles : même forme et même fond que style.css, trait miel en pointillé rond */
-.courbe {
-  background:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='36' viewBox='0 0 120 36'%3E%3Cpath d='M0 12 Q30 32 60 12 T120 12' fill='none' stroke='%23f5c33b' stroke-width='5' stroke-dasharray='0 10' stroke-linecap='round'/%3E%3C/svg%3E") center / 120px 36px repeat-x,
-    linear-gradient(to bottom, var(--de) 50%, var(--vers) 50%);
+/* Sourire du logo masqué avant son tracé (classe posée par le <head>, retirée par js/geek.js ou après 3 s) */
+html.sourire-attendu .logo-sourire { visibility: hidden; }
+
+/* Moins de mouvement : aucune animation */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; }
 }
 
+/* Palette */
 :root {
-  --rond: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M24 24 L42.3 15.9 A20 20 0 1 0 42.3 32.1 Z' fill='%23f5c33b'/%3E%3Ccircle cx='26' cy='12' r='2.6' fill='%234a2a6e'/%3E%3C/svg%3E");
-  --coeur: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' shape-rendering='crispEdges' viewBox='-1 -1 9 8'%3E%3Cpath d='M1 0H3V1H4V0H6V1H7V3H6V4H5V5H4V6H3V5H2V4H1V3H0V1H1Z' fill='%23f5c33b' stroke='%234a2a6e' stroke-width='.7' stroke-linejoin='miter'/%3E%3C/svg%3E");
+  --nuit: #2a1646;
+  --lilas: #6b4a91;
+  --lilas-clair: #8e6bb5;
+  --menthe: #7ee0b5;
+  --rose: #ff8fb1;
+  --e-miel: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 9 9'%3E%3Cg fill='%23f5c33b'%3E%3Crect x='3.5' y='0' width='2' height='9' rx='1'/%3E%3Crect x='0' y='3.5' width='9' height='2' rx='1'/%3E%3Crect x='2.5' y='2.5' width='4' height='4' rx='1.2'/%3E%3C/g%3E%3C/svg%3E");
+  --e-rose: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 9 9'%3E%3Cg fill='%23ff8fb1'%3E%3Crect x='3.5' y='0' width='2' height='9' rx='1'/%3E%3Crect x='0' y='3.5' width='9' height='2' rx='1'/%3E%3Crect x='2.5' y='2.5' width='4' height='4' rx='1.2'/%3E%3C/g%3E%3C/svg%3E");
+  --e-menthe: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 9 9'%3E%3Cg fill='%237ee0b5'%3E%3Crect x='3.5' y='0' width='2' height='9' rx='1'/%3E%3Crect x='0' y='3.5' width='9' height='2' rx='1'/%3E%3Crect x='2.5' y='2.5' width='4' height='4' rx='1.2'/%3E%3C/g%3E%3C/svg%3E");
 }
 
-.ecrire h2::before {
-  content: "";
-  display: block;
-  width: 56px;
-  height: 56px;
-  margin-bottom: .5rem;
-  background: var(--coeur) center / contain no-repeat;
-  pointer-events: none;
-}
+/* Nuit aubergine à la place de l'aubergine : sections sombres et moitié sombre des vagues */
+.sombre { background: var(--nuit); }
+.courbe.a-c { --de: var(--nuit); }
+.courbe.c-a { --vers: var(--nuit); }
 
-.saison { margin-top: 1rem; }
-
-/* Rond miel en haut à gauche de l'en-tête, au-dessus du logo (mobile et PC) */
+/* ---------- Emplacement 1 : Bip, au-dessus du logo (mobile et PC) ---------- */
+.accroche { --marge: 1.25rem; overflow-x: clip; }
 .accroche .contenu { position: relative; padding-top: 3.75rem; }
-.accroche .contenu::after {
-  content: "";
+@media (min-width: 48em) {
+  .accroche { --marge: 2rem; }
+}
+
+.accroche .bip {
+  display: block;
   position: absolute;
   top: .75rem;
-  left: 1.25rem;
-  width: 40px;
-  height: 40px;
-  background: var(--rond) center / contain no-repeat;
+  left: var(--marge);
+  width: 48px;
+  height: 52px;
+  overflow: visible;
   pointer-events: none;
+  animation: bip-bond 1.2s ease-in-out .5s 1 both; /* un seul bond léger à l'arrivée */
+}
+@keyframes bip-bond {
+  0%, 100% { transform: translateY(0); }
+  35% { transform: translateY(-8px); }
 }
 
-@media (min-width: 48em) {
-  .accroche .contenu::after { left: 2rem; }
+/* Antenne qui s'allume doucement : l'opacité seule varie */
+.bip-lampe { animation: bip-allume 5s ease-in-out infinite alternate; }
+@keyframes bip-allume { from { opacity: .2; } to { opacity: 1; } }
+
+/* Coucou toutes les 10 s : le bras droit se lève, ondule deux fois (un mouvement toutes les 0,5 s) et redescend */
+.bip-bras { transform-origin: 41.5px 27.5px; animation: bip-coucou 10s ease-in-out 3s infinite; }
+@keyframes bip-coucou {
+  0%, 76% { transform: rotate(0); }
+  81% { transform: rotate(-125deg); }
+  86% { transform: rotate(-150deg); }
+  91% { transform: rotate(-125deg); }
+  96% { transform: rotate(-150deg); }
+  100% { transform: rotate(0); }
 }
 
+/* ---------- Emplacement 2 : ciel de pixels, PC seulement ---------- */
 @media (min-width: 900px) {
-  .ecrire h2::before { margin-left: auto; margin-right: auto; }
-
-  /* Rond qui mange des pastilles (visage pixel derrière lui) et petit tas de pièces dans le coin, en haut de l'en-tête */
+  /* Étoiles-pixels, manette et disquette génériques, qui dérivent de quelques pixels (opacité du ciel 0,6) */
   .accroche .contenu::before {
     content: "";
     position: absolute;
@@ -58,7 +98,209 @@
     right: 2rem;
     width: 34rem;
     height: 7rem;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' shape-rendering='crispEdges' viewBox='0 0 340 70'%3E%3Crect x='4' y='19' width='32' height='32' fill='%238e6bb5'/%3E%3Crect x='12' y='27' width='4' height='8' fill='%23fbf5e6'/%3E%3Crect x='24' y='27' width='4' height='8' fill='%23fbf5e6'/%3E%3Crect x='8' y='39' width='4' height='4' fill='%23f5c33b'/%3E%3Crect x='12' y='43' width='4' height='4' fill='%23f5c33b'/%3E%3Crect x='16' y='43' width='4' height='4' fill='%23f5c33b'/%3E%3Crect x='20' y='43' width='4' height='4' fill='%23f5c33b'/%3E%3Crect x='24' y='43' width='4' height='4' fill='%23f5c33b'/%3E%3Crect x='28' y='39' width='4' height='4' fill='%23f5c33b'/%3E%3Cg transform='translate(48 18) scale(.7)'%3E%3Cpath d='M24 24 L42.3 15.9 A20 20 0 1 0 42.3 32.1 Z' fill='%23f5c33b'/%3E%3Ccircle cx='26' cy='12' r='3' fill='%234a2a6e'/%3E%3C/g%3E%3Crect x='92' y='33' width='12' height='4' fill='%23f5c33b'/%3E%3Crect x='116' y='31' width='8' height='8' fill='%23f5c33b'/%3E%3Crect x='136' y='33' width='12' height='4' fill='%23f5c33b'/%3E%3Crect x='160' y='31' width='8' height='8' fill='%23f5c33b'/%3E%3Crect x='180' y='33' width='12' height='4' fill='%23f5c33b'/%3E%3Crect x='204' y='31' width='8' height='8' fill='%23f5c33b'/%3E%3Crect x='224' y='33' width='12' height='4' fill='%23f5c33b'/%3E%3Crect x='244' y='58' width='11' height='11' rx='1.5' fill='%23f5c33b'/%3E%3Crect x='256' y='58' width='11' height='11' rx='1.5' fill='%23f5c33b'/%3E%3Crect x='268' y='58' width='11' height='11' rx='1.5' fill='%23f5c33b'/%3E%3Crect x='268' y='46' width='11' height='11' rx='1.5' fill='%23f5c33b'/%3E%3Crect x='280' y='58' width='11' height='11' rx='1.5' fill='%238e6bb5'/%3E%3Crect x='292' y='58' width='11' height='11' rx='1.5' fill='%238e6bb5'/%3E%3Crect x='304' y='58' width='11' height='11' rx='1.5' fill='%238e6bb5'/%3E%3Crect x='292' y='46' width='11' height='11' rx='1.5' fill='%238e6bb5'/%3E%3Crect x='316' y='34' width='11' height='11' rx='1.5' fill='%23fbf5e6'/%3E%3Crect x='316' y='46' width='11' height='11' rx='1.5' fill='%23fbf5e6'/%3E%3Crect x='328' y='46' width='11' height='11' rx='1.5' fill='%23fbf5e6'/%3E%3Crect x='328' y='58' width='11' height='11' rx='1.5' fill='%23fbf5e6'/%3E%3C/svg%3E") center / contain no-repeat;
+    opacity: .6;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 340 70'%3E%3Cg%3E%3Crect x='10' y='14' width='4' height='4' rx='1' fill='%23f5c33b'/%3E%3Crect x='34' y='46' width='3' height='3' rx='.8' fill='%23fbf5e6'/%3E%3Crect x='58' y='20' width='4' height='4' rx='1' fill='%237ee0b5'/%3E%3Crect x='82' y='52' width='3' height='3' rx='.8' fill='%23ff8fb1'/%3E%3Crect x='104' y='12' width='3' height='3' rx='.8' fill='%23fbf5e6'/%3E%3Crect x='128' y='36' width='4' height='4' rx='1' fill='%23f5c33b'/%3E%3Crect x='150' y='56' width='3' height='3' rx='.8' fill='%237ee0b5'/%3E%3Crect x='158' y='14' width='3' height='3' rx='.8' fill='%23ff8fb1'/%3E%3Crect x='172' y='40' width='3' height='3' rx='.8' fill='%23fbf5e6'/%3E%3Crect x='252' y='52' width='3' height='3' rx='.8' fill='%23f5c33b'/%3E%3Crect x='250' y='16' width='3' height='3' rx='.8' fill='%237ee0b5'/%3E%3Crect x='312' y='52' width='4' height='4' rx='1' fill='%23fbf5e6'/%3E%3Crect x='320' y='16' width='4' height='4' rx='1' fill='%23ff8fb1'/%3E%3Crect x='330' y='38' width='3' height='3' rx='.8' fill='%23f5c33b'/%3E%3C/g%3E%3Cg transform='translate(186 14)' stroke-linejoin='round'%3E%3Crect x='1' y='3' width='56' height='26' rx='13' fill='%236b4a91' stroke='%23ffffff' stroke-width='1.5' vector-effect='non-scaling-stroke'/%3E%3Crect x='10' y='13' width='12' height='5' rx='1.8' fill='%23fbf5e6'/%3E%3Crect x='13.5' y='9.5' width='5' height='12' rx='1.8' fill='%23fbf5e6'/%3E%3Crect x='25' y='15' width='4' height='2.4' rx='1.2' fill='%238e6bb5'/%3E%3Crect x='31' y='15' width='4' height='2.4' rx='1.2' fill='%238e6bb5'/%3E%3Ccircle cx='41' cy='19' r='4.2' fill='%237ee0b5'/%3E%3Ccircle cx='48' cy='13' r='4.2' fill='%23ff8fb1'/%3E%3C/g%3E%3Cg transform='translate(272 10)' stroke-linejoin='round'%3E%3Crect x='0' y='0' width='30' height='30' rx='5' fill='%237ee0b5' stroke='%23ffffff' stroke-width='1.5' vector-effect='non-scaling-stroke'/%3E%3Crect x='6' y='1.5' width='15' height='9' rx='2' fill='%236b4a91'/%3E%3Crect x='15' y='3.2' width='3.5' height='5.6' rx='1' fill='%23fbf5e6'/%3E%3Crect x='4.5' y='15' width='21' height='12.5' rx='2' fill='%23fbf5e6'/%3E%3Crect x='8' y='19' width='14' height='2' rx='1' fill='%23ff8fb1'/%3E%3Crect x='8' y='23' width='9' height='2' rx='1' fill='%238e6bb5'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat;
     pointer-events: none;
+    animation: derive 9s ease-in-out infinite alternate;
+  }
+  @keyframes derive {
+    from { transform: translate(-4px, -4px); }
+    to { transform: translate(4px, 4px); }
   }
 }
+
+/* ---------- Emplacement 3 : manette au-dessus de « Écrire à Julie » ---------- */
+.ecrire .manette {
+  display: block;
+  width: 64px;
+  height: 40px;
+  margin-bottom: .5rem;
+  overflow: visible;
+  pointer-events: none;
+}
+@media (min-width: 900px) {
+  .ecrire .manette { margin-left: auto; margin-right: auto; }
+  .manette-b1 { transition: transform 200ms; }
+  /* Un bouton s'enfonce quand on survole (ou qu'on atteint au clavier) le bouton « Écrire à Julie » */
+  .ecrire .contenu:has(.bouton:hover) .manette-b1,
+  .ecrire .contenu:has(.bouton:focus-visible) .manette-b1 { transform: translateY(1.6px); }
+}
+/* Moins de mouvement ou animations arrêtées : le bouton de la manette ne bouge pas */
+@media (prefers-reduced-motion: reduce) {
+  .manette-b1 { transform: none !important; }
+}
+html.sans-animation .manette-b1 { transform: none !important; }
+
+/* ---------- Emplacement 4 : vagues à pastilles (menthe et miel), qui défilent très lentement ---------- */
+.courbe {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(to bottom, var(--de) 50%, var(--vers) 50%);
+}
+/* Même forme que style.css (décalée de 6 px). Tuile de 120 px : le défilement de 120 px boucle sans coupure. */
+.courbe::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -120px;
+  right: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='36' viewBox='0 0 120 36'%3E%3Cg fill='none' stroke-linecap='round'%3E%3Cpath d='M0 18 Q30 38 60 18 T120 18' pathLength='120' stroke='%23ffffff' stroke-width='9' stroke-dasharray='0 24'/%3E%3Cpath d='M0 18 Q30 38 60 18 T120 18' pathLength='120' stroke='%23ffffff' stroke-width='9' stroke-dasharray='0 24' stroke-dashoffset='-12'/%3E%3Cpath d='M0 18 Q30 38 60 18 T120 18' pathLength='120' stroke='%237ee0b5' stroke-width='6.5' stroke-dasharray='0 24'/%3E%3Cpath d='M0 18 Q30 38 60 18 T120 18' pathLength='120' stroke='%23f5c33b' stroke-width='6.5' stroke-dasharray='0 24' stroke-dashoffset='-12'/%3E%3C/g%3E%3C/svg%3E") 0 center / 120px 36px repeat-x;
+  pointer-events: none;
+  animation: defile 80s linear infinite;
+}
+@keyframes defile { to { transform: translateX(120px); } }
+
+/* ---------- Emplacement 5 : phrase de saison, écrite lettre par lettre par js/geek.js ---------- */
+.saison { position: relative; margin-top: 1rem; }
+.saison .sr-seul { /* texte complet pour les lecteurs d'écran : la copie lettre par lettre est masquée aux lecteurs */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.saison-frappe .l { opacity: 0; }
+.saison-frappe [aria-hidden] { user-select: none; } /* copier la phrase ne la copie qu'une fois */
+.saison-fini .l { opacity: 1 !important; } /* phrase affichée d'un bloc (animations arrêtées en cours de route) */
+.saison .curseur {
+  display: inline-block;
+  margin-left: .1em;
+  color: var(--aubergine);
+  animation: curseur 1s ease-in-out infinite; /* 1 Hz, en fondu */
+}
+@keyframes curseur { 0%, 100% { opacity: 1; } 50% { opacity: .15; } }
+
+/* ---------- Titres de sections : icône-pixel de 28 px, fixe et décorative ---------- */
+h2::before {
+  content: "";
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  margin-right: .6rem;
+  vertical-align: -.3em;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+/* Fond crème : trait aubergine ; fond nuit : liseré blanc */
+#services::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' stroke='%234a2a6e' stroke-width='1.5' stroke-linejoin='round'%3E%3Crect x='4' y='8' width='4' height='3' rx='1' fill='%236b4a91' vector-effect='non-scaling-stroke'/%3E%3Crect x='2' y='1' width='8' height='8' rx='3.5' fill='%23f5c33b' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
+}
+#deroulement::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' stroke='%23ffffff' stroke-width='1.5' stroke-linejoin='round'%3E%3Crect x='2' y='1' width='2' height='10' rx='1' fill='%238e6bb5' vector-effect='non-scaling-stroke'/%3E%3Crect x='3.5' y='1.5' width='7.5' height='5.5' rx='1.8' fill='%237ee0b5' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
+}
+#tarif::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Ccircle cx='6' cy='6' r='4.8' fill='%23f5c33b' stroke='%234a2a6e' stroke-width='1.5' vector-effect='non-scaling-stroke'/%3E%3Crect x='5' y='3.2' width='2' height='5.6' rx='1' fill='%234a2a6e'/%3E%3C/svg%3E");
+}
+#julie::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-1 -1 9 8'%3E%3Cpath d='M1 0H3V1H4V0H6V1H7V3H6V4H5V5H4V6H3V5H2V4H1V3H0V1H1Z' fill='%23ff8fb1' stroke='%23ffffff' stroke-width='1.5' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
+}
+#ecrire::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' stroke='%234a2a6e' stroke-width='1.5' stroke-linejoin='round' stroke-linecap='round'%3E%3Crect x='1' y='2.5' width='10' height='7.5' rx='1.8' fill='%23f5c33b' vector-effect='non-scaling-stroke'/%3E%3Cpath d='M1.8 3.8 L6 7 L10.2 3.8' fill='none' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
+}
+
+/* ---------- Étapes : jetons miel, demi-tour au survol, ligne de pastilles ---------- */
+.etapes li::before {
+  background: var(--miel);
+  border-color: #ffffff;
+  color: var(--aubergine);
+  box-shadow: inset 0 0 0 3px var(--miel), inset 0 0 0 5px rgba(74, 42, 110, .45);
+}
+/* Le jeton se retourne : il passe de face à tranche et revient, en changeant de couleur (rotateY). 1,2 s : au plus 3 changements pour 1,2 s. */
+.etapes li:hover::before { animation: demi-tour 1.2s ease-in-out forwards; }
+@keyframes demi-tour {
+  from { transform: perspective(300px) rotateY(0); background-color: var(--miel); }
+  49% { transform: perspective(300px) rotateY(90deg); background-color: var(--miel); }
+  51% { transform: perspective(300px) rotateY(90deg); background-color: var(--menthe); }
+  to { transform: perspective(300px) rotateY(0); background-color: var(--menthe); }
+}
+/* Ligne de pastilles (vertical sur mobile, horizontal dès 48 em) */
+.etapes li:not(:last-child)::after {
+  left: calc(1.5rem - 4px);
+  top: 3.3rem;
+  bottom: .3rem;
+  width: 8px;
+  border-radius: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='28' viewBox='0 0 8 28'%3E%3Ccircle cx='4' cy='7' r='3' fill='%23f5c33b'/%3E%3Ccircle cx='4' cy='21' r='3' fill='%237ee0b5'/%3E%3C/svg%3E") center top / 8px 28px repeat-y;
+}
+@media (min-width: 48em) {
+  .etapes li:not(:last-child)::after {
+    left: 3.3rem;
+    right: .3rem;
+    top: calc(1.5rem - 4px);
+    bottom: auto;
+    width: auto;
+    height: 8px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='8' viewBox='0 0 28 8'%3E%3Ccircle cx='7' cy='4' r='3' fill='%23f5c33b'/%3E%3Ccircle cx='21' cy='4' r='3' fill='%237ee0b5'/%3E%3C/svg%3E") left center / 28px 8px repeat-x;
+  }
+}
+
+/* ---------- Bouton de contact : petit ▶ miel qui pulse devant l'enveloppe (décoratif, rien dans le texte lu) ---------- */
+.bouton-libelle::before {
+  content: "";
+  display: inline-block;
+  width: 1.1em;
+  height: 1.1em;
+  margin-right: .5rem;
+  vertical-align: -.2em;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='10' fill='%234a2a6e'/%3E%3Cpath d='M7.5 5.5 L14.5 10 L7.5 14.5 Z' fill='%23f5c33b' stroke='%23f5c33b' stroke-width='1.6' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .4; } }
+
+/* ---------- Qui est Julie : le symbole cligne des yeux, trois étoiles-pixels scintillent ---------- */
+.qui .contenu { position: relative; --px: 1.25rem; --py: 2.5rem; --t: 4.5rem; } /* position et taille du symbole (voir style.css) */
+@media (min-width: 48em) {
+  .qui .contenu { --px: 2rem; --py: 4rem; }
+}
+@media (min-width: 900px) {
+  .qui .contenu { --py: 3rem; --t: 8rem; }
+}
+
+/* Paupières : deux ronds de la couleur du symbole (#4a2a6e) posés sur les yeux, qui descendent un instant */
+.qui .contenu::before {
+  content: "";
+  position: absolute;
+  left: var(--px);
+  top: var(--py);
+  width: var(--t);
+  height: var(--t);
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='21' cy='25' r='6.4' fill='%234a2a6e'/%3E%3Ccircle cx='43' cy='25' r='6.4' fill='%234a2a6e'/%3E%3C/svg%3E") center / contain no-repeat;
+  transform: scaleY(0);
+  transform-origin: 50% 29%;
+  pointer-events: none;
+  animation: cligne 9s ease-in-out infinite; /* fermeture 0,35 s, ouverture 0,45 s, toutes les 9 s */
+}
+@keyframes cligne {
+  0%, 90% { transform: scaleY(0); }
+  93.9% { transform: scaleY(1); }
+  98.9%, 100% { transform: scaleY(0); }
+}
+
+/* Étoiles-pixels à droite du symbole : deux couches qui alternent entre l'opacité 1 et 0,7 (5 s par sens, en opposition) */
+.qui .contenu::after,
+.qui p::before {
+  content: "";
+  position: absolute;
+  left: calc(var(--px) + var(--t) + .5rem);
+  top: var(--py);
+  width: 1.4rem;
+  height: var(--t);
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+.qui .contenu::after {
+  background-image: var(--e-miel), var(--e-rose);
+  background-position: center top, center bottom;
+  background-size: 1.1rem 1.1rem, 1rem 1rem;
+  animation: scintille 5s ease-in-out infinite alternate;
+}
+.qui p::before {
+  background-image: var(--e-menthe);
+  background-position: center;
+  background-size: 1.2rem 1.2rem;
+  animation: scintille 5s ease-in-out infinite alternate-reverse;
+}
+@keyframes scintille { from { opacity: 1; } to { opacity: .7; } }

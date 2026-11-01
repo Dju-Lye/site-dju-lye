@@ -249,6 +249,9 @@ footer a { display: inline-block; padding: .6rem 0; color: var(--miel); font-wei
 
 .saison:empty { display: none; }
 
+/* Ornements vides d'un thème (Bip, manette…) : invisibles tant qu'un thème ne les affiche pas */
+.deco-theme { display: none; }
+
 /* Micro-interactions (CSS pur) : 200 ms, sur transform, opacity et background-size seulement */
 
 /* Boutons : montent de 2 px, l'ombre aubergine est un pseudo-élément dont seule l'opacité change */
