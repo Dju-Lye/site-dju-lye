@@ -17,6 +17,12 @@
   var bouton = document.createElement("button");
   bouton.type = "button";
   bouton.id = "pause-animations";
+  var libelle = document.createElement("span"); // nom accessible, masqué à l'écran
+  libelle.className = "sr-seul";
+  var icone = document.createElement("span"); // ⏸ ou ▶, dessiné en CSS
+  icone.className = "pause-icone";
+  icone.setAttribute("aria-hidden", "true");
+  bouton.append(libelle, icone);
 
   // GSAP (si présent) suit la même pause que les animations CSS.
   function pauserGsap() {
@@ -27,7 +33,7 @@
   function afficher() {
     racine.classList.toggle("sans-animation", arretees);
     pauserGsap();
-    bouton.textContent = arretees ? "Reprendre les animations" : "Arrêter les animations";
+    libelle.textContent = bouton.title = arretees ? "Reprendre les animations" : "Arrêter les animations";
   }
 
   bouton.addEventListener("click", function () {
