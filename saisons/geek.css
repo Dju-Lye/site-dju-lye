@@ -63,7 +63,7 @@ html.sourire-attendu .logo-sourire { visibility: hidden; }
   height: 52px;
   overflow: visible;
   pointer-events: none;
-  animation: bip-bond 1.2s ease-in-out 3.4s 1 both; /* un seul bond léger, après le tracé du sourire (fini vers 3,3 s) : un seul mouvement principal à la fois */
+  animation: bip-bond 1.2s ease-in-out 3.4s 1 backwards; /* un seul bond léger, après le tracé du sourire (fini vers 3,3 s) : un seul mouvement principal à la fois ; « backwards » : une fois fini, le style en ligne de GSAP (visite de Bip) reprend la main */
 }
 @keyframes bip-bond {
   0%, 100% { transform: translateY(0); }
@@ -308,3 +308,29 @@ h2::before {
   animation: scintille 5s ease-in-out infinite alternate-reverse;
 }
 @keyframes scintille { from { opacity: 1; } to { opacity: .7; } }
+
+/* ---------- Cartes de services qui s'allument : un petit pictogramme-pixel sort du coin (CSS seul, le texte ne bouge pas) ----------
+   Seulement avec une souris (hover: hover) : au toucher, rien ne s'ajoute. Les cartes n'ont rien de focalisable : :focus-within ne sert que si un lien y entre un jour. */
+.carte::before {
+  content: "";
+  position: absolute;
+  top: -14px;
+  right: -10px; /* le pictogramme (32 px) reste dans la marge intérieure de 1,25 rem : il ne touche pas au texte */
+  width: 32px;
+  height: 32px;
+  background: center / contain no-repeat;
+  opacity: 0;
+  transform: translate(-6px, 6px) scale(.4);
+  transition: opacity 250ms, transform 250ms;
+  pointer-events: none;
+}
+.carte:nth-child(1)::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' stroke='%234a2a6e' stroke-width='1.5' stroke-linejoin='round' stroke-linecap='round'%3E%3Ccircle cx='3.8' cy='3.8' r='2.6' fill='%23f5c33b' vector-effect='non-scaling-stroke'/%3E%3Cpath d='M5.7 5.7 L10.5 10.5 M8.4 8.4 L10 6.8' fill='none' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E"); }
+.carte:nth-child(2)::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' stroke='%234a2a6e' stroke-width='1.5' stroke-linejoin='round' stroke-linecap='round'%3E%3Crect x='1.5' y='1.5' width='9' height='9' rx='2.2' fill='%237ee0b5' vector-effect='non-scaling-stroke'/%3E%3Crect x='3.5' y='6.2' width='5' height='4' rx='1' fill='%23fbf5e6' stroke='none'/%3E%3Crect x='4' y='1.8' width='3.6' height='2.4' rx='.8' fill='%236b4a91' stroke='none'/%3E%3C/svg%3E"); }
+.carte:nth-child(3)::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' stroke='%234a2a6e' stroke-width='1.5' stroke-linejoin='round' stroke-linecap='round'%3E%3Crect x='1' y='2.5' width='10' height='7.5' rx='1.8' fill='%23f5c33b' vector-effect='non-scaling-stroke'/%3E%3Cpath d='M1.8 3.8 L6 7 L10.2 3.8' fill='none' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E"); }
+.carte:nth-child(4)::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' stroke='%234a2a6e' stroke-width='1.5' stroke-linejoin='round' stroke-linecap='round'%3E%3Cpath d='M4 5.5 V4 a2 2 0 0 1 4 0 V5.5' fill='none' vector-effect='non-scaling-stroke'/%3E%3Crect x='2.5' y='5.5' width='7' height='5.5' rx='1.8' fill='%23ff8fb1' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E"); }
+.carte:nth-child(5)::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' stroke='%234a2a6e' stroke-width='1.5' stroke-linejoin='round' stroke-linecap='round'%3E%3Cpath d='M6 1.2 L10.2 2.8 V6 Q10.2 9.6 6 11 Q1.8 9.6 1.8 6 V2.8 Z' fill='%237ee0b5' vector-effect='non-scaling-stroke'/%3E%3Cpath d='M4.2 6 L5.6 7.4 L8 4.6' fill='none' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E"); }
+.carte:nth-child(6)::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' stroke='%234a2a6e' stroke-width='1.5' stroke-linejoin='round' stroke-linecap='round'%3E%3Ccircle cx='6' cy='5' r='3.6' fill='%23f5c33b' vector-effect='non-scaling-stroke'/%3E%3Crect x='4.4' y='8.8' width='3.2' height='2' rx='.8' fill='%236b4a91' stroke='none'/%3E%3C/svg%3E"); }
+@media (hover: none) {
+  .carte::before { display: none; }
+}
+.carte:hover::before, .carte:focus-within::before { opacity: 1; transform: none; }
