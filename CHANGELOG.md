@@ -6,11 +6,15 @@ Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/). Pas
 
 ### Ajouté
 - Thème Geek « Pixels de quartier » entièrement refait (branche `theme-geek`, première vague) : Bip le robot, ciel de pixels, manette, vagues à pastilles, phrase écrite lettre par lettre, icônes de titres, jetons, bouton ▶, clignement du symbole de « Qui est Julie », sourire du logo tracé en 6 traits (`saisons/geek.css`, `js/geek.js`). Thème de repos, sans période.
+- Thème Geek, seconde vague (branche `theme-geek`) : Bip visite le logo (PC, GSAP + MotionPath, petits pas), Bip du pied de page (jamais animé en même temps que celui du haut), cartes de services qui s'allument (pictogrammes-pixels, CSS seul), jauge de lecture en pastilles avec « Bip a tout lu », tarif « en score » (compteur de 0 à 50 en 4 paliers, « → 25 € » en décor), œufs de Pâques décoratifs : code secret, 5 clics sur le logo, Bip qui s'endort après 60 s, pixel caché au clavier, rebond du « 25 € ».
+- `index.html` : yeux et « z z z » de Bip repérables par classe (`bip-oeil`, `bip-z`).
 - `index.html` : ornements vides `deco-theme` (Bip, manette), invisibles sans `geek.css` (règle dans `style.css`).
 - Couche de saison : 21 fichiers de thème dans `saisons/` (`geek.css`, `halloween.css`, `lumieres-decembre.css`, `bonne-annee.css`, `galette.css`, `crepes.css`, `mots-doux.css`, `coin-du-feu.css`, `paques.css`, `au-jardin.css`, `fete-des-voisins.css`, `fete-de-la-musique.css`, `ete-pique-nique.css`, `carte-postale.css`, `rentree.css`, `feuilles-d-automne.css`, et les thèmes libres `dinosaure.css`, `extraterrestre.css`, `espace-lointain.css`, `agents-en-noir.css`, `michael-jackson.css`).
 - `README.md` : mode d'emploi de la couche de saison, puis liste des fichiers avec leur période.
 
 ### Modifié
+- Bouton « Arrêter les animations » : pastille ronde de 44 px en bas à droite, translucide, symbole ⏸ ou ▶ dessiné en CSS, nom accessible conservé (libellé masqué `.sr-seul`, `title`), pour tous les thèmes (`style.css`, `js/animations.js`).
+- Thème Geek : le bond de Bip ne garde plus son style final (`backwards` au lieu de `both`), pour laisser GSAP déplacer Bip.
 - Thème en ligne : `saisons/halloween.css`, à la place de `agents-en-noir.css`.
 - Décor Halloween rangé dans `saisons/halloween.css` (37d7dba), à partir de `saison.css`.
 - Retouches visuelles de plusieurs thèmes : Halloween (citrouille au-dessus du logo, sans chauves-souris), geek (noms de marque retirés du commentaire d'en-tête), crêpes, bonne année, galette, lumières de décembre, coin du feu, feuilles d'automne.

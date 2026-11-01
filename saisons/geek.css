@@ -21,6 +21,13 @@
    - jetons miel pour les étapes (.etapes li::before), demi-tour au survol, ligne de pastilles entre les étapes ;
    - bouton de contact : petit ▶ miel dans un rond aubergine, qui pulse en opacité (2 s) devant l'enveloppe ;
    - « Qui est Julie » : le symbole cligne des yeux toutes les 9 s, trois étoiles-pixels scintillent en alternance.
+   Seconde vague (js/geek.js pour tout ce qui bouge ; chaque élément est coupé par la pause et « moins de mouvement ») :
+   - Bip visite le logo (PC dès 900 px) : vers 9 s, puis toutes les 45 s, en 12 petits pas (steps) ; Bip du pied de page
+     (.bip-pied, copie du Bip) : jamais animé en même temps que Bip du haut (IntersectionObserver, classe .immobile) ;
+   - cartes de services : pictogramme-pixel au survol (souris seulement, CSS seul) ; jauge de lecture (.jauge) ;
+     tarif en score (.score, .bonus-25) ;
+   - œufs de Pâques décoratifs : code secret (.bip-danse, .message-secret), 5 clics sur le logo (.etoile-pixel),
+     sommeil de Bip (body.bip-dort, .bip-z), pixel caché (.pixel-cache, .bulle-pixel), rebond du « 25 € » (.vingt-cinq, .bonus-mot).
    Sécurité du mouvement : aucun élément ne change plus de 3 fois par seconde, pas de flash ; fondus lents ; moins de mouvement
    (prefers-reduced-motion) et bouton pause (html.sans-animation) coupent tout ; sous 900 px, ni ciel ni manette animée.
    Le sourire du logo reste masqué avant son tracé (classe sourire-attendu du <head>, retirée par js/geek.js ou après 3 s). */
