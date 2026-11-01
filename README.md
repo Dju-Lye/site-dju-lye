@@ -32,7 +32,7 @@ HTML et CSS seulement : aucun JavaScript, aucun chargement externe.
 
 ## Couche de saison
 
-Le décor de fête est une feuille de style à part, dans `saisons/` (aujourd'hui `halloween.css`), chargée après `style.css`. La base du site n'est pas modifiée pour changer de fête.
+Le décor de fête est une feuille de style à part, dans `saisons/` (aucune en ce moment : site sobre), chargée après `style.css`. La base du site n'est pas modifiée pour changer de fête.
 
 Cinq emplacements :
 1. au-dessus du logo (`.accroche .contenu::after`) ;
@@ -43,7 +43,7 @@ Cinq emplacements :
 
 Fichiers disponibles dans `saisons/` :
 - `geek.css` : geek rétro, du 3 au 30 novembre (à venir) ;
-- `halloween.css` : du 15 octobre au 2 novembre (en ligne) ;
+- `halloween.css` : du 15 octobre au 2 novembre (retiré du site, fichier conservé) ;
 - `lumieres-decembre.css` : du 1er au 25 décembre, bleu nuit, étoile filante animée par `js/lumieres-decembre.js` (à brancher avec son script, la classe `sourire-attendu` du `<head>` et la phrase ; pas encore en ligne) ;
 - `bonne-annee.css` : du 26 décembre au 4 janvier (sans chiffre d'année, sert chaque année), champagne et rose poudré, bouchon de champagne animé par `js/bonne-annee.js` (à brancher avec son script, la classe `sourire-attendu` du `<head>` et la phrase ; pas encore en ligne) ;
 - `galette.css` : du 5 au 18 janvier, brun beurre, fève qui se cache animée par `js/galette.js` (même branchement ; pas encore en ligne) ;
