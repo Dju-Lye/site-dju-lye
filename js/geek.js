@@ -573,7 +573,7 @@
       bonus(element.getBoundingClientRect());
       rebondi = element;
       rebond = gsap.fromTo(element, { y: -36 }, {
-        y: 0, duration: 1.1, ease: "bounce.out",
+        y: 0, duration: 1.6, ease: "bounce.out", // 4 rebonds en 1,6 s : au plus 3 changements par seconde
         onComplete: function () { rebond = null; }
       });
     }
