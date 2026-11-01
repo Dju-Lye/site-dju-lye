@@ -382,3 +382,34 @@ h2::before {
   opacity: 0;
   transform: translateY(-6px);
 }
+
+/* ---------- Bip qui visite le logo (PC, js/geek.js) et Bip du pied de page ----------
+   Pendant la visite, le coucou du bras s'arrête (il repart du début ensuite). */
+.accroche .bip.en-visite .bip-bras { animation: none; }
+.pied-jeu { position: relative; display: flex; align-items: center; gap: .5rem; margin-top: .5rem; }
+.bip-pied { position: relative; flex: 1; max-width: 30rem; height: 46px; } /* piste du Bip du pied (décorative) */
+.bip-marcheur {
+  position: absolute;
+  left: 3rem; /* repli ; js/geek.js place Bip devant « Mentions légales » */
+  top: 0;
+  display: block;
+  width: 40px;
+  height: 43px;
+  overflow: visible;
+  pointer-events: none;
+}
+/* Pas à l'écran, ou Bip du haut à l'écran : Bip du pied est immobile (plus aucune animation) */
+.bip-pied.immobile .bip-marcheur, .bip-pied.immobile .bip-marcheur * { animation: none; }
+
+/* ---------- Bip s'endort après 60 s sans geste (classe bip-dort sur <body>, posée par js/geek.js) ----------
+   Yeux fermés, antenne éteinte, coucou arrêté, trois « z » en pixels qui apparaissent très lentement (6 s). */
+.bip-z { opacity: 0; }
+body.bip-dort .bip-oeil { transform: scaleY(.12); transform-box: fill-box; transform-origin: center; }
+body.bip-dort .bip-bras { animation: none; }
+body.bip-dort .bip-lampe { animation: none; opacity: .2; }
+body.bip-dort .bip-z { animation: bip-z 6s ease-in-out infinite; }
+body.bip-dort .bip-z2 { animation-delay: 2s; }
+body.bip-dort .bip-z3 { animation-delay: 4s; }
+@keyframes bip-z { 0%, 100% { opacity: 0; } 35%, 65% { opacity: .9; } }
+/* Bip du pied immobile : ses « z » restent affichés, sans mouvement */
+body.bip-dort .bip-pied.immobile .bip-z { opacity: .9; }

@@ -50,9 +50,15 @@
           <circle cx="24" cy="6" r="7" opacity=".35"/>
           <circle cx="24" cy="6" r="3.4"/>
         </g>
-        <circle cx="17.5" cy="27" r="3.4" fill="#ffffff"/>
-        <circle cx="30.5" cy="27" r="3.4" fill="#ffffff"/>
+        <circle class="bip-oeil" cx="17.5" cy="27" r="3.4" fill="#ffffff"/>
+        <circle class="bip-oeil" cx="30.5" cy="27" r="3.4" fill="#ffffff"/>
         <path d="M18.5 34 Q24 38.5 29.5 34" fill="none" stroke="#f5c33b" stroke-width="2.4" stroke-linecap="round"/>
+        <!-- « z z z » du sommeil : invisibles, ils ne se montrent que quand Bip s'endort (js/geek.js, saisons/geek.css) -->
+        <g fill="#fbf5e6">
+          <g transform="translate(46 17) scale(.8)"><path class="bip-z" d="M0 0H6.4V1.6L2.8 6.2H6.6V7.8H0V6.2L3.6 1.6H0Z"/></g>
+          <g transform="translate(52 8) scale(1)"><path class="bip-z bip-z2" d="M0 0H6.4V1.6L2.8 6.2H6.6V7.8H0V6.2L3.6 1.6H0Z"/></g>
+          <g transform="translate(58 -2) scale(1.2)"><path class="bip-z bip-z3" d="M0 0H6.4V1.6L2.8 6.2H6.6V7.8H0V6.2L3.6 1.6H0Z"/></g>
+        </g>
       </svg>
       <svg class="logo" role="img" aria-label="Dju-Lye" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 245 64">
         <g class="logo-symbole">
