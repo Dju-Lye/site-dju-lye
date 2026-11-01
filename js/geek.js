@@ -293,6 +293,7 @@
       enCours: function () { return bip.classList.contains("en-visite"); },
       debut: function (premier) {
         delai = premier == null ? 9 : premier;
+        window.removeEventListener("resize", ecoute);
         ecoute = auChangementDeLargeur(monter);
         window.addEventListener("resize", ecoute);
         monter();
@@ -376,6 +377,210 @@
     };
   }
 
+  // ---------- Œufs de Pâques (décoratifs, sans marque). Les trois premiers et le dernier bougent : ils sont inertes
+  // en moins de mouvement et animations arrêtées (écouteurs et minuteurs retirés). Le pixel caché n'a aucun mouvement. ----------
+
+  // a) Code ↑ ↑ ↓ ↓ ← → ← → B A : Bip quitte sa place et traverse l'écran en dansant (copie fixe, 7 s, pas de 2,6 par seconde)
+  // pendant qu'un message poli s'affiche ; une seule fois par visite (en mémoire, pas de stockage).
+  function porteSecrete(bip, visite, pied) {
+    var CODE = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"];
+    var rang = 0, fait = false, tl = null;
+    var message = creer("div", "message-secret"); // zone « status » toujours présente, vide tant qu'il n'y a rien à dire
+    message.setAttribute("role", "status");
+    message.setAttribute("aria-live", "polite");
+    var danseur = bip.cloneNode(true); // copie du Bip, créée avant toute classe d'état
+    danseur.setAttribute("class", "bip-danse");
+    danseur.hidden = true;
+    document.body.append(message, danseur);
+
+    function ranger() {
+      if (tl) tl.kill();
+      tl = null;
+      danseur.hidden = true;
+      message.textContent = "";
+      document.body.classList.remove("bip-ailleurs");
+      if (pied) pied.maj();
+    }
+    function danser() {
+      fait = true;
+      visite.fin();
+      document.body.classList.add("bip-ailleurs"); // Bip du haut et Bip du pied s'effacent : un seul Bip à la fois
+      if (pied) pied.maj();
+      message.textContent = "Bravo, vous avez trouvé la porte secrète\u202f!";
+      danseur.hidden = false;
+      gsap.set(danseur, { x: -60, y: 0, rotation: 0, transformOrigin: "50% 100%" });
+      tl = gsap.timeline({
+        onComplete: function () { ranger(); visite.debut(20); }
+      });
+      tl.to(danseur, { x: window.innerWidth + 60, duration: 7, ease: "steps(18)" }, 0)
+        .to(danseur, { rotation: 10, duration: 0.5, repeat: 13, yoyo: true, ease: "sine.inOut" }, 0)
+        .to(danseur, { y: -14, duration: 0.5, repeat: 13, yoyo: true, ease: "power1.inOut" }, 0)
+        .to({}, { duration: 0.5 }, 7); // le message reste encore un instant
+    }
+    function auClavier(evenement) {
+      if (!evenement.key || evenement.ctrlKey || evenement.altKey || evenement.metaKey) return;
+      var touche = evenement.key.length === 1 ? evenement.key.toLowerCase() : evenement.key;
+      rang = touche === CODE[rang] ? rang + 1 : (touche === CODE[0] ? 1 : 0);
+      if (rang < CODE.length) return;
+      rang = 0;
+      if (!fait) danser();
+    }
+    return {
+      debut: function () { document.addEventListener("keydown", auClavier); },
+      fin: function () { document.removeEventListener("keydown", auClavier); rang = 0; ranger(); }
+    };
+  }
+
+  // b) 5 clics rapprochés sur le logo : grand sourire pendant 2 s et 5 étoiles-pixels qui pétillent autour du symbole.
+  function grandSourire(logo, visite) {
+    var sourire = logo.querySelector(".logo-sourire");
+    var symbole = logo.querySelector(".logo-symbole");
+    var normal = sourire && sourire.getAttribute("d");
+    var FONDS = ["--e-miel", "--e-menthe", "--e-rose", "--e-miel", "--e-menthe"];
+    var compte = 0, dernier = 0, tl = null, etoiles = [];
+
+    function ranger() {
+      if (tl) tl.kill();
+      tl = null;
+      sourire.setAttribute("d", normal);
+      etoiles.forEach(function (etoile) { etoile.remove(); });
+      etoiles = [];
+    }
+    function sourireEtEtoiles() {
+      var base = logo.parentNode.getBoundingClientRect();
+      var boite = symbole.getBoundingClientRect();
+      var rayon = boite.height * 0.78, centre = { x: boite.left + boite.width / 2 - base.left, y: boite.top + boite.height / 2 - base.top };
+      tl = gsap.timeline({ onComplete: ranger });
+      tl.to(sourire, { attr: { d: "M12 36 Q32 66 52 36" }, duration: 0.4, ease: "back.out(2)" }, 0)
+        .to(sourire, { attr: { d: normal }, duration: 0.4, ease: "power2.inOut" }, 1.6);
+      FONDS.forEach(function (fond, i) {
+        var etoile = creer("span", "etoile-pixel");
+        var angle = (-150 + i * 75) * Math.PI / 180;
+        etoile.setAttribute("aria-hidden", "true");
+        etoile.style.backgroundImage = "var(" + fond + ")";
+        etoile.style.left = centre.x + Math.cos(angle) * rayon - 9 + "px";
+        etoile.style.top = centre.y + Math.sin(angle) * rayon - 9 + "px";
+        logo.parentNode.appendChild(etoile);
+        etoiles.push(etoile);
+        tl.fromTo(etoile, { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }, i * 0.12)
+          .to(etoile, { scale: 0.7, duration: 0.5, ease: "sine.inOut", yoyo: true, repeat: 1 }, i * 0.12 + 0.4)
+          .to(etoile, { opacity: 0, duration: 0.4 }, i * 0.12 + 1.4);
+      });
+    }
+    function auClic() {
+      var maintenant = Date.now();
+      compte = maintenant - dernier < 1500 ? compte + 1 : 1;
+      dernier = maintenant;
+      if (compte < 5) return;
+      compte = 0;
+      // pas pendant l'ouverture (tracé du sourire), ni pendant une visite, ni déjà en cours
+      if (tl || visite.enCours() || gsap.globalTimeline.time() < 6) return;
+      sourireEtEtoiles();
+    }
+    return {
+      debut: function () { logo.addEventListener("click", auClic); },
+      fin: function () { logo.removeEventListener("click", auClic); compte = 0; if (tl) ranger(); }
+    };
+  }
+
+  // c) Bip s'endort après 60 s sans mouvement de souris, clavier, toucher ni défilement : yeux fermés, trois
+  // « z » très lents (classe bip-dort sur <body>) ; il se réveille au premier geste. Contrôle toutes les 2 s.
+  function sommeil(visite, pied) {
+    var GESTES = ["pointermove", "pointerdown", "keydown", "wheel", "touchstart", "scroll"];
+    var dernier = Date.now(), minuteur = null, dort = false;
+
+    function reveil() {
+      dernier = Date.now();
+      if (!dort) return;
+      coucher(false);
+      visite.debut(15); // la visite reprend un peu plus tard
+    }
+    function coucher(oui) {
+      dort = oui;
+      document.body.classList.toggle("bip-dort", oui);
+      if (pied) pied.maj();
+    }
+    function veiller() {
+      if (dort || visite.enCours() || Date.now() - dernier < 60000) return;
+      visite.fin();
+      coucher(true);
+    }
+    return {
+      debut: function () {
+        dernier = Date.now();
+        GESTES.forEach(function (nom) { window.addEventListener(nom, reveil, { passive: true }); });
+        minuteur = setInterval(veiller, 2000);
+      },
+      fin: function () {
+        GESTES.forEach(function (nom) { window.removeEventListener(nom, reveil); });
+        clearInterval(minuteur);
+        if (dort) coucher(false);
+      }
+    };
+  }
+
+  // d) Pixel miel presque invisible au bout de la ligne de Bip du pied de page : atteignable au clavier, il ouvre
+  // une petite bulle (zone « status ») ; Entrée, Espace ou un clic l'ouvre et la ferme, Échap ou la sortie du focus aussi.
+  function pixelCache() {
+    var jeu = document.querySelector(".pied-jeu");
+    if (!jeu) return;
+    var bouton = creer("button", "pixel-cache");
+    bouton.type = "button";
+    bouton.setAttribute("aria-label", "Un petit pixel caché");
+    var bulle = creer("span", "bulle-pixel");
+    bulle.setAttribute("role", "status");
+    bulle.setAttribute("aria-live", "polite");
+    function fermer() { bulle.textContent = ""; }
+    bouton.addEventListener("click", function () {
+      bulle.textContent = bulle.textContent ? "" : "Il est interdit de fouiller ici. Merci d'avoir fouillé.";
+    });
+    bouton.addEventListener("blur", fermer);
+    bouton.addEventListener("keydown", function (evenement) { if (evenement.key === "Escape") fermer(); });
+    jeu.append(bouton, bulle);
+  }
+
+  // e) Un clic sur le « 25 € » (celui de la phrase du tarif, ou le « → 25 € » en décor) : il rebondit comme une
+  // balle et un petit « Bonus ! » (aria-hidden) s'envole. Le « 25 € » de la phrase est seulement enveloppé d'un <span>.
+  function vingtCinq() {
+    var zone = document.querySelector(".tarif .contenu");
+    var phrase = zone && zone.querySelector("p:not(.prix)");
+    var noeud = phrase && phrase.firstChild;
+    var cible = "25\u00a0€";
+    var rebond = null;
+    while (noeud && !(noeud.nodeType === 3 && noeud.nodeValue.indexOf(cible) >= 0)) noeud = noeud.nextSibling;
+    if (!noeud) return null;
+    var plage = document.createRange();
+    plage.setStart(noeud, noeud.nodeValue.indexOf(cible));
+    plage.setEnd(noeud, noeud.nodeValue.indexOf(cible) + cible.length);
+    plage.surroundContents(creer("span", "vingt-cinq"));
+
+    function bonus(boite) {
+      var base = zone.getBoundingClientRect();
+      var mot = creer("span", "bonus-mot");
+      mot.setAttribute("aria-hidden", "true");
+      mot.textContent = "Bonus\u202f!";
+      mot.style.left = boite.left - base.left + boite.width / 2 + "px";
+      mot.style.top = boite.top - base.top - 34 + "px";
+      zone.appendChild(mot);
+      gsap.timeline({ onComplete: function () { mot.remove(); } })
+        .fromTo(mot, { opacity: 0, y: 6, xPercent: -50 }, { opacity: 1, y: -6, xPercent: -50, duration: 0.5, ease: "power1.out" })
+        .to(mot, { opacity: 0, duration: 0.5 }, 1.4);
+    }
+    function auClic(evenement) {
+      var element = evenement.target.closest(".vingt-cinq, .bonus-25");
+      if (!element || rebond || getComputedStyle(element).opacity < 0.5) return;
+      bonus(element.getBoundingClientRect());
+      rebond = gsap.fromTo(element, { y: -36 }, {
+        y: 0, duration: 1.1, ease: "bounce.out",
+        onComplete: function () { rebond = null; }
+      });
+    }
+    return {
+      debut: function () { zone.addEventListener("click", auClic); },
+      fin: function () { zone.removeEventListener("click", auClic); if (rebond) rebond.progress(1); }
+    };
+  }
+
   // Les animations arrêtées en cours de route terminent tout d'un coup ; reprises, elles relancent la seconde vague.
   function suivreLaPause() {
     var enCours = !animationsArretees();
@@ -404,7 +609,11 @@
     gsap.registerPlugin(MotionPathPlugin);
     var pied = bipDuPied(bip); // copie du Bip, créée avant que le Bip du haut ne reçoive des classes d'état
     if (pied) vivants.push(pied);
-    vivants.push(bipVisiteLeLogo(bip, logo));
+    var visite = bipVisiteLeLogo(bip, logo);
+    vivants.push(visite, porteSecrete(bip, visite, pied), grandSourire(logo, visite), sommeil(visite, pied));
+    pixelCache();
   }
+  var bonus = vingtCinq();
+  if (bonus) vivants.push(bonus);
   suivreLaPause();
 })();

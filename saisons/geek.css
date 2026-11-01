@@ -413,3 +413,61 @@ body.bip-dort .bip-z3 { animation-delay: 4s; }
 @keyframes bip-z { 0%, 100% { opacity: 0; } 35%, 65% { opacity: .9; } }
 /* Bip du pied immobile : ses « z » restent affichés, sans mouvement */
 body.bip-dort .bip-pied.immobile .bip-z { opacity: .9; }
+
+/* ---------- Œufs de Pâques (décoratifs ; js/geek.js) ---------- */
+/* a) code secret : Bip danse d'un bord à l'autre de l'écran, les deux autres Bip s'effacent ; message poli en haut de l'écran */
+.bip-danse { position: fixed; left: 0; bottom: 5rem; z-index: 9; width: 48px; height: 52px; overflow: visible; pointer-events: none; }
+.bip-danse[hidden] { display: none; }
+body.bip-ailleurs .accroche .bip, body.bip-ailleurs .bip-pied { visibility: hidden; }
+.message-secret {
+  position: fixed;
+  top: 1.5rem;
+  left: 50%;
+  z-index: 12;
+  max-width: calc(100vw - 2rem);
+  transform: translateX(-50%);
+  padding: .6rem 1.1rem;
+  background: var(--creme);
+  color: var(--aubergine);
+  border: 2px solid var(--aubergine);
+  border-radius: 1rem;
+  font-weight: 600;
+  text-align: center;
+  pointer-events: none;
+}
+.message-secret:empty, .bulle-pixel:empty { padding: 0; border: 0; background: none; } /* zone « status » vide : rien à voir */
+/* b) cinq clics sur le logo : étoiles-pixels autour du symbole */
+.etoile-pixel { position: absolute; width: 18px; height: 18px; background: center / contain no-repeat; opacity: 0; pointer-events: none; }
+/* d) pixel miel presque invisible, au bout de la ligne de Bip du pied de page, et sa bulle */
+.pixel-cache { position: relative; flex: none; width: 24px; height: 24px; margin-left: auto; padding: 0; border: 0; background: none; color: inherit; cursor: default; }
+.pixel-cache::before { content: ""; position: absolute; left: 9px; top: 9px; width: 6px; height: 6px; border-radius: 2px; background: var(--miel); opacity: .3; }
+.pixel-cache:hover::before, .pixel-cache:focus-visible::before { opacity: 1; }
+.bulle-pixel {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 6px); /* sous la ligne, dans la marge du pied de page : ne recouvre pas « Mentions légales » */
+  z-index: 2;
+  width: max-content;
+  max-width: min(16rem, calc(100vw - 2.5rem));
+  padding: .5rem .8rem;
+  background: var(--creme);
+  color: var(--aubergine);
+  border: 2px solid var(--aubergine);
+  border-radius: 1rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+/* e) clic sur « 25 € » : il rebondit, un petit « Bonus ! » s'envole */
+.tarif .contenu { position: relative; }
+.vingt-cinq { display: inline-block; }
+.bonus-mot {
+  position: absolute;
+  padding: .1rem .7rem;
+  background: var(--miel);
+  color: var(--aubergine);
+  border-radius: 1rem;
+  font-family: "Lexend", "Segoe UI", sans-serif;
+  font-weight: 600;
+  white-space: nowrap;
+  pointer-events: none;
+}
