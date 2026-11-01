@@ -13,6 +13,7 @@ Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/). Pas
 - `README.md` : mode d'emploi de la couche de saison, puis liste des fichiers avec leur période.
 
 ### Modifié
+- Thème Geek (`js/geek.js`, `saisons/geek.css`) : la pause retire aussi le « Bonus ! » du « 25 € » et le minuteur de redimensionnement (fonctions `ecouter` et `minuter`, qui enregistrent leur propre annulation) ; rebond du « 25 € » ralenti à 2,4 s et saut du pied de Bip à 1 s (au plus 3 changements de sens par seconde) ; une seule liste d'éléments à arrêter ; constantes nommées en tête de fichier ; règle `.saison .sr-seul` en doublon retirée.
 - Bouton « Arrêter les animations » : pastille ronde de 44 px en bas à droite, translucide, symbole ⏸ ou ▶ dessiné en CSS, nom accessible conservé (libellé masqué `.sr-seul`, `title`), pour tous les thèmes (`style.css`, `js/animations.js`).
 - Thème Geek : le bond de Bip ne garde plus son style final (`backwards` au lieu de `both`), pour laisser GSAP déplacer Bip.
 - Thème en ligne : `saisons/halloween.css`, à la place de `agents-en-noir.css`.

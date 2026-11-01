@@ -11,8 +11,41 @@
   var racine = document.documentElement;
   var avecDessin = typeof DrawSVGPlugin !== "undefined";
   var TRAITS = 6;       // le sourire se trace en 6 petits traits
-  var finisseurs = [];  // fonctions qui terminent chaque animation d'un coup
-  var vivants = [];     // éléments de la seconde vague : { debut(), fin() }
+  var vivants = [];     // tout ce qui s'arrête à la pause : { debut(), fin() } (debut absent pour les animations de l'ouverture)
+  var annulations = []; // annulation de chaque écouteur et minuteur du thème : la pause les retire tous
+
+  var SEUIL_VU = 0.6;                  // part d'un élément visible avant de déclencher son animation
+  var ANTIREBOND = 200;                // ms d'attente après un redimensionnement
+  var PC = "(min-width: 900px)";
+  var SOMMEIL = 60000;                 // ms sans geste avant que Bip s'endorme
+  var CONTROLE = 2000;                 // ms entre deux contrôles du sommeil
+  var ETIQUETTE = 3000;                // ms d'affichage de « Bip a tout lu »
+  var CLICS_RAPPROCHES = 1500;         // ms maximum entre deux clics du logo
+  var CLICS = 5;                       // clics rapprochés pour le grand sourire
+
+  // Écouteurs et minuteurs du thème : chacun enregistre son annulation (idempotente), que la pause appelle.
+  function enregistrer(annuler) {
+    var fait = false;
+    function une() {
+      if (fait) return;
+      fait = true;
+      annulations.splice(annulations.indexOf(une), 1);
+      annuler();
+    }
+    annulations.push(une);
+    return une;
+  }
+  function ecouter(cible, nom, rappel, options) {
+    cible.addEventListener(nom, rappel, options);
+    return enregistrer(function () { cible.removeEventListener(nom, rappel); });
+  }
+  function minuter(rappel, ms, repete) {
+    var fixer = repete ? setInterval : setTimeout, effacer = repete ? clearInterval : clearTimeout;
+    var id = fixer(function () { if (!repete) annuler(); rappel(); }, ms);
+    var annuler = enregistrer(function () { effacer(id); });
+    return annuler;
+  }
+  function terminer(fin) { vivants.push({ fin: fin }); } // animation de l'ouverture : terminée d'un coup à la pause
 
   function themeGeekActif() {
     var lien = document.querySelector('link[rel="stylesheet"][href$="saisons/geek.css"]');
@@ -39,13 +72,13 @@
     sourire.style.visibility = "hidden";
     rendreLeSourire();
 
-    function terminer() {
+    function finirTraits() {
       traits.forEach(function (trait) { trait.remove(); });
       sourire.style.visibility = "visible";
     }
-    var tl = gsap.timeline({ delay: 0.5, onComplete: terminer });
+    var tl = gsap.timeline({ delay: 0.5, onComplete: finirTraits });
     tl.to(traits, { autoAlpha: 1, duration: 0.5, ease: "power1.out", stagger: 0.35 });
-    finisseurs.push(function () { tl.kill(); terminer(); });
+    terminer(function () { tl.kill(); finirTraits(); });
   }
 
   // Phrase de saison : le texte complet reste dans la page pour les lecteurs d'écran (.sr-seul) ;
@@ -82,12 +115,12 @@
         if (!entrees[0].isIntersecting) return;
         observateur.disconnect();
         ecrire();
-      }, { threshold: 0.6 });
+      }, { threshold: SEUIL_VU });
       observateur.observe(phrase);
     } else {
       ecrire();
     }
-    finisseurs.push(function () {
+    terminer(function () {
       if (observateur) observateur.disconnect();
       if (tween) tween.kill();
       phrase.classList.add("saison-fini");
@@ -116,7 +149,7 @@
   // (décorative, aria-hidden) ; à 100 %, l'étiquette « Bip a tout lu » apparaît 3 s. Un seul écouteur passif,
   // limité à une mise à jour par image. Moins de mouvement ou pause : la jauge n'existe pas.
   function jaugeDeLecture() {
-    var jauge = null, plein, etiquette, minuteur = null, attente = false, vue = false;
+    var jauge = null, plein, etiquette, annulerMinuteur = null, annulerDefilement = null, attente = false, vue = false;
     function maj() {
       attente = false;
       if (jauge.hidden) return;
@@ -126,7 +159,7 @@
       if (part >= 0.995 && !vue) {
         vue = true;
         etiquette.classList.add("visible");
-        minuteur = setTimeout(cacher, 3000);
+        annulerMinuteur = minuter(cacher, ETIQUETTE);
       } else if (part < 0.9) {
         vue = false;
       }
@@ -149,12 +182,12 @@
           document.body.appendChild(jauge);
         }
         jauge.hidden = false;
-        window.addEventListener("scroll", auDefilement, { passive: true });
+        annulerDefilement = ecouter(window, "scroll", auDefilement, { passive: true });
         maj();
       },
       fin: function () {
-        window.removeEventListener("scroll", auDefilement);
-        clearTimeout(minuteur);
+        if (annulerDefilement) annulerDefilement();
+        if (annulerMinuteur) annulerMinuteur();
         if (jauge) { cacher(); jauge.hidden = true; }
       }
     };
@@ -217,7 +250,7 @@
         if (!entrees[0].isIntersecting) return;
         observateur.disconnect();
         compter();
-      }, { threshold: 0.6 });
+      }, { threshold: SEUIL_VU });
       observateur.observe(prix);
     }
     return {
@@ -235,17 +268,25 @@
     };
   }
 
-  // Écouteur de redimensionnement qui ne réagit qu'à un changement de largeur (pas à la barre d'adresse du mobile)
+  // Écouteur de redimensionnement qui ne réagit qu'à un changement de largeur (pas à la barre d'adresse du mobile) ;
+  // renvoie la fonction qui l'annule, minuteur d'attente compris.
   function auChangementDeLargeur(rappel) {
-    var largeur = window.innerWidth, minuteur = null;
-    return function () {
-      clearTimeout(minuteur);
-      minuteur = setTimeout(function () {
+    var largeur = window.innerWidth, annulerMinuteur = function () {};
+    var annulerEcoute = ecouter(window, "resize", function () {
+      annulerMinuteur();
+      annulerMinuteur = minuter(function () {
         if (window.innerWidth === largeur) return;
         largeur = window.innerWidth;
         rappel();
-      }, 200);
-    };
+      }, ANTIREBOND);
+    });
+    return function () { annulerMinuteur(); annulerEcoute(); };
+  }
+
+  // Position d'une boîte mesurée (getBoundingClientRect) relative au parent du logo
+  function dansLeParent(logo, boite) {
+    var base = logo.parentNode.getBoundingClientRect();
+    return { x: boite.left - base.left, y: boite.top - base.top };
   }
 
   // 3. Bip visite le logo (PC dès 900 px) : vers 9 s après l'ouverture, puis toutes les 45 s, Bip quitte sa place
@@ -257,15 +298,15 @@
     var yeux = gsap.utils.toArray(logo.querySelectorAll(".logo-oeil"));
     var TRAJET = 4.5;  // secondes par trajet, 12 pas : 2,7 changements par seconde
     var CYCLE = 45;    // une visite toutes les 45 s
-    var largeurs = null, delai = 9, ecoute = null;
+    var largeurs = null, delai = 9, annulerLargeur = null;
 
     function mesurer() {
-      var base = logo.parentNode.getBoundingClientRect();
       var boite = logo.getBoundingClientRect();
+      var place = dansLeParent(logo, boite);
       var style = getComputedStyle(bip);
       var h = symbole.getBoundingClientRect().height;
-      var dx = boite.right - base.left + h / 2 - parseFloat(style.left);
-      var dy = boite.top + boite.height / 2 - base.top - parseFloat(style.top) - bip.getBoundingClientRect().height / 2;
+      var dx = place.x + boite.width + h / 2 - parseFloat(style.left);
+      var dy = place.y + boite.height / 2 - parseFloat(style.top) - bip.getBoundingClientRect().height / 2;
       var libre = dx - h / 2 + 6; // à partir de là, Bip est entièrement à droite du logo : il peut descendre
       return [{ x: 0, y: 0 }, { x: libre / 2, y: -3 }, { x: libre, y: -3 }, { x: dx, y: dy / 2 }, { x: dx, y: dy }];
     }
@@ -275,7 +316,7 @@
     function monter() {
       if (largeurs) largeurs.revert();
       largeurs = gsap.matchMedia();
-      largeurs.add("(min-width: 900px)", function () {
+      largeurs.add(PC, function () {
         var aller = mesurer();
         var tl = gsap.timeline({ delay: delai, repeat: -1 });
         tl.call(function () { bip.classList.add("en-visite"); }, null, 0);
@@ -294,13 +335,12 @@
       enCours: function () { return bip.classList.contains("en-visite"); },
       debut: function (premier) {
         delai = premier == null ? 9 : premier;
-        window.removeEventListener("resize", ecoute);
-        ecoute = auChangementDeLargeur(monter);
-        window.addEventListener("resize", ecoute);
+        if (annulerLargeur) annulerLargeur();
+        annulerLargeur = auChangementDeLargeur(monter);
         monter();
       },
       fin: function () {
-        window.removeEventListener("resize", ecoute);
+        if (annulerLargeur) annulerLargeur();
         if (largeurs) largeurs.revert();
         largeurs = null;
       }
@@ -324,21 +364,22 @@
     jeu.appendChild(piste);
     zone.appendChild(jeu);
     var PAS = 24, CADENCE = 2.5; // un pas de 24 px, 2,5 pas par seconde
-    var tl = null, observateur = null, ecoute = null, actif = false, haut = false, bas = false;
+    var tl = null, observateur = null, annulerLargeur = null, actif = false, haut = false, bas = false;
 
     function construire() {
       if (tl) tl.kill();
-      var devant = lien.getBoundingClientRect().left + lien.getBoundingClientRect().width / 2 - piste.getBoundingClientRect().left - 20;
+      var boiteLien = lien.getBoundingClientRect();
+      var devant = boiteLien.left + boiteLien.width / 2 - piste.getBoundingClientRect().left - 20;
       var course = piste.clientWidth - 40 - devant;
       marcheur.style.left = Math.max(0, devant) + "px";
       if (course < 2 * PAS) return;
       var pas = Math.round(course / PAS), duree = pas / CADENCE;
       tl = gsap.timeline({ repeat: -1, repeatDelay: 4, paused: true });
       tl.to(marcheur, { x: course, duration: duree, ease: "steps(" + pas + ")" })
-        .to(marcheur, { y: -6, duration: 0.25, ease: "power1.out", yoyo: true, repeat: 1 })
+        .to(marcheur, { y: -6, duration: 0.5, ease: "power1.out", yoyo: true, repeat: 1 })
         .set(marcheur, { scaleX: -1 })
         .to(marcheur, { x: 0, duration: duree, ease: "steps(" + pas + ")" })
-        .to(marcheur, { y: -6, duration: 0.25, ease: "power1.out", yoyo: true, repeat: 1 })
+        .to(marcheur, { y: -6, duration: 0.5, ease: "power1.out", yoyo: true, repeat: 1 })
         .set(marcheur, { scaleX: 1 })
         .to({}, { duration: 3 });
     }
@@ -359,16 +400,15 @@
       debut: function () {
         actif = true;
         construire();
-        ecoute = auChangementDeLargeur(function () { construire(); majMarche(); });
+        annulerLargeur = auChangementDeLargeur(function () { construire(); majMarche(); });
         if (document.fonts) document.fonts.ready.then(function () { if (actif) { construire(); majMarche(); } }); // la police change la largeur du lien
-        window.addEventListener("resize", ecoute);
         observateur = new IntersectionObserver(auVu);
         observateur.observe(bipHaut);
         observateur.observe(piste);
       },
       fin: function () {
         actif = false;
-        window.removeEventListener("resize", ecoute);
+        if (annulerLargeur) annulerLargeur();
         if (observateur) observateur.disconnect();
         if (tl) tl.kill();
         tl = null;
@@ -385,7 +425,7 @@
   // pendant qu'un message poli s'affiche ; une seule fois par visite (en mémoire, pas de stockage).
   function porteSecrete(bip, visite, pied) {
     var CODE = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"];
-    var rang = 0, fait = false, tl = null;
+    var rang = 0, fait = false, tl = null, annulerClavier = null;
     var message = creer("div", "message-secret"); // zone « status » toujours présente, vide tant qu'il n'y a rien à dire
     message.setAttribute("role", "status");
     message.setAttribute("aria-live", "polite");
@@ -427,8 +467,8 @@
       if (!fait) danser();
     }
     return {
-      debut: function () { document.addEventListener("keydown", auClavier); },
-      fin: function () { document.removeEventListener("keydown", auClavier); rang = 0; ranger(); }
+      debut: function () { annulerClavier = ecouter(document, "keydown", auClavier); },
+      fin: function () { if (annulerClavier) annulerClavier(); rang = 0; ranger(); }
     };
   }
 
@@ -438,7 +478,7 @@
     var symbole = logo.querySelector(".logo-symbole");
     var normal = sourire && sourire.getAttribute("d");
     var FONDS = ["--e-miel", "--e-menthe", "--e-rose", "--e-miel", "--e-menthe"];
-    var compte = 0, dernier = 0, tl = null, etoiles = [];
+    var compte = 0, dernier = 0, tl = null, etoiles = [], annulerClic = null;
 
     function ranger() {
       if (tl) tl.kill();
@@ -448,9 +488,9 @@
       etoiles = [];
     }
     function sourireEtEtoiles() {
-      var base = logo.parentNode.getBoundingClientRect();
       var boite = symbole.getBoundingClientRect();
-      var rayon = boite.height * 0.78, centre = { x: boite.left + boite.width / 2 - base.left, y: boite.top + boite.height / 2 - base.top };
+      var place = dansLeParent(logo, boite);
+      var rayon = boite.height * 0.78, centre = { x: place.x + boite.width / 2, y: place.y + boite.height / 2 };
       tl = gsap.timeline({ onComplete: ranger });
       tl.to(sourire, { attr: { d: "M12 36 Q32 66 52 36" }, duration: 0.4, ease: "back.out(2)" }, 0)
         .to(sourire, { attr: { d: normal }, duration: 0.4, ease: "power2.inOut" }, 1.6);
@@ -470,17 +510,17 @@
     }
     function auClic() {
       var maintenant = Date.now();
-      compte = maintenant - dernier < 1500 ? compte + 1 : 1;
+      compte = maintenant - dernier < CLICS_RAPPROCHES ? compte + 1 : 1;
       dernier = maintenant;
-      if (compte < 5) return;
+      if (compte < CLICS) return;
       compte = 0;
       // pas pendant l'ouverture (tracé du sourire), ni pendant une visite, ni déjà en cours
       if (tl || visite.enCours() || gsap.globalTimeline.time() < 6) return;
       sourireEtEtoiles();
     }
     return {
-      debut: function () { logo.addEventListener("click", auClic); },
-      fin: function () { logo.removeEventListener("click", auClic); compte = 0; if (tl) ranger(); }
+      debut: function () { annulerClic = ecouter(logo, "click", auClic); },
+      fin: function () { if (annulerClic) annulerClic(); compte = 0; if (tl) ranger(); }
     };
   }
 
@@ -488,7 +528,7 @@
   // « z » très lents (classe bip-dort sur <body>) ; il se réveille au premier geste. Contrôle toutes les 2 s.
   function sommeil(visite, pied) {
     var GESTES = ["pointermove", "pointerdown", "keydown", "wheel", "touchstart", "scroll"];
-    var dernier = Date.now(), minuteur = null, dort = false;
+    var dernier = Date.now(), annulerGestes = [], dort = false;
 
     function reveil() {
       dernier = Date.now();
@@ -502,19 +542,18 @@
       if (pied) pied.maj();
     }
     function veiller() {
-      if (dort || visite.enCours() || Date.now() - dernier < 60000) return;
+      if (dort || visite.enCours() || Date.now() - dernier < SOMMEIL) return;
       visite.fin();
       coucher(true);
     }
     return {
       debut: function () {
         dernier = Date.now();
-        GESTES.forEach(function (nom) { window.addEventListener(nom, reveil, { passive: true }); });
-        minuteur = setInterval(veiller, 2000);
+        annulerGestes = GESTES.map(function (nom) { return ecouter(window, nom, reveil, { passive: true }); });
+        annulerGestes.push(minuter(veiller, CONTROLE, true));
       },
       fin: function () {
-        GESTES.forEach(function (nom) { window.removeEventListener(nom, reveil); });
-        clearInterval(minuteur);
+        annulerGestes.forEach(function (annuler) { annuler(); });
         if (dort) coucher(false);
       }
     };
@@ -547,7 +586,7 @@
     var phrase = zone && zone.querySelector("p:not(.prix)");
     var noeud = phrase && phrase.firstChild;
     var cible = "25\u00a0€";
-    var rebond = null, rebondi = null;
+    var rebond = null, rebondi = null, motTl = null, mot = null, annulerClic = null;
     while (noeud && !(noeud.nodeType === 3 && noeud.nodeValue.indexOf(cible) >= 0)) noeud = noeud.nextSibling;
     if (!noeud) return null;
     var plage = document.createRange();
@@ -555,32 +594,38 @@
     plage.setEnd(noeud, noeud.nodeValue.indexOf(cible) + cible.length);
     plage.surroundContents(creer("span", "vingt-cinq"));
 
-    function bonus(boite) {
+    function montrerBonus(boite) {
       var base = zone.getBoundingClientRect();
-      var mot = creer("span", "bonus-mot");
+      mot = creer("span", "bonus-mot");
       mot.setAttribute("aria-hidden", "true");
       mot.textContent = "Bonus\u202f!";
       mot.style.left = boite.left - base.left + boite.width / 2 + "px";
       mot.style.top = boite.top - base.top - 34 + "px";
       zone.appendChild(mot);
-      gsap.timeline({ onComplete: function () { mot.remove(); } })
+      motTl = gsap.timeline({ onComplete: retirerBonus })
         .fromTo(mot, { opacity: 0, y: 6, xPercent: -50 }, { opacity: 1, y: -6, xPercent: -50, duration: 0.5, ease: "power1.out" })
         .to(mot, { opacity: 0, duration: 0.5 }, 1.4);
+    }
+    function retirerBonus() {
+      if (motTl) motTl.kill();
+      if (mot) mot.remove();
+      motTl = mot = null;
     }
     function auClic(evenement) {
       var element = evenement.target.closest(".vingt-cinq, .bonus-25");
       if (!element || rebond || getComputedStyle(element).opacity < 0.5) return;
-      bonus(element.getBoundingClientRect());
+      montrerBonus(element.getBoundingClientRect());
       rebondi = element;
       rebond = gsap.fromTo(element, { y: -36 }, {
-        y: 0, duration: 1.6, ease: "bounce.out", // 4 rebonds en 1,6 s : au plus 3 changements par seconde
+        y: 0, duration: 2.4, ease: "bounce.out", // 7 changements de sens en 2,4 s : au plus 3 par seconde
         onComplete: function () { rebond = null; }
       });
     }
     return {
-      debut: function () { zone.addEventListener("click", auClic); },
+      debut: function () { annulerClic = ecouter(zone, "click", auClic); },
       fin: function () {
-        zone.removeEventListener("click", auClic);
+        if (annulerClic) annulerClic();
+        retirerBonus();
         if (rebond) { rebond.kill(); rebond = null; rebondi.style.transform = ""; }
       }
     };
@@ -592,15 +637,14 @@
     new MutationObserver(function () {
       var arretees = animationsArretees();
       if (arretees && enCours) {
-        finisseurs.forEach(function (finir) { finir(); });
-        finisseurs = [];
         vivants.forEach(function (v) { v.fin(); });
+        annulations.slice().forEach(function (annuler) { annuler(); });
       } else if (!arretees && !enCours) {
-        vivants.forEach(function (v) { v.debut(); });
+        vivants.forEach(function (v) { if (v.debut) v.debut(); });
       }
       enCours = !arretees;
     }).observe(racine, { attributes: true, attributeFilter: ["class"] });
-    if (enCours) vivants.forEach(function (v) { v.debut(); });
+    if (enCours) vivants.forEach(function (v) { if (v.debut) v.debut(); });
   }
 
   if (typeof gsap === "undefined" || !themeGeekActif()) return rendreLeSourire();
@@ -618,7 +662,7 @@
     vivants.push(visite, porteSecrete(bip, visite, pied), grandSourire(logo, visite), sommeil(visite, pied));
     pixelCache();
   }
-  var bonus = vingtCinq();
-  if (bonus) vivants.push(bonus);
+  var rebondVingtCinq = vingtCinq();
+  if (rebondVingtCinq) vivants.push(rebondVingtCinq);
   suivreLaPause();
 })();

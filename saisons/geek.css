@@ -157,14 +157,6 @@ html.sans-animation .manette-b1 { transform: none !important; }
 
 /* ---------- Emplacement 5 : phrase de saison, écrite lettre par lettre par js/geek.js ---------- */
 .saison { position: relative; margin-top: 1rem; }
-.saison .sr-seul { /* texte complet pour les lecteurs d'écran : la copie lettre par lettre est masquée aux lecteurs */
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
-}
 .saison-frappe .l { opacity: 0; }
 .saison-frappe [aria-hidden] { user-select: none; } /* copier la phrase ne la copie qu'une fois */
 .saison-fini .l { opacity: 1 !important; } /* phrase affichée d'un bloc (animations arrêtées en cours de route) */
