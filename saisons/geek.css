@@ -334,3 +334,51 @@ h2::before {
   .carte::before { display: none; }
 }
 .carte:hover::before, .carte:focus-within::before { opacity: 1; transform: none; }
+
+/* ---------- Jauge de lecture (créée par js/geek.js, décorative) : barre fixe de 6 px faite de pastilles ----------
+   Absente en moins de mouvement et quand les animations sont arrêtées (js/geek.js ne la crée pas ou la masque). */
+.jauge {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 11;
+  height: 6px;
+  background: var(--nuit) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='6' viewBox='0 0 12 6'%3E%3Cg opacity='.3'%3E%3Ccircle cx='3' cy='3' r='2' fill='%23f5c33b'/%3E%3Ccircle cx='9' cy='3' r='2' fill='%237ee0b5'/%3E%3C/g%3E%3C/svg%3E") repeat-x;
+  pointer-events: none;
+}
+.jauge[hidden] { display: none; }
+.jauge-plein {
+  height: 6px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='6' viewBox='0 0 12 6'%3E%3Cg opacity='1'%3E%3Ccircle cx='3' cy='3' r='2' fill='%23f5c33b'/%3E%3Ccircle cx='9' cy='3' r='2' fill='%237ee0b5'/%3E%3C/g%3E%3C/svg%3E") repeat-x;
+  clip-path: inset(0 calc((1 - var(--lu, 0)) * 100%) 0 0);
+}
+.jauge-etiquette { /* « Bip a tout lu », 3 s à 100 % */
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: .25rem .9rem;
+  background: var(--nuit);
+  color: #ffffff;
+  border: 1.5px solid #ffffff;
+  border-radius: 1rem;
+  font-size: 1rem;
+  line-height: 1.4;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 400ms, visibility 400ms;
+}
+.jauge-etiquette.visible { opacity: 1; visibility: visible; }
+
+/* ---------- Tarif « en score » (js/geek.js) : compteur de largeur fixe, puis « → 25 € » en décor ---------- */
+.prix .score { display: inline-block; text-align: right; font-variant-numeric: tabular-nums; user-select: none; } /* copier la phrase ne copie le prix qu'une fois (la copie lisible est .sr-seul) */
+.prix .bonus-25 {
+  display: block;
+  margin-top: .25rem;
+  font-size: .5em;
+  color: var(--aubergine);
+  opacity: 0;
+  transform: translateY(-6px);
+}
