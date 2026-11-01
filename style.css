@@ -350,6 +350,10 @@ html.sans-animation .pause-icone { /* ▶ : triangle */
   clip-path: polygon(15% 0, 100% 50%, 15% 100%);
 }
 html.avec-pause footer { padding-bottom: 4.5rem; } /* le bouton fixe ne masque pas le pied de page */
+@media (max-width: 47.99em) { /* mobile : le bouton ne suit pas le défilement, il reste en bas de page sous le texte */
+  body { position: relative; }
+  #pause-animations { position: absolute; }
+}
 
 /* Animations arrêtées par le visiteur : plus de mouvement, les effets de couleur restent */
 html.sans-animation *, html.sans-animation *::before, html.sans-animation *::after {
