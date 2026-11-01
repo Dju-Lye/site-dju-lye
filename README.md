@@ -32,17 +32,17 @@ HTML et CSS seulement : aucun JavaScript, aucun chargement externe.
 
 ## Couche de saison
 
-Le décor de fête est une feuille de style à part, dans `saisons/` (aujourd'hui `halloween.css`), chargée après `style.css`. La base du site n'est pas modifiée pour changer de fête.
+Le décor de fête est une feuille de style à part, dans `saisons/` (aujourd'hui `geek.css`, le thème de repos), chargée après `style.css`. La base du site n'est pas modifiée pour changer de fête.
 
 Cinq emplacements :
-1. au-dessus du logo (`.accroche .contenu::after`) ;
+1. au-dessus du logo (`.accroche .contenu::after`, ou un SVG en ligne pour le thème Geek : Bip) ;
 2. ciel de l'en-tête, PC seulement dès 900 px (`.accroche .contenu::before`) ;
-3. au-dessus de « Écrire à Julie » (`.ecrire h2::before`) ;
+3. au-dessus de « Écrire à Julie » (`.ecrire h2::before`, ou un SVG en ligne pour le thème Geek : la manette) ;
 4. couleur des vagues (`.courbe`) ;
 5. phrase de saison (`<p class="saison">` dans `index.html`).
 
 Fichiers disponibles dans `saisons/` :
-- `geek.css` : geek rétro, du 3 au 30 novembre (à venir) ;
+- `geek.css` : « Pixels de quartier », thème de repos sans période (laissé en place hors fête), avec Bip le robot ; animé par `js/geek.js` (sourire en 6 traits, phrase écrite lettre par lettre) ; sur la branche `theme-geek`, pas encore en ligne ;
 - `halloween.css` : du 15 octobre au 2 novembre (en ligne) ;
 - `lumieres-decembre.css` : du 1er au 25 décembre, bleu nuit, étoile filante animée par `js/lumieres-decembre.js` (à brancher avec son script, la classe `sourire-attendu` du `<head>` et la phrase ; pas encore en ligne) ;
 - `bonne-annee.css` : du 26 décembre au 4 janvier (sans chiffre d'année, sert chaque année), champagne et rose poudré, bouchon de champagne animé par `js/bonne-annee.js` (à brancher avec son script, la classe `sourire-attendu` du `<head>` et la phrase ; pas encore en ligne) ;
@@ -65,7 +65,7 @@ Fichiers disponibles dans `saisons/` :
 - `michael-jackson.css` : thème libre, sans période.
 La phrase de saison de chaque fichier est en commentaire en tête.
 
-Changer de fête : dans `index.html`, remplacer le fichier du `<link>` (`saisons/noel.css`…) et le texte de la phrase.
+Changer de fête : dans `index.html`, remplacer le fichier du `<link>` (`saisons/noel.css`…), le texte de la phrase, et, si le thème a un script, la ligne `<script>` (`js/geek.js` pour le thème Geek). Le `<head>` cible le fichier du thème actif pour masquer le sourire avant son tracé. Les ornements vides de `index.html` (Bip, manette : classe `deco-theme`) restent invisibles sans `geek.css`.
 Revenir au site sobre : supprimer la ligne `<link>` de la saison et vider la balise `<p class="saison">` (`style.css` la masque quand elle est vide).
 
 Règles : animations et JavaScript acceptés, GSAP hébergé en local. L'objectif du site est d'être accessible et lisible (pour des clients de 75 ans y compris), plus « simple dans le code ». Garde-fous : `prefers-reduced-motion` respecté, bouton pause pour tout mouvement de plus de 5 secondes, rien chargé depuis un serveur externe, pas de clignotement rapide. Décors en pseudo-éléments SVG en data URI (le `#` s'écrit `%23`), `pointer-events: none`, logo jamais déformé.
@@ -74,4 +74,4 @@ Règles : animations et JavaScript acceptés, GSAP hébergé en local. L'objecti
 
 GSAP 3.15.0 (`js/vendor/gsap.min.js`), sous licence « Standard No Charge » : https://gsap.com/standard-license. Julie maintient cette dépendance : version fixée, mise à jour seulement avec son accord.
 
-Plugins GSAP 3.15.0, mêmes conditions : `js/vendor/DrawSVGPlugin.min.js` (sourire du logo qui se dessine) et `js/vendor/MotionPathPlugin.min.js` (vol de la chauve-souris), utilisés par `js/halloween.js` (thème Halloween seulement) et, pour l'étoile filante, par `js/lumieres-decembre.js` (thème Lumières de décembre seulement). `js/bonne-annee.js` et `js/galette.js` n'utilisent que GSAP et DrawSVG (pas MotionPath).
+Plugins GSAP 3.15.0, mêmes conditions : `js/vendor/DrawSVGPlugin.min.js` (sourire du logo qui se dessine) et `js/vendor/MotionPathPlugin.min.js` (vol de la chauve-souris), utilisés par `js/halloween.js` (thème Halloween seulement ; `js/geek.js` n'utilise que GSAP et DrawSVG) et, pour l'étoile filante, par `js/lumieres-decembre.js` (thème Lumières de décembre seulement). `js/bonne-annee.js` et `js/galette.js` n'utilisent que GSAP et DrawSVG (pas MotionPath).
