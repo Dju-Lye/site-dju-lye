@@ -62,7 +62,7 @@ Fichiers disponibles dans `saisons/` :
 - `extraterrestre.css` : thème libre, sans période ;
 - `espace-lointain.css` : thème libre, sans période ;
 - `agents-en-noir.css` : thème libre, sans période ;
-- `michael-jackson.css` : thème libre, sans période.
+- `mj.css` : thème libre, sans période.
 La phrase de saison de chaque fichier est en commentaire en tête.
 
 Changer de fête : dans `index.html`, remplacer le fichier du `<link>` (`saisons/noel.css`…), le texte de la phrase, et, si le thème a un script, la ligne `<script>` (`js/geek.js` pour le thème Geek). Le `<head>` cible le fichier du thème actif pour masquer le sourire avant son tracé. Les ornements vides de `index.html` (Bip, manette : classe `deco-theme`) restent invisibles sans `geek.css`.
