@@ -15,18 +15,18 @@ Enregistrés chez Infomaniak le 29/10/2026.
 
 ## Organisation
 
-Refonte neuve de novembre 2026 (branche `refonte-neuve-2026-11`) : maquette B « Pop de quartier » (branche `maquette-b-pop-de-quartier`) : fond crème, aplats saturés, contours épais, ombres dures, mascotte (le sourire du logo), ruban de mots, patchwork de services. Palette étendue : corail #ff5d8f, menthe #3de0c2, lilas #c9b6ff, crème #fdf2d9, encre #170f21. Le thème Geek et les autres thèmes de saison (21 feuilles dans `saisons/`) ne sont plus chargés par la page ; leurs fichiers restent dans `saisons/` et `js/`, et dans l'historique git.
+Refonte neuve de novembre 2026 (branche `refonte-neuve-2026-11`) : maquette C « fusion » (branche `maquette-c-fusion`) : présentation de « Pop de quartier » (patchwork de blocs, contours épais, ombres dures, mascotte, ruban de mots) aux couleurs de « Sombre vivant » : noir-aubergine #170f21, aubergine #4a2a6e, violet électrique #7a3cff, menthe #3de0c2, lilas #d9c8ff, miel #f5c33b, texte #f1ebfa. Sombre d'abord, mode clair automatique (crème #fbf5e6). La bande « Le site en chiffres » est en bas de page, avant le pied de page. Le thème Geek et les autres thèmes de saison (21 feuilles dans `saisons/`) ne sont plus chargés par la page ; leurs fichiers restent dans `saisons/` et `js/`, et dans l'historique git.
 
-- `index.html` : page unique (accroche, le site en chiffres, services, déroulement, tarif, qui est Julie, contact), avec balises de partage (Open Graph, Twitter) et données structurées `LocalBusiness`.
+- `index.html` : page unique (accroche, services, déroulement, tarif, qui est Julie, contact, le site en chiffres), avec balises de partage (Open Graph, Twitter) et données structurées `LocalBusiness`.
 - `mentions-legales.html` : mentions légales.
 - `404.html`, `robots.txt`, `sitemap.xml` : page d'erreur, consignes aux robots, plan du site.
-- `style.css` : feuille de style unique, variables de couleur sur `:root`, pas de mode sombre dans cette maquette, révélation au défilement (`animation-timeline: view()`) avec repli complet sans mouvement.
-- `js/site.js` : bouton pause des animations (absent avec « moins de mouvement ») et découpage des titres en mots. Aucune bibliothèque. Un petit script en ligne dans le `<head>` de `index.html` applique la pause mémorisée (`localStorage`, clé `animations-arretees`) avant le premier rendu.
+- `style.css` : feuille de style unique, variables de couleur sur `:root`, sombre par défaut et mode clair automatique (`prefers-color-scheme`), révélation au défilement (`animation-timeline: view()`) avec repli complet sans mouvement.
+- `js/site.js` : bouton pause des animations (absent avec « moins de mouvement »), « merci ! » au clic sur le mail et pupilles de la mascotte qui suivent le curseur. Aucune bibliothèque. Un petit script en ligne dans le `<head>` de `index.html` applique la pause mémorisée (`localStorage`, clé `animations-arretees`) avant le premier rendu.
 - `polices/` : Lexend SemiBold, Source Sans 3 Regular, JetBrains Mono Regular (Source Sans 3 SemiBold n'est plus chargée) (woff2, latin) et leurs licences OFL.
 - `images/` : symbole, image de partage `og-image` (SVG et PNG 1200x630), icône tactile.
 - `js/animations.js`, `js/geek.js`, thèmes de saison (`saisons/`, `js/*.js`, `js/vendor/`) : conservés, non chargés.
 
-Le poids de la page affiché dans la bande de chiffres (104 Ko, sans compression : HTML, CSS, JS, polices chargées, symbole) est une mesure : à refaire si un de ces fichiers change.
+Le poids de la page affiché dans la bande de chiffres (109 Ko, soit 109 322 octets mesurés avec `wc -c`, sans compression : HTML, CSS, JS, polices chargées, symbole) est une mesure : à refaire si un de ces fichiers change.
 
 HTML, CSS et un petit JavaScript : aucun chargement externe, aucun traceur.
 
