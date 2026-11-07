@@ -1,4 +1,4 @@
-// Deux choses : la pause des animations, et un petit « merci ! » au clic sur le mail.
+// Trois choses : la pause des animations, un petit « merci ! » au clic sur le mail, et les yeux de la mascotte qui suivent le curseur.
 // Sans JavaScript, ou avec « moins de mouvement », le site reste complet et immobile : le bouton n'existe pas.
 (function () {
   var CLE = "animations-arretees"; // valeurs mémorisées : "oui" ou "non"
@@ -49,4 +49,28 @@
   afficher();
   racine.classList.add("avec-pause");
   document.body.appendChild(bouton);
+
+  // Yeux de la mascotte : les pupilles suivent le curseur ou le doigt, doucement (immobiles avec la pause).
+  var pupilles = Array.from(document.querySelectorAll(".pupille"));
+  var cible = null;
+  var attente = false;
+  function regarder() {
+    attente = false;
+    pupilles.forEach(function (pupille) {
+      var r = pupille.getBoundingClientRect();
+      var dx = cible && !arretees ? cible.x - (r.left + r.width / 2) : 0;
+      var dy = cible && !arretees ? cible.y - (r.top + r.height / 2) : 0;
+      var force = Math.min(1, Math.hypot(dx, dy) / 250) * 3; // 3 unités du dessin au maximum
+      var angle = Math.atan2(dy, dx);
+      pupille.style.transform = "translate(" + Math.cos(angle) * force + "px," + Math.sin(angle) * force + "px)";
+    });
+  }
+  function suivre(x, y) {
+    cible = { x: x, y: y };
+    if (!attente) { attente = true; requestAnimationFrame(regarder); }
+  }
+  addEventListener("pointermove", function (e) { suivre(e.clientX, e.clientY); });
+  addEventListener("touchmove", function (e) { suivre(e.touches[0].clientX, e.touches[0].clientY); }, { passive: true });
+  document.addEventListener("pointerleave", function () { cible = null; regarder(); });
+  bouton.addEventListener("click", regarder);
 })();
