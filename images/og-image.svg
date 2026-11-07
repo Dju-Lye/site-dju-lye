@@ -1,14 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
-  <rect width="1200" height="630" fill="#4a2a6e"/>
-  <g stroke="#170f21" stroke-width="6">
-    <rect x="-10" y="566" width="420" height="80" fill="#ff5d8f"/><rect x="400" y="566" width="420" height="80" fill="#3de0c2"/>
-    <rect x="810" y="566" width="420" height="80" fill="#c9b6ff"/>
+  <defs>
+    <radialGradient id="m1" cx="15%" cy="15%" r="55%"><stop offset="0" stop-color="#7a3cff" stop-opacity=".55"/><stop offset="1" stop-color="#7a3cff" stop-opacity="0"/></radialGradient>
+    <radialGradient id="m2" cx="80%" cy="85%" r="45%"><stop offset="0" stop-color="#3de0c2" stop-opacity=".22"/><stop offset="1" stop-color="#3de0c2" stop-opacity="0"/></radialGradient>
+    <linearGradient id="vis" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4a2a6e"/><stop offset="1" stop-color="#7a3cff"/></linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#170f21"/><rect width="1200" height="630" fill="url(#m1)"/><rect width="1200" height="630" fill="url(#m2)"/>
+  <g stroke="#d9c8ff" stroke-width="6">
+    <rect x="-10" y="566" width="420" height="80" fill="#7a3cff"/><rect x="400" y="566" width="420" height="80" fill="#3de0c2"/>
+    <rect x="810" y="566" width="420" height="80" fill="#f5c33b"/>
     <path d="M990 60C1100 40 1190 120 1170 240C1150 360 1030 400 940 360C850 320 830 230 850 160C865 105 920 70 990 60Z" fill="#3de0c2"/>
   </g>
   <g transform="translate(900 110) rotate(-6 100 100) scale(3.1)">
     <rect x="4" y="4" width="58" height="58" rx="17" fill="#170f21"/>
-    <rect x="1" y="1" width="58" height="58" rx="17" fill="#4a2a6e" stroke="#170f21" stroke-width="2.2"/>
-    <circle cx="10" cy="35" r="4.5" fill="#ff5d8f"/><circle cx="50" cy="35" r="4.5" fill="#ff5d8f"/>
+    <rect x="1" y="1" width="58" height="58" rx="17" fill="url(#vis)" stroke="#170f21" stroke-width="2.2"/>
+    <circle cx="10" cy="35" r="4.5" fill="#d9c8ff" opacity=".7"/><circle cx="50" cy="35" r="4.5" fill="#d9c8ff" opacity=".7"/>
     <circle cx="19" cy="23" r="6" fill="#ffffff"/><circle cx="41" cy="23" r="6" fill="#ffffff"/>
     <path d="M15 36 Q30 50 45 36" fill="none" stroke="#f5c33b" stroke-width="6" stroke-linecap="round"/>
   </g>
