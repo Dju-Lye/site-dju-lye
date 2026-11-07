@@ -200,7 +200,7 @@ a { color: inherit; }
 .ecrire .bouton { font-size: 1.5rem; background: var(--aubergine); color: #fff; }
 .ecrire .bouton small { color: var(--miel); }
 .exemple { margin: 2.5rem 0 .5rem; font-family: var(--f-mono); font-size: .95rem; }
-.modele { display: inline-block; font: 400 1.05rem/1.4 var(--f-mono); padding: .9rem 1.2rem; background: var(--encre); color: var(--texte); border: 3px solid var(--encre); border-radius: .5rem; box-shadow: 4px 4px 0 var(--aubergine); transform: rotate(-1.2deg); }
+.modele { display: inline-block; font: 400 1.05rem/1.4 var(--f-mono); padding: .9rem 1.2rem; background: var(--encre); color: #f1ebfa; border: 3px solid var(--encre); border-radius: .5rem; box-shadow: 4px 4px 0 var(--aubergine); transform: rotate(-1.2deg); }
 .merci { position: absolute; left: clamp(1.25rem, 5vw, 3rem); margin-top: -1rem; display: none; font: 600 1.4rem var(--f-titre); padding: .3rem 1rem; background: var(--miel); color: var(--encre); border: 3px solid var(--encre); border-radius: 2rem; box-shadow: 3px 3px 0 var(--encre); transform: rotate(-5deg); }
 .merci.visible { display: block; }
 
