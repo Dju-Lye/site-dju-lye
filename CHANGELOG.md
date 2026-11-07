@@ -4,6 +4,13 @@ Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/). Pas
 
 ## [Non publié]
 
+### Refonte neuve (branche `refonte-neuve-2026-11`)
+- Site réécrit : très grands titres Lexend en taille fluide avec mot clé miel, étiquettes et chiffres en JetBrains Mono, bande « le site en chiffres » (valeurs mesurées), sections qui se dévoilent au défilement en CSS seul (titres mot par mot, fil miel qui relie les 3 étapes, remboursement du tarif en second), mode sombre automatique.
+- Partage et référencement : Open Graph, Twitter, canonical, `theme-color`, JSON-LD `LocalBusiness` (sans adresse de domicile), `robots.txt`, `sitemap.xml`, `404.html`, `images/og-image` (SVG et PNG), icône tactile.
+- `js/site.js` remplace `js/animations.js` (pause des animations conservée, sans GSAP) ; `polices/JetBrainsMono-Regular.woff2` et sa licence OFL.
+- `mentions-legales.html` raccordée au nouveau style (texte inchangé).
+- Thème Geek, thèmes de saison et GSAP ne sont plus chargés ; fichiers conservés.
+
 ### Ajouté
 - Thème Geek « Pixels de quartier » entièrement refait (branche `theme-geek`, première vague) : Bip le robot, ciel de pixels, manette, vagues à pastilles, phrase écrite lettre par lettre, icônes de titres, jetons, bouton ▶, clignement du symbole de « Qui est Julie », sourire du logo tracé en 6 traits (`saisons/geek.css`, `js/geek.js`). Thème de repos, sans période.
 - Thème Geek, seconde vague (branche `theme-geek`) : Bip visite le logo (PC, GSAP + MotionPath, petits pas), Bip du pied de page (jamais animé en même temps que celui du haut), cartes de services qui s'allument (pictogrammes-pixels, CSS seul), jauge de lecture en pastilles avec « Bip a tout lu », tarif « en score » (compteur de 0 à 50 en 4 paliers, « → 25 € » en décor), œufs de Pâques décoratifs : code secret, 5 clics sur le logo, Bip qui s'endort après 60 s, pixel caché au clavier, rebond du « 25 € ».

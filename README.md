@@ -15,13 +15,20 @@ Enregistrés chez Infomaniak le 29/10/2026.
 
 ## Organisation
 
-- `index.html` : page unique (accroche, services, déroulement, tarif, qui est Julie, contact).
-- `mentions-legales.html` : mentions légales, avec des marqueurs « À compléter ».
-- `style.css` : feuille de style unique, mobile d'abord, mise en page élargie dès 48 em.
-- `polices/` : Lexend SemiBold, Source Sans 3 Regular et SemiBold (woff2, latin seulement, tirées de la charte) et leurs licences OFL.
-- `images/` : symbole (copie du SVG de la charte).
+Refonte neuve de novembre 2026 (branche `refonte-neuve-2026-11`) : site moderne, soigné et un peu technique, qui montre son propre travail. Le thème Geek et les 22 thèmes de saison ne sont plus chargés par la page ; leurs fichiers restent dans `saisons/` et `js/`, et dans l'historique git.
 
-HTML et CSS seulement : aucun JavaScript, aucun chargement externe.
+- `index.html` : page unique (accroche, le site en chiffres, services, déroulement, tarif, qui est Julie, contact), avec balises de partage (Open Graph, Twitter) et données structurées `LocalBusiness`.
+- `mentions-legales.html` : mentions légales.
+- `404.html`, `robots.txt`, `sitemap.xml` : page d'erreur, consignes aux robots, plan du site.
+- `style.css` : feuille de style unique, variables de couleur sur `:root`, mode sombre automatique, révélation au défilement (`animation-timeline: view()`) avec repli complet sans mouvement.
+- `js/site.js` : bouton pause des animations et découpage des titres en mots. Aucune bibliothèque.
+- `polices/` : Lexend SemiBold, Source Sans 3 Regular et SemiBold, JetBrains Mono Regular (woff2, latin) et leurs licences OFL.
+- `images/` : symbole, image de partage `og-image` (SVG et PNG 1200x630), icône tactile.
+- `js/animations.js`, `js/geek.js`, thèmes de saison (`saisons/`, `js/*.js`, `js/vendor/`) : conservés, non chargés.
+
+Le poids de la page affiché dans la bande de chiffres (122 Ko, sans compression : HTML, CSS, JS, polices, symbole) est une mesure : à refaire si un de ces fichiers change.
+
+HTML, CSS et un petit JavaScript : aucun chargement externe, aucun traceur.
 
 ## État au 29/10/2026
 
@@ -70,7 +77,7 @@ Revenir au site sobre : supprimer la ligne `<link>` de la saison et vider la bal
 
 Le bouton pause (`js/animations.js`, `style.css`) est une pastille ronde de 44 px en bas à droite, avec ⏸ ou ▶ dessiné en CSS ; son nom (« Arrêter les animations » / « Reprendre les animations ») est un libellé masqué. Il vaut pour tous les thèmes. Pause ou « moins de mouvement » arrêtent aussi les minuteurs et écouteurs de la seconde vague du thème Geek (`fin()`), la reprise les relance (`debut()`).
 
-Règles : animations et JavaScript acceptés, GSAP hébergé en local. L'objectif du site est d'être accessible et lisible (pour des clients de 75 ans y compris), plus « simple dans le code ». Garde-fous : `prefers-reduced-motion` respecté, bouton pause pour tout mouvement de plus de 5 secondes, rien chargé depuis un serveur externe, pas de clignotement rapide. Décors en pseudo-éléments SVG en data URI (le `#` s'écrit `%23`), `pointer-events: none`, logo jamais déformé.
+Règles : animations et JavaScript acceptés, GSAP hébergé en local. L'objectif du site est d'être moderne et soigné, tout en restant lisible, plus « simple dans le code ». Garde-fous : `prefers-reduced-motion` respecté, bouton pause pour tout mouvement de plus de 5 secondes, rien chargé depuis un serveur externe, pas de clignotement rapide. Décors en pseudo-éléments SVG en data URI (le `#` s'écrit `%23`), `pointer-events: none`, logo jamais déformé.
 
 ## Dépendance : GSAP
 
