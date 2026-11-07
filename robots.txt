@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dju-lye.fr/sitemap.xml
