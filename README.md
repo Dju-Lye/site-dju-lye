@@ -26,7 +26,7 @@ Refonte neuve de novembre 2026 (branche `refonte-neuve-2026-11`) : maquette C «
 - `images/` : symbole, image de partage `og-image` (SVG et PNG 1200x630), icône tactile.
 - `js/animations.js`, `js/geek.js`, thèmes de saison (`saisons/`, `js/*.js`, `js/vendor/`) : conservés, non chargés.
 
-Le poids de la page affiché dans la bande de chiffres (109 Ko, soit 109 322 octets mesurés avec `wc -c`, sans compression : HTML, CSS, JS, polices chargées, symbole) est une mesure : à refaire si un de ces fichiers change.
+Le poids de la page affiché dans la bande de chiffres (109 Ko, soit 109 371 octets mesurés avec `wc -c`, sans compression : HTML, CSS, JS, polices chargées, symbole) est une mesure : à refaire si un de ces fichiers change.
 
 HTML, CSS et un petit JavaScript : aucun chargement externe, aucun traceur.
 
