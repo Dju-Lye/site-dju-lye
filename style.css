@@ -99,6 +99,7 @@ a { color: inherit; }
   font-weight: 600;
 }
 .aller-au-contenu:focus { top: 1rem; }
+#contenu:focus { outline: none; } /* cible du lien d'évitement, atteinte par programme seulement */
 
 /* Bandes aubergine / fond */
 .sombre { background: var(--aubergine); color: #ffffff; --focus: var(--miel); --titre: #ffffff; }
@@ -391,7 +392,7 @@ html.avec-pause footer { padding-bottom: 4.5rem; } /* le bouton fixe ne masque p
   #pause-animations { position: absolute; }
 }
 
-/* Pause du visiteur ou « moins de mouvement » : plus aucun mouvement, les effets de couleur restent */
+/* Pause du visiteur : plus aucun mouvement, les effets de couleur restent */
 html.sans-animation *, html.sans-animation *::before, html.sans-animation *::after {
   animation: none !important;
   transition: none !important;

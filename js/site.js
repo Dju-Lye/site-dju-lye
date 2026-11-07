@@ -1,5 +1,5 @@
 // Deux choses : la pause des animations, et le découpage des titres en mots (révélés par le CSS au défilement).
-// Sans JavaScript, le site reste complet : le bouton n'existe pas, les titres s'affichent d'un bloc.
+// Sans JavaScript, ou avec « moins de mouvement », le site reste complet : le bouton n'existe pas, les titres s'affichent d'un bloc.
 (function () {
   var CLE = "animations-arretees"; // valeurs mémorisées : "oui" ou "non"
   var racine = document.documentElement;
@@ -8,11 +8,11 @@
   function lire() { try { return localStorage.getItem(CLE); } catch (e) { return null; } }
   function ecrire(valeur) { try { localStorage.setItem(CLE, valeur); } catch (e) {} }
 
-  // Un choix explicite passe avant tout ; sinon on suit la demande « moins de mouvement ».
-  var choix = lire();
-  var arretees = choix === "oui" || choix === "non"
-    ? choix === "oui"
-    : matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // « Moins de mouvement » : rien ne bouge (le CSS s'en charge), donc ni bouton ni découpage des titres.
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  // Le choix mémorisé est déjà appliqué avant le premier rendu par le script du <head> ; ici on garde l'état en phase.
+  var arretees = lire() === "oui";
 
   // Pause : bouton rond en bas de page, nom accessible dans un libellé masqué.
   var bouton = document.createElement("button");
