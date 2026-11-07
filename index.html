@@ -7,7 +7,7 @@
   <meta name="description" content="Dépannage et initiation numérique à domicile, à Laval et dans les communes voisines.">
   <link rel="canonical" href="https://dju-lye.fr/">
   <meta name="theme-color" content="#4a2a6e">
-  <meta name="color-scheme" content="light dark">
+  <meta name="color-scheme" content="light">
 
   <meta property="og:type" content="website">
   <meta property="og:locale" content="fr_FR">
@@ -58,7 +58,7 @@
 <body>
   <a class="aller-au-contenu" href="#contenu">Aller au contenu</a>
 
-  <header class="hero sombre">
+  <header class="entete sombre">
     <div class="contenu">
       <svg class="logo" role="img" aria-label="Dju-Lye" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 245 64">
         <rect x="3" y="3" width="58" height="58" rx="17" fill="#4a2a6e" stroke="#ffffff" stroke-width="2"/>
@@ -67,85 +67,114 @@
         <path d="M17 38 Q32 52 47 38" fill="none" stroke="#f5c33b" stroke-width="6" stroke-linecap="round"/>
         <text x="85" y="45" font-family="Lexend, 'Segoe UI', sans-serif" font-size="40" font-weight="600" fill="#ffffff">Dju<tspan fill="#f5c33b" font-weight="700">-</tspan>Lye</text>
       </svg>
-      <p class="etiquette" aria-hidden="true">~/laval</p>
-      <h1>Une <span class="mot">voisine</span> qui s'y connaît.</h1>
-      <p class="accroche">Dépannage et initiation numérique à domicile, à Laval et dans les communes voisines.</p>
-      <div><a class="bouton" href="mailto:contact@dju-lye.fr">Écrire à Julie</a></div>
-      <!-- Décor : le sourire du logo, en grand -->
-      <svg class="deco" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-        <rect x="3" y="3" width="58" height="58" rx="17" fill="none" stroke="#ffffff" stroke-opacity=".25" stroke-width="1"/>
-        <circle cx="21" cy="25" r="6" fill="#ffffff"/>
-        <circle cx="43" cy="25" r="6" fill="#ffffff"/>
-        <path d="M17 38 Q32 52 47 38" pathLength="1" fill="none" stroke="#f5c33b" stroke-width="6" stroke-linecap="round"/>
-      </svg>
     </div>
   </header>
-  <div class="courbe a-c" aria-hidden="true"></div>
 
   <main id="contenu" tabindex="-1">
-    <!-- Chiffres vérifiés sur le site lui-même (voir README). Le poids est celui de index.html + style.css + js/site.js + polices + symbole, sans compression. -->
+    <section class="hero bande">
+      <span class="etoile" aria-hidden="true"></span><span class="etoile" aria-hidden="true"></span><span class="etoile" aria-hidden="true"></span>
+      <div class="contenu hero-grille">
+        <ul class="autocollants" aria-hidden="true">
+          <li class="ac" style="--r:-4deg;--c:var(--menthe)">~/laval</li>
+          <li class="ac rond" style="--r:3deg;--c:var(--lilas)">sans jargon</li>
+        </ul>
+        <h1>Une <span class="mot">voisine</span> qui s'y connaît.</h1>
+        <div class="hero-texte">
+          <p class="accroche">Dépannage et initiation numérique à domicile, à Laval et dans les communes voisines.</p>
+          <a class="bouton" href="mailto:contact@dju-lye.fr">Écrire à Julie</a>
+        </div>
+        <!-- Décor : le sourire du logo devient une mascotte -->
+        <div class="mascotte" aria-hidden="true">
+          <div class="blob"></div>
+          <svg class="visage" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 68 68">
+            <rect x="7" y="7" width="58" height="58" rx="17" fill="#170f21"/>
+            <rect x="3" y="3" width="58" height="58" rx="17" fill="#4a2a6e" stroke="#170f21" stroke-width="2.2"/>
+            <circle cx="12" cy="37" r="4.5" fill="#ff5d8f" opacity=".9"/>
+            <circle cx="52" cy="37" r="4.5" fill="#ff5d8f" opacity=".9"/>
+            <circle class="oeil" cx="21" cy="25" r="6" fill="#ffffff"/>
+            <circle class="oeil" cx="43" cy="25" r="6" fill="#ffffff"/>
+            <path class="bouche-sourire" d="M17 38 Q32 52 47 38" fill="none" stroke="#f5c33b" stroke-width="6" stroke-linecap="round"/>
+            <g class="bouche-grand"><path d="M15 36 Q32 62 49 36 Z" fill="#f5c33b" stroke="#f5c33b" stroke-width="3" stroke-linejoin="round"/><path d="M25 46 Q32 41 39 46 Q32 54 25 46 Z" fill="#ff5d8f"/></g>
+          </svg>
+          <svg class="sceau" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+            <g class="sceau-rond">
+              <circle cx="50" cy="50" r="48" fill="#f5c33b" stroke="#170f21" stroke-width="3"/>
+              <path id="cercle" d="M50 50m-36 0a36 36 0 1 1 72 0a36 36 0 1 1-72 0" fill="none"/>
+              <text><textPath href="#cercle" textLength="224" lengthAdjust="spacing">aide numérique de quartier · Laval · à domicile ·</textPath></text>
+              <circle cx="50" cy="50" r="9" fill="#ff5d8f" stroke="#170f21" stroke-width="3"/>
+            </g>
+          </svg>
+          <span class="ac" aria-hidden="true">à domicile</span>
+          <span class="ac rond" aria-hidden="true">crédit d'impôt 50&nbsp;%</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="ruban" aria-hidden="true">
+      <div class="inclin"><div class="rail"><ul><li>lent</li><li>mots de passe</li><li>mails</li><li>enfants</li><li>tablette</li><li>sauvegarde</li><li>nouvel ordinateur</li><li>téléphone</li></ul><ul class="copie"><li>lent</li><li>mots de passe</li><li>mails</li><li>enfants</li><li>tablette</li><li>sauvegarde</li><li>nouvel ordinateur</li><li>téléphone</li></ul></div></div>
+    </div>
+
+    <!-- Chiffres vérifiés sur le site lui-même (voir README). Le poids est celui de index.html + style.css + js/site.js + polices chargées + symbole, sans compression. -->
     <section class="chiffres clair" aria-labelledby="chiffres">
       <div class="contenu">
         <h2 id="chiffres" class="etiquette">Le site en chiffres</h2>
         <ul>
-          <li class="chiffre revele"><b>0</b><span>traceur, 0 cookie</span></li>
-          <li class="chiffre revele"><b>0<small>octet</small></b><span>chargé depuis un serveur externe</span></li>
-          <li class="chiffre revele"><b>122<small>Ko</small></b><span>pour toute la page, polices comprises</span></li>
-          <li class="chiffre revele"><b>1</b><span>voisine, 0 hotline</span></li>
+          <li class="chiffre"><b>0</b><span>traceur, 0 cookie</span></li>
+          <li class="chiffre"><b>0<small>octet</small></b><span>chargé depuis un serveur externe</span></li>
+          <li class="chiffre"><b>104<small>Ko</small></b><span>pour toute la page, polices comprises</span></li>
+          <li class="chiffre"><b>1</b><span>voisine, 0 hotline</span></li>
         </ul>
       </div>
     </section>
 
-    <section class="clair" aria-labelledby="services">
+    <section class="services bande clair" aria-labelledby="services">
       <div class="contenu">
         <p class="etiquette" aria-hidden="true">01 / services</p>
         <h2 id="services">Les petits <span class="mot">tracas</span> du quotidien</h2>
         <ul class="cartes">
-          <li class="carte revele"><p class="etiquette" aria-hidden="true">01</p><p class="gros">«&nbsp;Mon ordinateur est lent.&nbsp;»</p><p>Petit dépannage</p></li>
-          <li class="carte revele"><p class="etiquette" aria-hidden="true">02</p><p class="gros">«&nbsp;J'ai peur de tout perdre en changeant d'ordinateur.&nbsp;»</p><p>Changer d'ordinateur sans rien perdre</p></li>
-          <li class="carte revele"><p class="etiquette" aria-hidden="true">03</p><p class="gros">«&nbsp;Ma boîte mail déborde.&nbsp;»</p><p>Trier ses mails</p></li>
-          <li class="carte revele"><p class="etiquette" aria-hidden="true">04</p><p class="gros">«&nbsp;Je ne sais plus mes mots de passe.&nbsp;»</p><p>Sauvegarder ses données et ses mots de passe</p></li>
-          <li class="carte revele"><p class="etiquette" aria-hidden="true">05</p><p class="gros">«&nbsp;Je voudrais protéger mes enfants.&nbsp;»</p><p>Contrôle parental</p></li>
-          <li class="carte revele"><p class="etiquette" aria-hidden="true">06</p><p class="gros">«&nbsp;Je veux apprendre à me servir de ma tablette.&nbsp;»</p><p>Initiation&nbsp;: ordinateur, tablette, téléphone</p></li>
+          <li class="carte"><svg class="ico" aria-hidden="true" focusable="false" viewBox="0 0 48 48"><circle cx="24" cy="24" r="22"/><path d="M24 12v12l8 5"/></svg><p class="gros">«&nbsp;Mon ordinateur est lent.&nbsp;»</p><p class="nom">Petit dépannage</p></li>
+          <li class="carte"><svg class="ico" aria-hidden="true" focusable="false" viewBox="0 0 48 48"><circle cx="24" cy="24" r="22"/><rect x="12" y="13" width="24" height="16" rx="3"/><path d="M18 36h12"/></svg><p class="gros">«&nbsp;J'ai peur de tout perdre en changeant d'ordinateur.&nbsp;»</p><p class="nom">Changer d'ordinateur sans rien perdre</p></li>
+          <li class="carte"><svg class="ico" aria-hidden="true" focusable="false" viewBox="0 0 48 48"><circle cx="24" cy="24" r="22"/><rect x="11" y="15" width="26" height="18" rx="4"/><path d="M12 17l12 9 12-9"/></svg><p class="gros">«&nbsp;Ma boîte mail déborde.&nbsp;»</p><p class="nom">Trier ses mails</p></li>
+          <li class="carte"><svg class="ico" aria-hidden="true" focusable="false" viewBox="0 0 48 48"><circle cx="24" cy="24" r="22"/><circle cx="19" cy="24" r="5"/><path d="M24 24h14M33 24v5"/></svg><p class="gros">«&nbsp;Je ne sais plus mes mots de passe.&nbsp;»</p><p class="nom">Sauvegarder ses données et ses mots de passe</p></li>
+          <li class="carte"><svg class="ico" aria-hidden="true" focusable="false" viewBox="0 0 48 48"><circle cx="24" cy="24" r="22"/><path d="M24 10l11 4v9c0 7-5 11-11 14-6-3-11-7-11-14v-9z"/><path d="M19 24l4 4 7-8"/></svg><p class="gros">«&nbsp;Je voudrais protéger mes enfants.&nbsp;»</p><p class="nom">Contrôle parental</p></li>
+          <li class="carte"><svg class="ico" aria-hidden="true" focusable="false" viewBox="0 0 48 48"><circle cx="24" cy="24" r="22"/><rect x="14" y="9" width="20" height="30" rx="4"/><path d="M24 33h.1"/></svg><p class="gros">«&nbsp;Je veux apprendre à me servir de ma tablette.&nbsp;»</p><p class="nom">Initiation&nbsp;: ordinateur, tablette, téléphone</p></li>
         </ul>
       </div>
     </section>
-    <div class="courbe c-a" aria-hidden="true"></div>
 
-    <section class="sombre" aria-labelledby="deroulement">
+    <section class="etapes-section sombre" aria-labelledby="deroulement">
       <div class="contenu">
         <p class="etiquette" aria-hidden="true">02 / déroulement</p>
         <h2 id="deroulement">Comment ça <span class="mot">se passe</span></h2>
         <ol class="etapes">
           <li>Vous m'écrivez</li>
-          <li>On fixe un <span class="insec">rendez-vous</span></li>
+          <li>On fixe un rendez&#8209;vous</li>
           <li>Je viens chez vous</li>
         </ol>
         <p class="sans-jargon">Pas de jargon, pas de précipitation.</p>
       </div>
     </section>
-    <div class="courbe a-c" aria-hidden="true"></div>
 
-    <section class="clair" aria-labelledby="tarif">
+    <section class="tarif bande clair" aria-labelledby="tarif">
       <div class="contenu">
         <p class="etiquette" aria-hidden="true">03 / tarif</p>
-        <h2 id="tarif"><span class="mot">Tarif</span></h2>
-        <div class="tarif-etapes">
-          <div class="tarif-etape revele">
+        <h2 id="tarif"><span class="ondule">Tarif</span></h2>
+        <div class="tarif-blocs">
+          <div class="tarif-bloc revele">
             <p class="etiquette" aria-hidden="true">1 / vous payez</p>
             <p class="gros">50&nbsp;€ de l'heure</p>
           </div>
-          <div class="tarif-etape revele">
+          <div class="tarif-bloc revele">
             <p class="etiquette" aria-hidden="true">2 / l'année suivante</p>
             <p class="gros">50&nbsp;%<small>remboursés</small></p>
             <p>L'État vous rembourse la moitié par votre déclaration de revenus&nbsp;: au final, l'heure vous revient à 25&nbsp;€.</p>
           </div>
         </div>
-        <p class="revele">Assistance informatique à domicile&nbsp;: crédit d'impôt de 50&nbsp;% dans la limite de 3&nbsp;000&nbsp;€ par an et par foyer.</p>
+        <p class="credit">Assistance informatique à domicile&nbsp;: crédit d'impôt de 50&nbsp;% dans la limite de 3&nbsp;000&nbsp;€ par an et par foyer.</p>
       </div>
     </section>
 
-    <section class="qui clair" aria-labelledby="julie">
+    <section class="qui bande" aria-labelledby="julie">
       <div class="contenu">
         <div class="qui-panneau revele">
           <img class="symbole" src="images/symbole.svg" alt="" width="64" height="64">
@@ -155,21 +184,21 @@
         </div>
       </div>
     </section>
-    <div class="courbe c-a" aria-hidden="true"></div>
 
-    <section class="ecrire sombre" aria-labelledby="ecrire">
+    <section class="ecrire" aria-labelledby="ecrire">
       <div class="contenu">
         <p class="etiquette" aria-hidden="true">05 / contact</p>
         <h2 id="ecrire">Écrire à <span class="mot">Julie</span></h2>
         <p>Écrivez-moi deux lignes, je vous réponds vite.</p>
         <a class="bouton" href="mailto:contact@dju-lye.fr">Écrire à Julie<small>contact@dju-lye.fr</small></a>
+        <span class="merci" role="status"></span>
         <p class="exemple">Par exemple&nbsp;:</p>
         <p class="modele">Bonjour Julie, j'habite à … et j'ai un souci avec …</p>
       </div>
     </section>
   </main>
 
-  <footer class="sombre">
+  <footer>
     <div class="contenu">
       <p>Dju-Lye, aide numérique de quartier · Laval et communes voisines · Aucun traceur, aucun cookie.</p>
       <a href="mentions-legales.html">Mentions légales</a>

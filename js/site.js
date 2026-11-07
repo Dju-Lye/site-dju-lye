@@ -1,5 +1,5 @@
-// Deux choses : la pause des animations, et le découpage des titres en mots (révélés par le CSS au défilement).
-// Sans JavaScript, ou avec « moins de mouvement », le site reste complet : le bouton n'existe pas, les titres s'affichent d'un bloc.
+// Deux choses : la pause des animations, et un petit « merci ! » au clic sur le mail.
+// Sans JavaScript, ou avec « moins de mouvement », le site reste complet et immobile : le bouton n'existe pas.
 (function () {
   var CLE = "animations-arretees"; // valeurs mémorisées : "oui" ou "non"
   var racine = document.documentElement;
@@ -8,13 +8,25 @@
   function lire() { try { return localStorage.getItem(CLE); } catch (e) { return null; } }
   function ecrire(valeur) { try { localStorage.setItem(CLE, valeur); } catch (e) {} }
 
-  // « Moins de mouvement » : rien ne bouge (le CSS s'en charge), donc ni bouton ni découpage des titres.
+  // « Merci ! » : s'affiche deux secondes après un clic sur le lien du mail (le message part quand même).
+  var merci = document.querySelector(".merci");
+  if (merci) {
+    document.querySelectorAll('a[href^="mailto:"]').forEach(function (lien) {
+      lien.addEventListener("click", function () {
+        merci.textContent = "merci !";
+        merci.classList.add("visible");
+        setTimeout(function () { merci.classList.remove("visible"); merci.textContent = ""; }, 2500);
+      });
+    });
+  }
+
+  // « Moins de mouvement » : rien ne bouge (le CSS s'en charge), donc pas de bouton.
   if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
   // Le choix mémorisé est déjà appliqué avant le premier rendu par le script du <head> ; ici on garde l'état en phase.
   var arretees = lire() === "oui";
 
-  // Pause : bouton rond en bas de page, nom accessible dans un libellé masqué.
+  // Pause : bouton rond, nom accessible dans un libellé masqué.
   var bouton = document.createElement("button");
   bouton.type = "button";
   bouton.id = "pause-animations";
@@ -37,29 +49,4 @@
   afficher();
   racine.classList.add("avec-pause");
   document.body.appendChild(bouton);
-
-  // Titres : un <span class="m" style="--i:n"> par mot, seulement si le navigateur sait révéler au défilement.
-  if (!CSS.supports("animation-timeline: view()")) return;
-  var numero = 0;
-  function decouper(noeud) {
-    Array.from(noeud.childNodes).forEach(function (enfant) {
-      if (enfant.nodeType === 1) return decouper(enfant);
-      if (enfant.nodeType !== 3) return;
-      var morceaux = enfant.textContent.split(/( +)/);
-      var fragment = document.createDocumentFragment();
-      morceaux.forEach(function (morceau) {
-        if (!morceau.trim()) return fragment.append(morceau);
-        var mot = document.createElement("span");
-        mot.className = "m";
-        mot.style.setProperty("--i", numero++);
-        mot.textContent = morceau;
-        fragment.append(mot);
-      });
-      enfant.replaceWith(fragment);
-    });
-  }
-  document.querySelectorAll("main h2[id]:not(.etiquette)").forEach(function (titre) {
-    numero = 0;
-    decouper(titre);
-  });
 })();
