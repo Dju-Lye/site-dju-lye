@@ -75,7 +75,7 @@ a { color: inherit; }
 
 /* Marqueur décalé derrière un mot de titre (miel, texte encre), ou mot en dégradé lilas -> menthe, et trait ondulé */
 .mot { position: relative; display: inline-block; isolation: isolate; color: var(--encre); }
-.mot::before { content: ""; position: absolute; z-index: -1; left: -.1em; right: -.06em; top: .04em; bottom: 0; background: var(--c, var(--miel)); border-radius: .16em; transform: translate(.07em, .07em) rotate(-1.5deg); }
+.mot::before { content: ""; position: absolute; z-index: -1; left: -.1em; right: -.06em; top: -.08em; bottom: 0; background: var(--c, var(--miel)); border-radius: .16em; transform: translate(.07em, .07em) rotate(-1.5deg); }
 .services .mot, .etapes-section .mot { color: transparent; background: var(--grad-mot); -webkit-background-clip: text; background-clip: text; padding-bottom: .12em; margin-bottom: -.12em; }
 .etapes-section { --grad-mot: linear-gradient(100deg, #d9c8ff 0%, #b79cff 45%, #3de0c2 100%); }
 .services .mot::before, .etapes-section .mot::before { display: none; }
