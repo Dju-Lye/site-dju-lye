@@ -101,7 +101,7 @@ a { color: inherit; }
 /* ---------- Accueil ---------- */
 .hero { position: relative; overflow: clip; }
 .hero-grille { display: grid; position: relative; }
-.hero h1 { position: relative; z-index: 2; margin-top: .5rem; --c: var(--miel); }
+.hero h1 { position: relative; z-index: 2; margin-top: .5rem; margin-bottom: 2rem; --c: var(--miel); }
 .hero .autocollants { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .5rem 1rem; position: relative; z-index: 3; }
 .hero .autocollants li:nth-child(2) { margin-left: -.5rem; }
 .accroche { font-size: 1.35rem; line-height: 1.45; max-width: 30rem; }
