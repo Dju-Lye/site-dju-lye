@@ -150,12 +150,12 @@ a { color: inherit; }
 /* Services : patchwork de blocs qui se touchent */
 .cartes { list-style: none; margin: 2rem 0 0; padding: 0 3px 3px 0; display: grid; grid-template-columns: 1fr; counter-reset: s; }
 .carte { counter-increment: s; position: relative; margin: 0 -3px -3px 0; padding: 1.5rem 1.5rem 1.75rem; border: 3px solid var(--bc, var(--contour)); background: var(--c); color: var(--encre); }
-.carte::after { content: counter(s, decimal-leading-zero) / ""; position: absolute; top: .6rem; right: 1rem; font: 600 3rem/1 var(--f-titre); letter-spacing: -.05em; color: transparent; -webkit-text-stroke: 2px var(--num, var(--encre)); opacity: .55; }
+.carte::after { content: counter(s, decimal-leading-zero) / ""; position: absolute; top: .6rem; right: 1rem; font: 600 3rem/1 var(--f-titre); letter-spacing: -.05em; color: transparent; -webkit-text-stroke: 2px var(--num, var(--encre)); opacity: var(--num-opacite, .55); }
 .carte:nth-child(1) { --c: var(--miel); border-radius: 3rem .5rem .5rem .5rem; }
 .carte:nth-child(2) { --c: var(--lilas); --bc: var(--encre); border-radius: .5rem 3rem .5rem .5rem; }
 .carte:nth-child(3) { --c: var(--menthe); border-radius: .5rem .5rem 3rem .5rem; }
 .carte:nth-child(4) { --c: var(--aubergine); color: #fff; --num: #fff; border-radius: .5rem .5rem .5rem 3rem; }
-.carte:nth-child(5) { --c: var(--volt); color: #fff; --num: #fff; border-radius: 1.5rem; }
+.carte:nth-child(5) { --c: var(--volt); color: #fff; --num: #fff; --num-opacite: .7; border-radius: 1.5rem; }
 .carte:nth-child(6) { --c: var(--lilas); --bc: var(--encre); border-radius: .5rem 3rem 3rem .5rem; }
 .ico { display: block; width: 3.5rem; height: 3.5rem; margin-bottom: 1rem; fill: none; stroke: var(--encre); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
 .ico circle:first-child { fill: #fff; }
