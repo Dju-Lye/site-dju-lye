@@ -10,6 +10,7 @@ Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/). Pas
 - `js/site.js` remplace `js/animations.js` (pause des animations conservée, sans GSAP) ; `polices/JetBrainsMono-Regular.woff2` et sa licence OFL.
 - `mentions-legales.html` raccordée au nouveau style (texte inchangé).
 - Thème Geek, thèmes de saison et GSAP ne sont plus chargés ; fichiers conservés.
+- Corrections après relecture : pas de bouton pause avec « moins de mouvement », pause mémorisée appliquée avant le premier rendu (script en ligne du `<head>`), lien d'évitement vers `<main id="contenu">` focusable, règles et doublons CSS inutiles retirés, `robots.txt` simplifié, README mis d'accord avec la branche.
 
 ### Ajouté
 - Thème Geek « Pixels de quartier » entièrement refait (branche `theme-geek`, première vague) : Bip le robot, ciel de pixels, manette, vagues à pastilles, phrase écrite lettre par lettre, icônes de titres, jetons, bouton ▶, clignement du symbole de « Qui est Julie », sourire du logo tracé en 6 traits (`saisons/geek.css`, `js/geek.js`). Thème de repos, sans période.
