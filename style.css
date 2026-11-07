@@ -1,4 +1,5 @@
-/* Site Dju-Lye : mobile d'abord. Le trait d'union (miel) est le fil de la page. */
+/* Site Dju-Lye, refonte 2026-11 : mobile d'abord, un seul système de couleurs (variables de :root).
+   Le trait miel (le tiret du logo, le sourire) est le fil de la page. */
 
 @font-face {
   font-family: "Lexend";
@@ -18,101 +19,208 @@
   font-weight: 600;
   font-display: swap;
 }
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("polices/JetBrainsMono-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
 
 :root {
+  color-scheme: light dark;
   --aubergine: #4a2a6e;
   --miel: #f5c33b;
-  --creme: #fbf5e6;
+  --fond: #fbf5e6;
+  --surface: #ffffff;
   --texte: #222222;
+  --titre: #4a2a6e;
+  --trait: rgba(74, 42, 110, .25);
+  --rayon: 1.25rem;
   --focus: var(--aubergine);
+  --f-titre: "Lexend", "Segoe UI", sans-serif;
+  --f-texte: "Source Sans 3", "Segoe UI", sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, "DejaVu Sans Mono", monospace;
+}
+
+/* Mode sombre automatique : l'aubergine des bandes ne change pas, seul le fond clair devient très profond. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fond: #170f21;
+    --surface: #251836;
+    --texte: #efe9f5;
+    --titre: #e6d8f7;
+    --trait: rgba(255, 255, 255, .22);
+    --focus: var(--miel);
+  }
 }
 
 * { box-sizing: border-box; }
 
-html { font-size: 125%; } /* 20 px : texte courant, jamais sous 18 px */
+html { font-size: 100%; }
 
 body {
   margin: 0;
-  font-family: "Source Sans 3", "Segoe UI", sans-serif;
+  font-family: var(--f-texte);
+  font-size: 1.125rem;
   line-height: 1.6;
   color: var(--texte);
-  background: var(--creme);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  background: var(--fond);
+  overflow-x: clip;
 }
-footer { margin-top: auto; }
 
-h1, h2, .gros {
-  font-family: "Lexend", "Segoe UI", sans-serif;
+h1, h2, h3, .gros {
+  font-family: var(--f-titre);
   font-weight: 600;
-  line-height: 1.2;
-  margin: 0 0 1rem;
+  line-height: 1.08;
+  letter-spacing: -.02em;
+  margin: 0 0 1.25rem;
 }
-h1 { font-size: 2rem; }
-h2 { font-size: 1.6rem; }
-h2::after { /* le trait d'union, fil de la page */
-  content: "";
-  display: block;
-  width: 3rem;
-  height: .35rem;
-  margin-top: .6rem;
-  background: var(--miel);
-  border-radius: .2rem;
-}
-p { margin: 0 0 1rem; max-width: 65ch; }
-
+h1 { font-size: clamp(2.5rem, 1rem + 8vw, 5rem); line-height: 1.02; }
+h2 { font-size: clamp(2rem, 1.1rem + 4vw, 3.75rem); color: var(--titre); }
+p { margin: 0 0 1rem; max-width: 62ch; }
 a { color: inherit; }
 :focus-visible { outline: 4px solid var(--focus); outline-offset: 3px; }
 
-.contenu { max-width: 62rem; margin: 0 auto; padding: 2.5rem 1.25rem; }
+.contenu {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: clamp(3rem, 8vw, 6rem) clamp(1.25rem, 5vw, 3rem);
+}
 
-/* Sections qui alternent aubergine / crème */
-.sombre { background: var(--aubergine); color: #ffffff; --focus: var(--miel); }
-.clair { background: var(--creme); color: var(--texte); }
-.clair h2 { color: var(--aubergine); }
+.aller-au-contenu {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 20;
+  padding: .6rem 1rem;
+  background: var(--miel);
+  color: var(--aubergine);
+  border-radius: .5rem;
+  font-weight: 600;
+}
+.aller-au-contenu:focus { top: 1rem; }
 
-.logo { display: block; width: 13rem; height: auto; margin-bottom: 2rem; }
+/* Bandes aubergine / fond */
+.sombre { background: var(--aubergine); color: #ffffff; --focus: var(--miel); --titre: #ffffff; }
+.clair { background: var(--fond); color: var(--texte); }
 
-/* Accroche */
-.accroche h1 span { color: var(--miel); }
-.accroche p { font-size: 1.25rem; margin-bottom: 0; }
-.accroche .bouton { margin: 1.5rem 0 0; }
-.accroche .bouton-libelle { margin-bottom: 0; }
+/* Mot clé : miel sur l'aubergine, souligné de miel sur le fond clair (le miel seul ne se lit pas sur du clair) */
+.mot, .mot .m {
+  text-decoration: underline var(--miel) .14em;
+  text-underline-offset: .12em;
+  text-decoration-skip-ink: none;
+}
+.sombre .mot, .sombre .mot .m { color: var(--miel); text-decoration: none; }
 
-/* Séparateur : courbe miel (esprit du sourire), dessinée à part */
+/* Étiquettes et chiffres en petite police à chasse fixe */
+.etiquette {
+  font-family: var(--f-mono);
+  font-size: .85rem;
+  letter-spacing: .04em;
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0 0 1rem;
+  color: var(--titre);
+}
+.sombre .etiquette { color: var(--miel); }
+
+/* Mots d'un titre (découpés par js/site.js, seulement si le navigateur sait révéler au défilement) */
+.m { display: inline-block; }
+
+/* ---------- En-tête ---------- */
+.hero .contenu { padding-top: clamp(2rem, 5vw, 3.5rem); display: grid; gap: 2rem; }
+.logo { display: block; width: 12rem; height: auto; margin-bottom: clamp(2.5rem, 7vw, 5rem); }
+.hero h1 { max-width: 12ch; }
+.hero .accroche, .page-404 .accroche { font-size: clamp(1.2rem, 1rem + .8vw, 1.5rem); max-width: 34ch; margin-bottom: 2rem; }
+.hero .deco { width: min(11rem, 55%); height: auto; justify-self: start; }
+
+/* Bouton : bloc miel, texte aubergine (contraste 7,4:1) */
+.bouton {
+  display: inline-block;
+  padding: 1rem 1.75rem;
+  background: var(--miel);
+  color: var(--aubergine);
+  border-radius: var(--rayon);
+  font-family: var(--f-titre);
+  font-weight: 600;
+  font-size: 1.15rem;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  transition: transform 200ms, box-shadow 200ms;
+}
+.bouton:hover, .bouton:focus-visible { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0, 0, 0, .3); }
+.bouton small { display: block; font-family: var(--f-mono); font-weight: 400; font-size: .85rem; margin-top: .25rem; }
+
+/* ---------- Le site en chiffres ---------- */
+.chiffres .contenu { padding-block: clamp(2.5rem, 6vw, 4rem) 0; }
+.chiffres ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .75rem; grid-template-columns: 1fr 1fr; }
+.chiffre {
+  background: var(--surface);
+  border: 1px solid var(--trait);
+  border-radius: var(--rayon);
+  padding: 1.1rem 1rem 1rem;
+}
+.chiffre b {
+  display: block;
+  font-family: var(--f-mono);
+  font-weight: 400;
+  font-size: clamp(2rem, 1rem + 4vw, 3.5rem);
+  line-height: 1;
+  color: var(--titre);
+}
+.chiffre b small { font-size: .35em; margin-left: .25em; }
+.chiffre span { display: block; margin-top: .6rem; font-size: 1rem; line-height: 1.35; }
+
+/* ---------- Séparateur : vague miel (le sourire), dessinée à part ---------- */
 .courbe {
   height: 2.25rem;
   background:
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='36' viewBox='0 0 120 36'%3E%3Cpath d='M0 12 Q30 32 60 12 T120 12' fill='none' stroke='%23f5c33b' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E") center / 120px 36px repeat-x,
     linear-gradient(to bottom, var(--de) 50%, var(--vers) 50%);
 }
-.courbe.a-c { --de: var(--aubergine); --vers: var(--creme); }
-.courbe.c-a { --de: var(--creme); --vers: var(--aubergine); }
+.courbe.a-c { --de: var(--aubergine); --vers: var(--fond); }
+.courbe.c-a { --de: var(--fond); --vers: var(--aubergine); }
 
-/* Services */
-.cartes { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
+/* ---------- Services ---------- */
+.cartes { list-style: none; margin: 2.5rem 0 0; padding: 0; display: grid; gap: 1rem; }
 .carte {
-  background: #ffffff;
-  border: 2px solid var(--aubergine);
-  border-radius: 1rem;
-  padding: 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--trait);
+  border-radius: var(--rayon);
+  padding: 1.25rem 1.25rem 1.5rem;
+  transition: transform 200ms, border-color 200ms;
 }
-.carte .gros { margin-bottom: .6rem; }
-.carte p { margin: 0; font-size: 1.3rem; font-weight: 600; color: var(--aubergine); }
+.carte:hover { transform: translateY(-3px); border-color: var(--miel); }
+.carte .etiquette { margin-bottom: 1.5rem; }
+.carte .gros { font-size: 1.3rem; line-height: 1.25; letter-spacing: -.01em; margin-bottom: .75rem; }
+.carte p:last-child { margin: 0; font-weight: 600; color: var(--titre); }
 
-/* Étapes reliées par le trait d'union */
-.etapes { list-style: none; margin: 0 0 1rem; padding: 0; counter-reset: etape; }
+/* ---------- Étapes reliées par le fil miel qui se dessine ---------- */
+.etapes { list-style: none; margin: 2.5rem 0 1.5rem; padding: 0; counter-reset: etape; position: relative; }
+.etapes::before, .etapes::after { /* ::before = rail pâle, ::after = fil miel (animé) */
+  content: "";
+  position: absolute;
+  left: calc(1.5rem - 2px);
+  top: 1.5rem;
+  bottom: 1.5rem;
+  width: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, .2);
+}
+.etapes::after { background: var(--miel); transform-origin: top; }
 .etapes li {
   position: relative;
+  z-index: 1;
   counter-increment: etape;
-  padding: .25rem 0 2rem 4rem;
-  font-size: 1.3rem;
-  font-family: "Lexend", "Segoe UI", sans-serif;
+  padding: .45rem 0 2.5rem 4.5rem;
+  font-family: var(--f-titre);
   font-weight: 600;
+  font-size: clamp(1.4rem, 1rem + 1.6vw, 1.9rem);
+  line-height: 1.2;
 }
+.etapes li:last-child { padding-bottom: 0; min-height: 3rem; }
 .etapes li::before {
-  content: counter(etape);
+  content: counter(etape, decimal-leading-zero);
   position: absolute;
   left: 0;
   top: 0;
@@ -123,194 +231,127 @@ a { color: inherit; }
   border: 3px solid var(--miel);
   border-radius: 50%;
   background: var(--aubergine);
-  color: #ffffff;
+  font-family: var(--f-mono);
+  font-weight: 400;
+  font-size: 1rem;
 }
-.etapes li:not(:last-child)::after { /* trait miel vertical */
-  content: "";
-  position: absolute;
-  left: calc(1.5rem - 2px);
-  top: 3rem;
-  bottom: 0;
-  width: 4px;
-  background: var(--miel);
-  border-radius: 2px;
+.insec { white-space: nowrap; }
+.sans-jargon { font-family: var(--f-mono); font-size: 1rem; margin: 2rem 0 0; }
+
+/* ---------- Tarif ---------- */
+.tarif-etapes { display: grid; gap: 1rem; margin: 2.5rem 0 1.5rem; }
+.tarif-etape {
+  background: var(--surface);
+  border: 1px solid var(--trait);
+  border-radius: var(--rayon);
+  padding: 1.5rem;
 }
-.etapes li:last-child { padding-bottom: 0; min-height: 3rem; }
-.sans-jargon { font-size: 1.2rem; margin: 0; }
+.tarif-etape .gros { font-size: clamp(2rem, 1.2rem + 3.5vw, 3.25rem); color: var(--titre); margin-bottom: .75rem; }
+.tarif-etape .gros small { font-size: .45em; display: block; letter-spacing: 0; }
+.tarif-etape p:last-child { margin: 0; }
+.tarif-etape p:not(.etiquette):not(.gros) { font-size: 1rem; }
 
-/* Tarif */
-.prix { font-size: 2.6rem; color: var(--aubergine); }
-
-/* Qui est Julie */
-.qui .symbole { width: 4.5rem; height: 4.5rem; margin-bottom: 1rem; }
-.qui p { font-size: 1.15rem; margin-bottom: 0; }
-
-/* Écrire à Julie */
-.bouton {
-  display: block;
-  padding: 1.1rem 1rem;
-  min-height: 3.5rem;
-  background: var(--miel);
-  color: var(--aubergine);
-  border: 3px solid var(--aubergine);
-  border-radius: 1rem;
-  font-family: "Lexend", "Segoe UI", sans-serif;
-  font-weight: 600;
-  font-size: 1.25rem;
-  text-align: center;
-  text-decoration: none;
-  overflow-wrap: anywhere;
-  margin: 1rem 0 1.5rem;
+/* ---------- Qui est Julie ---------- */
+.qui-panneau {
+  background: var(--surface);
+  border: 1px solid var(--trait);
+  border-radius: calc(var(--rayon) * 1.5);
+  padding: clamp(1.5rem, 5vw, 3.5rem);
 }
-.bouton > span { display: block; }
-.bouton-libelle { font-size: 1.1rem; margin-bottom: .25rem; }
-.bouton:hover { background: #ffffff; }
-.exemple { margin-bottom: .25rem; }
-.modele { font-size: 1.1rem; font-style: italic; margin: 0; }
+.qui .symbole { width: 4.5rem; height: 4.5rem; margin-bottom: 1.5rem; }
+.qui p:last-child { font-size: 1.2rem; margin-bottom: 0; }
 
-/* Pied de page */
-footer .contenu { padding-top: 2rem; padding-bottom: 2rem; }
-footer p { margin: 0 0 .75rem; }
-footer a { display: inline-block; padding: .6rem 0; color: var(--miel); font-weight: 600; text-decoration: underline; }
+/* ---------- Écrire ---------- */
+.ecrire .bouton { margin: 1rem 0 1.75rem; font-size: clamp(1.1rem, .9rem + 1vw, 1.5rem); padding: 1.1rem 1.75rem; }
+.exemple { margin-bottom: .25rem; font-family: var(--f-mono); font-size: .9rem; }
+.modele { margin: 0; font-style: italic; }
 
-/* Mentions légales */
-.texte-long { max-width: 40rem; }
+/* ---------- Pied de page ---------- */
+footer .contenu { padding-block: 2rem; }
+footer p { margin: 0 0 .5rem; font-size: 1rem; }
+footer a { display: inline-block; padding: .6rem 0; color: var(--miel); font-weight: 600; }
+
+/* ---------- Mentions légales ---------- */
+.texte-long { max-width: 44rem; }
+.texte-long h2 { font-size: 1.5rem; margin: 2rem 0 .5rem; }
+.texte-long h2:first-child { margin-top: 0; }
+.clair a { color: var(--titre); }
 .a-completer { background: var(--miel); color: var(--aubergine); padding: 0 .3rem; border-radius: .25rem; }
-
-/* Ordinateur */
-@media (min-width: 48em) {
-  h1 { font-size: 3rem; }
-  h2 { font-size: 2.1rem; }
-  .contenu { padding: 4rem 2rem; }
-  .logo { width: 16rem; margin-bottom: 3rem; }
-  .cartes { grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
-  .etapes { display: grid; grid-template-columns: repeat(3, 1fr); }
-  .etapes li { padding: 4.25rem 1.5rem 0 0; }
-  .etapes li:not(:last-child)::after { /* trait miel horizontal */
-    left: 3rem;
-    right: 0;
-    top: calc(1.5rem - 2px);
-    bottom: auto;
-    width: auto;
-    height: 4px;
-  }
-  .bouton { display: inline-block; padding: 1.1rem 2.5rem; font-size: 1.5rem; }
-}
-
-/* Grand écran : on occupe la largeur */
-@media (min-width: 900px) {
-  html { font-size: 112.5%; } /* 18 px : texte courant, rien en dessous */
-  h1 { font-size: 2.45rem; } /* ~44 px */
-  h2 { font-size: 1.65rem; } /* ~30 px */
-  .contenu { max-width: 61rem; padding: 3rem 2rem; } /* ~1100 px */
-  .accroche .contenu {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    column-gap: 3rem;
-    align-items: center;
-  }
-  .accroche .logo { grid-column: 1 / -1; }
-  .accroche h1, .accroche p { grid-column: 1; }
-  .accroche p { font-size: 1.2rem; }
-  .accroche .bouton { grid-column: 2; grid-row: 2 / span 2; margin: 0; }
-  .carte p { font-size: 1.15rem; }
-  .etapes li { font-size: 1.2rem; }
-  .sans-jargon { font-size: 1.1rem; }
-  .prix { font-size: 2rem; }
-  .qui p { font-size: 1.05rem; }
-  .bouton { font-size: 1.25rem; }
-  .bouton-libelle { font-size: 1rem; }
-  .modele { font-size: 1rem; }
-  .tarif .contenu {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 3rem;
-    align-content: start;
-  }
-  .tarif h2 { grid-column: 1 / -1; }
-  .tarif .prix { grid-column: 1; grid-row: 2 / span 2; }
-  .tarif .contenu > p:not(.prix) { grid-column: 2; }
-  .qui .contenu {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    column-gap: 3rem;
-    align-content: start;
-  }
-  .qui .symbole { grid-row: 1 / span 2; width: 8rem; height: 8rem; margin: 0; }
-  .qui h2, .qui p { grid-column: 2; }
-  .ecrire .contenu { text-align: center; }
-  .ecrire h2::after { margin-left: auto; margin-right: auto; }
-  .ecrire p { margin-left: auto; margin-right: auto; }
-  .ecrire .bouton { display: block; max-width: 40rem; margin: 1rem auto 1.5rem; }
-}
-
 .logo-lien { display: inline-block; }
-.clair a { color: var(--aubergine); }
+.mentions h1 { font-size: clamp(2rem, 1rem + 5vw, 3.5rem); margin: 0; }
+.mentions .logo { margin-bottom: 2rem; }
 
-.saison:empty { display: none; }
+/* ---------- Page 404 ---------- */
+.page-404 { min-height: 100vh; display: grid; align-content: center; }
+.page-404 .bouton { margin-top: 1rem; }
 
-/* Ornements vides d'un thème (Bip, manette…) : invisibles tant qu'un thème ne les affiche pas */
-.deco-theme { display: none; }
-
-/* Micro-interactions (CSS pur) : 200 ms, sur transform, opacity et background-size seulement */
-
-/* Boutons : montent de 2 px, l'ombre aubergine est un pseudo-élément dont seule l'opacité change */
-.bouton { position: relative; isolation: isolate; transition: transform 200ms; }
-.bouton::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  border-radius: inherit;
-  box-shadow: 0 8px 16px rgba(74, 42, 110, .35);
-  opacity: 0;
-  transition: opacity 200ms;
-  pointer-events: none;
+/* ---------- Écrans plus larges ---------- */
+@media (min-width: 40em) {
+  .chiffres ul { grid-template-columns: repeat(4, 1fr); }
+  .cartes { grid-template-columns: 1fr 1fr; }
+  .tarif-etapes { grid-template-columns: 1fr 1fr; }
 }
-.bouton:hover, .bouton:focus-visible { transform: translateY(-2px); }
-.bouton:hover::after, .bouton:focus-visible::after { opacity: 1; }
-.bouton:active { transform: none; }
-.bouton:active::after { opacity: 0; }
-
-/* Cartes (non cliquables) : effet plus discret au survol, 3 px et ombre plus large */
-.carte { position: relative; isolation: isolate; transition: transform 200ms; }
-.carte::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  border-radius: inherit;
-  box-shadow: 0 12px 28px rgba(74, 42, 110, .2);
-  opacity: 0;
-  transition: opacity 200ms;
-  pointer-events: none;
+@media (min-width: 48em) {
+  .logo { width: 14rem; }
+  .hero .contenu { grid-template-columns: 1fr auto; align-items: end; column-gap: 3rem; }
+  .hero .contenu > * { grid-column: 1; }
+  .hero .deco { grid-column: 2; grid-row: 2 / span 3; width: clamp(11rem, 24vw, 22rem); align-self: center; justify-self: end; }
+  .etapes { display: grid; grid-template-columns: repeat(3, 1fr); }
+  .etapes::before, .etapes::after { left: 1.5rem; right: calc(100% / 3 - 1.5rem); top: calc(1.5rem - 2px); bottom: auto; width: auto; height: 4px; }
+  .etapes::after { transform-origin: left; }
+  .etapes li, .etapes li:last-child { padding: 4.75rem 2rem 0 0; min-height: 0; }
+  .qui-panneau { display: grid; grid-template-columns: auto 1fr; column-gap: 3rem; align-items: start; }
+  .qui .symbole { width: 8rem; height: 8rem; margin: 0; grid-row: 1 / span 3; }
+  .qui-panneau > *:not(.symbole) { grid-column: 2; }
 }
-.carte:hover { transform: translateY(-3px); }
-.carte:hover::after { opacity: 1; }
-
-/* Liens : un trait passe sous le texte de gauche à droite, sans décaler le texte.
-   Fond sombre : trait miel. Fond clair : trait aubergine fin sur fond miel pâle (texte aubergine, contraste > 10). */
-footer a, .logo-lien {
-  background: linear-gradient(var(--miel), var(--miel)) left bottom / 0 4px no-repeat;
-  transition: background-size 200ms;
-}
-footer a:hover, footer a:focus-visible, .logo-lien:hover, .logo-lien:focus-visible { background-size: 100% 4px; }
-.clair a:not(.bouton) {
-  background:
-    linear-gradient(var(--aubergine), var(--aubergine)) left bottom / 0 2px no-repeat,
-    linear-gradient(#fdf0c4, #fdf0c4) left bottom / 0 100% no-repeat;
-  transition: background-size 200ms;
-}
-.clair a:not(.bouton):hover, .clair a:not(.bouton):focus-visible { background-size: 100% 2px, 100% 100%; }
-
-/* Visiteur qui demande moins de mouvement : plus de mouvement, l'effet de couleur reste, instantané */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { transition: none !important; }
-  .bouton:hover, .bouton:focus-visible, .carte:hover { transform: none; }
+@media (min-width: 64em) {
+  .cartes { grid-template-columns: repeat(3, 1fr); }
 }
 
-/* Bouton « Arrêter les animations » (créé par js/animations.js) : pastille ronde de 44 px, en bas à droite, translucide
-   (pleine au survol et au focus). Le nom accessible est un libellé masqué (.sr-seul) ; le symbole est dessiné en CSS. */
+/* ---------- Mouvement ---------- */
+/* Principe : l'état de départ n'existe que dans les images clés. Sans prise en charge, avec « moins de mouvement »
+   ou avec la pause du visiteur, rien n'est masqué : tout le contenu est visible tel quel. */
+@keyframes monte { from { opacity: 0; transform: translateY(2rem); } }
+@keyframes mot-monte { from { opacity: 0; transform: translateY(.5em); } }
+@keyframes trace-x { from { transform: scaleX(0); } }
+@keyframes trace-y { from { transform: scaleY(0); } }
+@keyframes sourire { from { stroke-dashoffset: 1; } }
+@keyframes arrivee { from { opacity: 0; transform: translateY(1rem); } }
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Arrivée de l'en-tête : une seconde, une fois */
+  .hero .etiquette, .hero h1, .hero .accroche, .hero .bouton { animation: arrivee .7s ease-out both; }
+  .hero h1 { animation-delay: .1s; }
+  .hero .accroche, .page-404 .accroche { animation-delay: .2s; }
+  .hero .bouton { animation-delay: .3s; }
+  .hero .deco path { stroke-dasharray: 1; animation: sourire 1.2s ease-out .3s both; }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .revele, .m, .etapes::after, .etapes li {
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: view();
+    }
+    .revele { animation-name: monte; animation-range: entry 0% entry 35%; }
+    .tarif-etape + .tarif-etape { animation-range: entry 25% entry 65%; } /* le remboursement vient en second */
+    .m {
+      animation-name: mot-monte;
+      animation-range: entry calc(var(--i) * 7%) entry calc(30% + var(--i) * 7%);
+    }
+    .etapes li { animation-name: monte; animation-range: entry 0% entry 80%; }
+    .etapes::after { animation-name: trace-y; animation-timeline: view(); animation-range: cover 5% cover 45%; }
+    .etapes li:nth-child(2) { animation-range: entry 10% entry 90%; }
+    .etapes li:nth-child(3) { animation-range: entry 20% entry 100%; }
+  }
+  @media (prefers-reduced-motion: no-preference) and (min-width: 48em) {
+    .etapes::after { animation-name: trace-x; }
+  }
+}
+
+/* Bouton « Arrêter les animations » (créé par js/site.js) : pastille ronde de 44 px, translucide.
+   Le nom accessible est un libellé masqué ; le symbole est dessiné en CSS. */
 .sr-seul {
   position: absolute;
   width: 1px;
@@ -329,36 +370,32 @@ footer a:hover, footer a:focus-visible, .logo-lien:hover, .logo-lien:focus-visib
   width: 44px;
   height: 44px;
   padding: 0;
-  background: var(--creme);
-  color: var(--aubergine);
-  border: 3px solid var(--aubergine);
+  background: var(--fond);
+  border: 3px solid var(--titre);
   border-radius: 50%;
-  opacity: .65;
+  opacity: .7;
   transition: opacity 200ms;
   cursor: pointer;
 }
 #pause-animations:hover, #pause-animations:focus-visible { opacity: 1; }
-#pause-animations:hover { background: #ffffff; }
-.pause-icone { /* ⏸ : deux barres */
+.pause-icone { /* deux barres */
   width: 14px;
   height: 14px;
-  background: linear-gradient(90deg, var(--aubergine) 0 35%, transparent 35% 65%, var(--aubergine) 65% 100%);
+  background: linear-gradient(90deg, var(--titre) 0 35%, transparent 35% 65%, var(--titre) 65% 100%);
   border-radius: 1px;
 }
-html.sans-animation .pause-icone { /* ▶ : triangle */
-  background: var(--aubergine);
-  clip-path: polygon(15% 0, 100% 50%, 15% 100%);
-}
+html.sans-animation .pause-icone { background: var(--titre); clip-path: polygon(15% 0, 100% 50%, 15% 100%); } /* triangle */
 html.avec-pause footer { padding-bottom: 4.5rem; } /* le bouton fixe ne masque pas le pied de page */
-@media (max-width: 47.99em) { /* mobile : le bouton ne suit pas le défilement, il reste en bas de page sous le texte */
+@media (max-width: 47.99em) { /* mobile : le bouton reste en bas de page, sous le texte */
   body { position: relative; }
   #pause-animations { position: absolute; }
 }
 
-/* Animations arrêtées par le visiteur : plus de mouvement, les effets de couleur restent */
+/* Pause du visiteur ou « moins de mouvement » : plus aucun mouvement, les effets de couleur restent */
 html.sans-animation *, html.sans-animation *::before, html.sans-animation *::after {
   animation: none !important;
   transition: none !important;
 }
-html.sans-animation .bouton:hover, html.sans-animation .bouton:focus-visible, html.sans-animation .carte:hover { transform: none; }
-#pause-animations:focus-visible { box-shadow: 0 0 0 3px var(--creme); } /* anneau crème : le contour reste visible sur le pied aubergine */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; }
+}
