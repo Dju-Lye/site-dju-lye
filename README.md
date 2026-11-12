@@ -32,7 +32,7 @@ HTML, CSS et un petit JavaScript : aucun chargement externe, aucun traceur.
 
 ## État
 
-- Page unique et mentions légales écrites ; SIRET « en cours d'attribution » dans les mentions légales.
+- Page unique et mentions légales écrites ; SIRET renseigné dans les mentions légales.
 - Hébergement et DNS à faire.
 - Le logo est en SVG en ligne dans `index.html`, pour utiliser la police Lexend chargée par la page.
 
