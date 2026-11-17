@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-theme="clair">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Dju-Lye&nbsp;: une voisine qui s'y connaît, aide numérique à Laval</title>
-  <meta name="description" content="Dépannage et initiation numérique à domicile, à Laval et dans les communes voisines.">
+  <meta name="description" content="Initiation, installation et petit dépannage numérique à domicile, à Laval et dans les communes voisines.">
   <link rel="canonical" href="https://dju-lye.fr/">
   <meta name="theme-color" content="#4a2a6e">
-  <meta name="color-scheme" content="dark light">
+  <meta name="color-scheme" content="light dark">
 
   <meta property="og:type" content="website">
   <meta property="og:locale" content="fr_FR">
   <meta property="og:site_name" content="Dju-Lye">
   <meta property="og:title" content="Dju-Lye : une voisine qui s'y connaît">
-  <meta property="og:description" content="Dépannage et initiation numérique à domicile, à Laval et dans les communes voisines.">
+  <meta property="og:description" content="Initiation, installation et petit dépannage numérique à domicile, à Laval et dans les communes voisines.">
   <meta property="og:url" content="https://dju-lye.fr/">
   <meta property="og:image" content="https://dju-lye.fr/images/og-image.png">
   <meta property="og:image:width" content="1200">
@@ -21,22 +21,22 @@
   <meta property="og:image:alt" content="Dju-Lye, une voisine qui s'y connaît">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Dju-Lye : une voisine qui s'y connaît">
-  <meta name="twitter:description" content="Dépannage et initiation numérique à domicile, à Laval et dans les communes voisines.">
+  <meta name="twitter:description" content="Initiation, installation et petit dépannage numérique à domicile, à Laval et dans les communes voisines.">
   <meta name="twitter:image" content="https://dju-lye.fr/images/og-image.png">
 
   <link rel="icon" href="images/symbole.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
   <link rel="preload" href="polices/Lexend-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="style.css">
-  <script>try { if (localStorage.getItem("animations-arretees") === "oui") document.documentElement.classList.add("sans-animation"); } catch (e) {}</script>
-  <script defer src="js/site.js"></script>
+  <link rel="stylesheet" href="style.css?v=2026-11-17">
+  <script>try { var t = localStorage.getItem("theme-dju-lye"); if (t === "sombre" || t === "clair") document.documentElement.setAttribute("data-theme", t); if (localStorage.getItem("animations-arretees") === "oui") document.documentElement.classList.add("sans-animation"); } catch (e) {}</script>
+  <script defer src="js/site.js?v=2026-11-17"></script>
 
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "name": "Dju-Lye",
-    "description": "Aide numérique de quartier : dépannage et initiation numérique à domicile.",
+    "description": "Aide numérique de quartier : initiation, installation et petit dépannage numérique à domicile.",
     "url": "https://dju-lye.fr/",
     "email": "contact@dju-lye.fr",
     "logo": "https://dju-lye.fr/images/symbole.svg",
@@ -50,7 +50,7 @@
     },
     "areaServed": [
       { "@type": "City", "name": "Laval" },
-      { "@type": "Place", "name": "Communes voisines de Laval (Mayenne)" }
+      { "@type": "Place", "name": "Communes voisines de Laval (Changé, Saint-Berthevin, Bonchamp-lès-Laval, L'Huisserie, Entrammes, Louverné)" }
     ]
   }
   </script>
@@ -58,141 +58,352 @@
 <body>
   <a class="aller-au-contenu" href="#contenu">Aller au contenu</a>
 
-  <header class="entete sombre">
-    <div class="contenu">
-      <svg class="logo" role="img" aria-label="Dju-Lye" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 245 64">
-        <rect x="3" y="3" width="58" height="58" rx="17" fill="#4a2a6e" stroke="#ffffff" stroke-width="2"/>
-        <circle cx="21" cy="25" r="6" fill="#ffffff"/>
-        <circle cx="43" cy="25" r="6" fill="#ffffff"/>
-        <path d="M17 38 Q32 52 47 38" fill="none" stroke="#f5c33b" stroke-width="6" stroke-linecap="round"/>
-        <text x="85" y="45" font-family="Lexend, 'Segoe UI', sans-serif" font-size="40" font-weight="600" fill="#ffffff">Dju<tspan fill="#f5c33b" font-weight="700">-</tspan>Lye</text>
-      </svg>
+  <header class="entete">
+    <div class="entete-barre">
+      <a class="logo-lien" href="#contenu" aria-label="Dju-Lye, haut de page">
+        <svg class="logo" role="img" aria-label="Dju-Lye" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 245 64">
+          <rect class="logo-carre" x="3" y="3" width="58" height="58" rx="17"/>
+          <circle cx="21" cy="25" r="6" fill="#ffffff"/>
+          <circle cx="43" cy="25" r="6" fill="#ffffff"/>
+          <path d="M17 38 Q32 52 47 38" fill="none" stroke="#f5c33b" stroke-width="6" stroke-linecap="round"/>
+          <text class="logo-texte" x="85" y="45" font-family="Lexend, 'Segoe UI', sans-serif" font-size="40" font-weight="600">Dju<tspan fill="#f5c33b" font-weight="700">-</tspan>Lye</text>
+        </svg>
+      </a>
+
+      <nav class="nav-principale" aria-label="Navigation principale">
+        <ul>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#deroulement">Déroulement</a></li>
+          <li><a href="#tarif">Tarif</a></li>
+          <li><a href="#julie">Julie</a></li>
+          <li><a href="#questions">Questions</a></li>
+        </ul>
+      </nav>
+
+      <div class="entete-actions">
+        <button type="button" class="bouton-theme" id="bascule-theme" aria-pressed="false">🌙 Mode sombre</button>
+        <a class="bouton-nav" href="#ecrire">Écrire à Julie</a>
+      </div>
     </div>
   </header>
 
   <main id="contenu" tabindex="-1">
-    <section class="hero bande">
-      <span class="etoile" aria-hidden="true"></span><span class="etoile" aria-hidden="true"></span><span class="etoile" aria-hidden="true"></span>
+    <section class="hero">
       <div class="contenu hero-grille">
-        <ul class="autocollants" aria-hidden="true">
-          <li class="ac" style="--r:-4deg;--c:var(--menthe)">~/laval $ ./bonjour --voisin</li>
-          <li class="ac rond" style="--r:3deg;--c:var(--lilas);--bc:var(--encre)">sans jargon</li>
-        </ul>
-        <h1>Une <span class="mot">voisine</span> qui s'y connaît.</h1>
         <div class="hero-texte">
-          <p class="accroche">Dépannage et initiation numérique à domicile, à Laval et dans les communes voisines.</p>
-          <a class="bouton" href="mailto:contact@dju-lye.fr">Écrire à Julie</a>
+          <ul class="hero-badges" aria-label="En bref">
+            <li><span class="pastille">Laval &amp; communes voisines</span></li>
+            <li><span class="pastille miel">À domicile · Sans jargon</span></li>
+          </ul>
+          <h1>Une <span class="mot">voisine</span> qui s'y connaît.</h1>
+          <p class="accroche">Initiation, installation et petit dépannage numérique à domicile, à Laval et dans les communes voisines. On avance pas à pas sur votre matériel, à votre rythme.</p>
+          <div class="hero-boutons">
+            <a class="bouton" href="#ecrire">Écrire à Julie<small>contact@dju-lye.fr</small></a>
+            <a class="bouton-secondaire" href="#services">Voir les services</a>
+          </div>
         </div>
-        <!-- Décor : le sourire du logo devient une mascotte -->
+
+        <!-- Mascotte Dju-Lye (Expression 1 : Accueil attentif ; Expression 4 : Ravie au survol du bouton) -->
         <div class="mascotte" aria-hidden="true">
-          <div class="blob"></div>
-          <svg class="visage" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 68 68">
-            <defs><linearGradient id="degrade-visage" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4a2a6e"/><stop offset="1" stop-color="#7a3cff"/></linearGradient></defs>
-            <rect x="7" y="7" width="58" height="58" rx="17" fill="#170f21"/>
-            <rect x="3" y="3" width="58" height="58" rx="17" fill="url(#degrade-visage)" stroke="#170f21" stroke-width="2.2"/>
-            <circle cx="12" cy="37" r="4.5" fill="#d9c8ff" opacity=".7"/>
-            <circle cx="52" cy="37" r="4.5" fill="#d9c8ff" opacity=".7"/>
-            <g class="oeil"><circle cx="21" cy="25" r="7" fill="#ffffff"/><circle class="pupille" cx="21" cy="25" r="3.4" fill="#170f21"/></g>
-            <g class="oeil"><circle cx="43" cy="25" r="7" fill="#ffffff"/><circle class="pupille" cx="43" cy="25" r="3.4" fill="#170f21"/></g>
-            <path class="bouche-sourire" d="M17 38 Q32 52 47 38" fill="none" stroke="#f5c33b" stroke-width="6" stroke-linecap="round"/>
-            <g class="bouche-grand"><path d="M15 36 Q32 62 49 36 Z" fill="#f5c33b" stroke="#f5c33b" stroke-width="3" stroke-linejoin="round"/><path d="M25 46 Q32 41 39 46 Q32 54 25 46 Z" fill="#7a3cff"/></g>
+          <div class="halo-fond"></div>
+          <svg class="visage" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 88 88">
+            <defs>
+              <linearGradient id="degrade-visage" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#563080"/>
+                <stop offset="100%" stop-color="#3c1f5e"/>
+              </linearGradient>
+            </defs>
+            <rect x="10" y="10" width="68" height="68" rx="21" fill="url(#degrade-visage)" stroke="#f5c33b" stroke-width="2.5"/>
+            <ellipse cx="22" cy="50" rx="5.5" ry="3.5" fill="#d9c8ff" opacity="0.65"/>
+            <ellipse cx="66" cy="50" rx="5.5" ry="3.5" fill="#d9c8ff" opacity="0.65"/>
+            <g class="oeil">
+              <circle cx="31" cy="36" r="8" fill="#ffffff"/>
+              <circle class="pupille" cx="31" cy="36" r="3.8" fill="#1c1029"/>
+              <circle cx="33" cy="33.8" r="1.5" fill="#ffffff"/>
+            </g>
+            <g class="oeil">
+              <circle cx="57" cy="36" r="8" fill="#ffffff"/>
+              <circle class="pupille" cx="57" cy="36" r="3.8" fill="#1c1029"/>
+              <circle cx="59" cy="33.8" r="1.5" fill="#ffffff"/>
+            </g>
+            <path class="bouche-sourire" d="M26 52 Q44 68 62 52" fill="none" stroke="#f5c33b" stroke-width="6.5" stroke-linecap="round"/>
+            <g class="bouche-grand">
+              <path d="M24 50 Q44 73 64 50 Z" fill="#f5c33b" stroke="#f5c33b" stroke-width="2.5" stroke-linejoin="round"/>
+              <path d="M35 59 Q44 54 53 59 Q44 67 35 59 Z" fill="#6e32f0"/>
+            </g>
           </svg>
           <svg class="sceau" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
             <g class="sceau-rond">
-              <circle cx="50" cy="50" r="48" fill="#f5c33b" stroke="#170f21" stroke-width="3"/>
+              <circle cx="50" cy="50" r="48" fill="#f5c33b" stroke="#391c5a" stroke-width="2.5"/>
               <path id="cercle" d="M50 50m-36 0a36 36 0 1 1 72 0a36 36 0 1 1-72 0" fill="none"/>
               <text><textPath href="#cercle" textLength="224" lengthAdjust="spacing">aide numérique de quartier · Laval · à domicile ·</textPath></text>
-              <circle cx="50" cy="50" r="9" fill="#7a3cff" stroke="#170f21" stroke-width="3"/>
+              <circle cx="50" cy="50" r="9" fill="#4a2a6e" stroke="#391c5a" stroke-width="2"/>
             </g>
           </svg>
-          <span class="ac" aria-hidden="true">à domicile</span>
-          <span class="ac rond" style="--bc:var(--encre)" aria-hidden="true">crédit d'impôt 50&nbsp;%</span>
+          <span class="mascotte-etiquette haut">Chez vous, à Laval</span>
+          <span class="mascotte-etiquette bas">À votre rythme</span>
         </div>
       </div>
     </section>
 
     <div class="ruban" aria-hidden="true">
-      <div class="inclin"><div class="rail"><ul><li>lent</li><li>mots de passe</li><li>mails</li><li>enfants</li><li>tablette</li><li>sauvegarde</li><li>nouvel ordinateur</li><li>téléphone</li></ul><ul class="copie"><li>lent</li><li>mots de passe</li><li>mails</li><li>enfants</li><li>tablette</li><li>sauvegarde</li><li>nouvel ordinateur</li><li>téléphone</li></ul></div></div>
+      <div class="inclin">
+        <div class="rail">
+          <ul>
+            <li>tablette</li><li>téléphone</li><li>nouvel ordinateur</li><li>mots de passe</li><li>boîte mail</li><li>sauvegarde photos</li><li>contrôle parental</li><li>imprimante</li><li>ordinateur lent</li>
+          </ul>
+          <ul class="copie">
+            <li>tablette</li><li>téléphone</li><li>nouvel ordinateur</li><li>mots de passe</li><li>boîte mail</li><li>sauvegarde photos</li><li>contrôle parental</li><li>imprimante</li><li>ordinateur lent</li>
+          </ul>
+        </div>
+      </div>
     </div>
 
-    <section class="services bande" aria-labelledby="services">
+    <section class="services" id="services" aria-labelledby="titre-services">
       <div class="contenu">
         <p class="etiquette" aria-hidden="true">01 / services</p>
-        <h2 id="services">Les petits <span class="mot">tracas</span> du quotidien</h2>
+        <h2 id="titre-services">Les petits <span class="mot">tracas</span> du quotidien</h2>
         <ul class="cartes">
-          <li class="carte"><svg class="ico" aria-hidden="true" focusable="false" viewBox="0 0 48 48"><circle cx="24" cy="24" r="22"/><path d="M24 12v12l8 5"/></svg><p class="gros">«&nbsp;Mon ordinateur est lent.&nbsp;»</p><p class="nom">Petit dépannage</p></li>
-          <li class="carte"><svg class="ico" aria-hidden="true" focusable="false" viewBox="0 0 48 48"><circle cx="24" cy="24" r="22"/><rect x="12" y="13" width="24" height="16" rx="3"/><path d="M18 36h12"/></svg><p class="gros">«&nbsp;J'ai peur de tout perdre en changeant d'ordinateur.&nbsp;»</p><p class="nom">Changer d'ordinateur sans rien perdre</p></li>
-          <li class="carte"><svg class="ico" aria-hidden="true" focusable="false" viewBox="0 0 48 48"><circle cx="24" cy="24" r="22"/><rect x="11" y="15" width="26" height="18" rx="4"/><path d="M12 17l12 9 12-9"/></svg><p class="gros">«&nbsp;Ma boîte mail déborde.&nbsp;»</p><p class="nom">Trier ses mails</p></li>
-          <li class="carte"><svg class="ico" aria-hidden="true" focusable="false" viewBox="0 0 48 48"><circle cx="24" cy="24" r="22"/><circle cx="19" cy="24" r="5"/><path d="M24 24h14M33 24v5"/></svg><p class="gros">«&nbsp;Je ne sais plus mes mots de passe.&nbsp;»</p><p class="nom">Sauvegarder ses données et ses mots de passe</p></li>
-          <li class="carte"><svg class="ico" aria-hidden="true" focusable="false" viewBox="0 0 48 48"><circle cx="24" cy="24" r="22"/><path d="M24 10l11 4v9c0 7-5 11-11 14-6-3-11-7-11-14v-9z"/><path d="M19 24l4 4 7-8"/></svg><p class="gros">«&nbsp;Je voudrais protéger mes enfants.&nbsp;»</p><p class="nom">Contrôle parental</p></li>
-          <li class="carte"><svg class="ico" aria-hidden="true" focusable="false" viewBox="0 0 48 48"><circle cx="24" cy="24" r="22"/><rect x="14" y="9" width="20" height="30" rx="4"/><path d="M24 33h.1"/></svg><p class="gros">«&nbsp;Je veux apprendre à me servir de ma tablette.&nbsp;»</p><p class="nom">Initiation&nbsp;: ordinateur, tablette, téléphone</p></li>
+          <li class="carte revele">
+            <div>
+              <div class="carte-haut">
+                <svg class="scene-svg" viewBox="0 0 88 72" aria-hidden="true" focusable="false">
+                  <rect x="6" y="10" width="54" height="44" rx="8" fill="#e6dcff" stroke="#4a2a6e" stroke-width="2.5"/>
+                  <rect x="12" y="16" width="42" height="28" rx="4" fill="#ffffff"/>
+                  <rect x="48" y="24" width="28" height="40" rx="6" fill="#4a2a6e" stroke="#f5c33b" stroke-width="2.2"/>
+                  <circle cx="62" cy="58" r="2" fill="#f5c33b"/>
+                  <path d="M55 38 L60 43 L70 33" fill="none" stroke="#1db89a" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="pastille">Initiation</span>
+              </div>
+              <p class="gros">«&nbsp;Je veux apprendre à me servir de ma tablette ou de mon téléphone.&nbsp;»</p>
+              <p class="detail">Prise en main pas à pas sur votre appareil&nbsp;: démarches en ligne, photos, messages, réglages lisibles.</p>
+            </div>
+            <p class="nom">Initiation&nbsp;: ordinateur, tablette, téléphone</p>
+          </li>
+
+          <li class="carte revele">
+            <div>
+              <div class="carte-haut">
+                <svg class="scene-svg" viewBox="0 0 88 72" aria-hidden="true" focusable="false">
+                  <rect x="6" y="20" width="32" height="24" rx="4" fill="#e6dcff" stroke="#4a2a6e" stroke-width="2.3"/>
+                  <path d="M2 46 H42" stroke="#4a2a6e" stroke-width="2.5" stroke-linecap="round"/>
+                  <path d="M36 16 Q46 6 56 16" fill="none" stroke="#f5c33b" stroke-width="3" stroke-dasharray="4 3" stroke-linecap="round"/>
+                  <polygon points="56,12 61,17 54,19" fill="#f5c33b"/>
+                  <rect x="48" y="18" width="34" height="26" rx="4" fill="#1db89a" fill-opacity="0.25" stroke="#4a2a6e" stroke-width="2.5"/>
+                  <path d="M60 31 L64 35 L72 26" fill="none" stroke="#1db89a" stroke-width="3" stroke-linecap="round"/>
+                  <path d="M44 46 H86" stroke="#4a2a6e" stroke-width="2.5" stroke-linecap="round"/>
+                </svg>
+                <span class="pastille">Installation</span>
+              </div>
+              <p class="gros">«&nbsp;J'ai peur de tout perdre en changeant d'ordinateur.&nbsp;»</p>
+              <p class="detail">Mise en route du nouvel appareil, transfert de vos photos, documents, favoris, boîte mail et imprimante.</p>
+            </div>
+            <p class="nom">Changer d'ordinateur sans rien perdre</p>
+          </li>
+
+          <li class="carte revele">
+            <div>
+              <div class="carte-haut">
+                <svg class="scene-svg" viewBox="0 0 88 72" aria-hidden="true" focusable="false">
+                  <rect x="12" y="14" width="46" height="46" rx="10" fill="#e6dcff" stroke="#4a2a6e" stroke-width="2.4"/>
+                  <circle cx="35" cy="34" r="9" fill="#ffffff" stroke="#4a2a6e" stroke-width="2.4"/>
+                  <path d="M35 39 V47" stroke="#4a2a6e" stroke-width="2.8" stroke-linecap="round"/>
+                  <g transform="translate(44, 26)">
+                    <circle cx="14" cy="14" r="11" fill="#f5c33b" stroke="#4a2a6e" stroke-width="2.3"/>
+                    <path d="M25 14 H39 M34 14 V21 M39 14 V19" stroke="#4a2a6e" stroke-width="2.8" stroke-linecap="round"/>
+                  </g>
+                </svg>
+                <span class="pastille">Organisation</span>
+              </div>
+              <p class="gros">«&nbsp;Je ne sais plus mes mots de passe ni où sont mes photos.&nbsp;»</p>
+              <p class="detail">Méthode claire pour retrouver vos accès et sauvegarder régulièrement vos souvenirs sur clé USB ou disque externe.</p>
+            </div>
+            <p class="nom">Sauvegarder ses données et ses mots de passe</p>
+          </li>
+
+          <li class="carte revele">
+            <div>
+              <div class="carte-haut">
+                <svg class="scene-svg" viewBox="0 0 88 72" aria-hidden="true" focusable="false">
+                  <rect x="10" y="18" width="52" height="36" rx="6" fill="#ffffff" stroke="#4a2a6e" stroke-width="2.5"/>
+                  <path d="M12 21 L36 39 L60 21" fill="none" stroke="#4a2a6e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <circle cx="62" cy="22" r="13" fill="#1db89a" stroke="#4a2a6e" stroke-width="2.3"/>
+                  <path d="M57 22 L61 26 L68 18" fill="none" stroke="#ffffff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="pastille">Accompagnement</span>
+              </div>
+              <p class="gros">«&nbsp;Ma boîte mail déborde.&nbsp;»</p>
+              <p class="detail">Tri guidé ensemble, désabonnement des publicités, classement simple et repérage des messages frauduleux.</p>
+            </div>
+            <p class="nom">Trier ses mails</p>
+          </li>
+
+          <li class="carte revele">
+            <div>
+              <div class="carte-haut">
+                <svg class="scene-svg" viewBox="0 0 88 72" aria-hidden="true" focusable="false">
+                  <path d="M44 10 L68 19 V35 C68 50 57 59 44 64 C31 59 20 50 20 35 V19 Z" fill="#e6dcff" stroke="#4a2a6e" stroke-width="2.5" stroke-linejoin="round"/>
+                  <path d="M44 17 L61 23.5 V35 C61 46 53 53 44 57 C35 53 27 46 27 35 V23.5 Z" fill="#f5c33b" opacity="0.85"/>
+                  <path d="M36 37 L42 43 L53 31" fill="none" stroke="#4a2a6e" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="pastille">Famille</span>
+              </div>
+              <p class="gros">«&nbsp;Je voudrais protéger mes enfants.&nbsp;»</p>
+              <p class="detail">Réglage avec vous des horaires d'écran, limites d'âge et blocage des achats sur téléphone, tablette, console ou PC.</p>
+            </div>
+            <p class="nom">Contrôle parental</p>
+          </li>
+
+          <li class="carte revele">
+            <div>
+              <div class="carte-haut">
+                <svg class="scene-svg" viewBox="0 0 88 72" aria-hidden="true" focusable="false">
+                  <circle cx="38" cy="36" r="22" fill="#fef3cd" stroke="#4a2a6e" stroke-width="2.5"/>
+                  <path d="M38 22 V36 L48 42" fill="none" stroke="#4a2a6e" stroke-width="3" stroke-linecap="round"/>
+                  <rect x="52" y="38" width="24" height="16" rx="4" fill="#4a2a6e"/>
+                  <path d="M58 46 H70" stroke="#f5c33b" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+                <span class="pastille miel">Dépannage</span>
+              </div>
+              <p class="gros">«&nbsp;Mon ordinateur est lent ou mon imprimante bloque.&nbsp;»</p>
+              <p class="detail">Diagnostic sur place, nettoyage des programmes inutiles, reconnexion Wi-Fi ou remise en route d'une imprimante.</p>
+            </div>
+            <p class="nom">Petit dépannage à domicile</p>
+          </li>
         </ul>
       </div>
     </section>
 
-    <section class="etapes-section sombre" aria-labelledby="deroulement">
+    <section class="etapes-section" id="deroulement" aria-labelledby="titre-deroulement">
       <div class="contenu">
-        <p class="etiquette" aria-hidden="true">02 / déroulement</p>
-        <h2 id="deroulement">Comment ça <span class="mot">se passe</span></h2>
+        <div class="entete-avec-mascotte">
+          <div>
+            <p class="etiquette" aria-hidden="true">02 / déroulement</p>
+            <h2 id="titre-deroulement">Comment ça <span class="mot">se passe</span></h2>
+          </div>
+          <!-- Mascotte Expression 3 : Sereine & patiente -->
+          <svg class="mascotte-mini" viewBox="0 0 88 88" aria-hidden="true" focusable="false">
+            <rect x="10" y="10" width="68" height="68" rx="21" fill="#4a2a6e" stroke="#d9c8ff" stroke-width="2.2"/>
+            <path d="M25 26 Q32 23 38 26" fill="none" stroke="#d9c8ff" stroke-width="2.8" stroke-linecap="round"/>
+            <path d="M50 26 Q56 23 63 26" fill="none" stroke="#d9c8ff" stroke-width="2.8" stroke-linecap="round"/>
+            <circle cx="32" cy="37" r="7" fill="#ffffff"/><circle cx="32" cy="37" r="3.4" fill="#1c1029"/>
+            <circle cx="56" cy="37" r="7" fill="#ffffff"/><circle cx="56" cy="37" r="3.4" fill="#1c1029"/>
+            <path d="M29 54 Q44 65 59 54" fill="none" stroke="#f5c33b" stroke-width="5.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+
         <ol class="etapes">
-          <li>Vous m'écrivez</li>
-          <li>On fixe un rendez&#8209;vous</li>
-          <li>Je viens chez vous</li>
+          <li class="revele">
+            <strong>Vous m'écrivez</strong>
+            <p>Expliquez-moi votre besoin en deux lignes par e-mail, en précisant votre commune.</p>
+          </li>
+          <li class="revele">
+            <strong>On fixe un rendez&#8209;vous</strong>
+            <p>Je vous réponds rapidement pour choisir un créneau et estimer la durée ensemble.</p>
+          </li>
+          <li class="revele">
+            <strong>Je viens chez vous</strong>
+            <p>On fait les manipulations ensemble sur votre matériel, en prenant le temps d'expliquer.</p>
+          </li>
         </ol>
         <p class="sans-jargon">Pas de jargon, pas de précipitation.</p>
       </div>
     </section>
 
-    <section class="tarif bande" aria-labelledby="tarif">
+    <section class="tarif" id="tarif" aria-labelledby="titre-tarif">
       <div class="contenu">
         <p class="etiquette" aria-hidden="true">03 / tarif</p>
-        <h2 id="tarif"><span class="ondule">Tarif</span></h2>
+        <h2 id="titre-tarif">Un <span class="mot">tarif</span> clair, sans surprise</h2>
         <div class="tarif-blocs">
-          <div class="tarif-bloc revele">
-            <p class="etiquette" aria-hidden="true">1 / vous payez</p>
+          <div class="tarif-bloc principal revele">
+            <span class="pastille miel">Intervention à domicile</span>
             <p class="gros">50&nbsp;€ de l'heure</p>
+            <p>Déplacement inclus à Laval. On convient ensemble de la durée avant de commencer, selon votre besoin.</p>
           </div>
           <div class="tarif-bloc revele">
-            <p class="etiquette" aria-hidden="true">2 / l'année suivante</p>
-            <p class="gros">50&nbsp;%<small>remboursés</small></p>
-            <p>L'État vous rembourse la moitié par votre déclaration de revenus&nbsp;: au final, l'heure vous revient à 25&nbsp;€.</p>
+            <span class="pastille">Inclus dans chaque séance</span>
+            <ul class="liste-inclus">
+              <li>Accompagnement pas à pas sur votre propre matériel (ordinateur, tablette, téléphone, imprimante).</li>
+              <li>Vérification que tout fonctionne avec vous avant mon départ.</li>
+              <li>Un petit mémo clair laissé sur papier si vous voulez refaire les gestes seul ensuite.</li>
+            </ul>
           </div>
         </div>
-        <p class="credit">Assistance informatique à domicile&nbsp;: crédit d'impôt de 50&nbsp;% dans la limite de 3&nbsp;000&nbsp;€ par an et par foyer.</p>
       </div>
     </section>
 
-    <section class="qui bande" aria-labelledby="julie">
+    <section class="qui" id="julie" aria-labelledby="titre-julie">
       <div class="contenu">
         <div class="qui-panneau revele">
-          <img class="symbole" src="images/symbole.svg" alt="" width="64" height="64">
-          <p class="etiquette" aria-hidden="true">04 / julie</p>
-          <h2 id="julie">Qui est <span class="mot">Julie</span></h2>
-          <p>Je m'appelle Julie, l'informatique est mon métier depuis des années. J'ai créé Dju-Lye pour aider mes voisins&nbsp;: avec patience, sans jargon, et sans jamais vous faire sentir «&nbsp;nul&nbsp;». On avance à votre rythme, chez vous, avec votre matériel.</p>
+          <!-- Mascotte Expression 2 : Clin d'œil complice -->
+          <svg class="mascotte-julie" viewBox="0 0 88 88" aria-hidden="true" focusable="false">
+            <rect x="10" y="10" width="68" height="68" rx="21" fill="#4a2a6e" stroke="#1db89a" stroke-width="2.4"/>
+            <ellipse cx="22" cy="49" rx="5" ry="3.2" fill="#d9c8ff" opacity="0.65"/>
+            <ellipse cx="66" cy="49" rx="5" ry="3.2" fill="#d9c8ff" opacity="0.65"/>
+            <circle cx="32" cy="36" r="7.5" fill="#ffffff"/><circle cx="33.5" cy="36" r="3.6" fill="#1c1029"/><circle cx="35" cy="34" r="1.3" fill="#ffffff"/>
+            <path d="M49 37 Q56 30 63 37" fill="none" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round"/>
+            <path d="M26 51 Q44 68 62 49" fill="none" stroke="#f5c33b" stroke-width="6" stroke-linecap="round"/>
+          </svg>
+          <div>
+            <p class="etiquette" aria-hidden="true">04 / julie</p>
+            <h2 id="titre-julie">Qui est <span class="mot">Julie</span></h2>
+            <p>Je m'appelle Julie, l'informatique est mon métier depuis des années. J'ai créé Dju-Lye pour aider mes voisins&nbsp;: avec patience, sans jargon, et sans jamais vous faire sentir «&nbsp;nul&nbsp;». On avance à votre rythme, chez vous, avec votre matériel.</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="ecrire" aria-labelledby="ecrire">
+    <section class="faq-section" id="questions" aria-labelledby="titre-questions">
       <div class="contenu">
-        <p class="etiquette" aria-hidden="true">05 / contact</p>
-        <h2 id="ecrire">Écrire à <span class="mot">Julie</span></h2>
-        <p>Écrivez-moi deux lignes, je vous réponds vite.</p>
-        <a class="bouton" href="mailto:contact@dju-lye.fr">Écrire à Julie<small>contact@dju-lye.fr</small></a>
-        <span class="merci" role="status"></span>
-        <p class="exemple">Par exemple&nbsp;:</p>
-        <p class="modele">Bonjour Julie, j'habite à … et j'ai un souci avec …</p>
+        <p class="etiquette" aria-hidden="true">05 / questions fréquentes</p>
+        <h2 id="titre-questions">Vos <span class="mot">questions</span></h2>
+        <div class="faq-liste">
+          <details class="faq-item" open>
+            <summary>Dans quelles communes vous déplacez-vous&nbsp;?</summary>
+            <p>J'interviens à Laval et dans les communes voisines (Changé, Saint-Berthevin, Bonchamp-lès-Laval, L'Huisserie, Entrammes, Louverné…). Écrivez-moi un petit mot avec votre commune pour vérifier.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Et si j'ai plusieurs petites questions au lieu d'un seul gros problème&nbsp;?</summary>
+            <p>C'est très fréquent&nbsp;! Vous pouvez noter vos questions sur une feuille avant ma venue&nbsp;: nous profitons de l'heure pour les régler une par une.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Intervenez-vous sur Windows, Mac, Android et iPhone&nbsp;?</summary>
+            <p>Oui&nbsp;: ordinateur fixe ou portable (Windows, Mac), tablette (iPad, Android), smartphone et imprimante domestique.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Vendez-vous du matériel informatique&nbsp;?</summary>
+            <p>Non, je ne vends aucun matériel ni abonnement&nbsp;: mon conseil est 100&nbsp;% indépendant. Si vous souhaitez acheter un appareil, je peux vous aider à le choisir puis venir l'installer chez vous.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="ecrire" id="ecrire" aria-labelledby="titre-ecrire">
+      <div class="contenu">
+        <div class="ecrire-carte revele">
+          <p class="etiquette" aria-hidden="true">06 / contact</p>
+          <h2 id="titre-ecrire">Écrire à <span class="mot">Julie</span></h2>
+          <p>Écrivez-moi deux lignes, je vous réponds vite.</p>
+          <div class="contact-actions">
+            <a class="bouton" href="mailto:contact@dju-lye.fr?subject=Demande%20de%20rendez-vous%20Dju-Lye">Écrire à Julie<small>contact@dju-lye.fr</small></a>
+            <button type="button" class="bouton-secondaire" id="copier-mail" data-mail="contact@dju-lye.fr">Copier l'adresse e-mail</button>
+          </div>
+          <span class="statut-contact" role="status" aria-live="polite"></span>
+          <p class="exemple">Par exemple&nbsp;:</p>
+          <p class="modele">Bonjour Julie, j'habite à … et j'aurais besoin d'aide pour …</p>
+        </div>
       </div>
     </section>
 
     <!-- Chiffres vérifiés sur le site lui-même (voir README). Le poids est celui de index.html + style.css + js/site.js + polices chargées + symbole, sans compression. -->
-    <section class="chiffres" aria-labelledby="chiffres">
+    <section class="chiffres" aria-labelledby="titre-chiffres">
       <div class="contenu">
-        <h2 id="chiffres" class="etiquette">Le site en chiffres</h2>
+        <h2 id="titre-chiffres" class="etiquette">Le site en chiffres</h2>
         <ul>
           <li class="chiffre"><b>0</b><span>traceur, 0 cookie</span></li>
           <li class="chiffre"><b>0<small>octet</small></b><span>chargé depuis un serveur externe</span></li>
-          <li class="chiffre"><b>109<small>Ko</small></b><span>pour toute la page, polices comprises</span></li>
+          <li class="chiffre"><b>124<small>Ko</small></b><span>pour toute la page, polices comprises</span></li>
           <li class="chiffre"><b>1</b><span>voisine, 0 hotline</span></li>
         </ul>
       </div>

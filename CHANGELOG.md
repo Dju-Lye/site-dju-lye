@@ -4,6 +4,13 @@ Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/). Pas
 
 ## [Non publié]
 
+### Refonte « Studio de proximité » (17/11/2026, charte v2 direction A + B)
+- Nouvelle identité visuelle alignée sur `projets/charte-dju-lye/CHARTE.md` (v2) : mode clair par défaut (`#fbf6ec`), mode sombre (`#150d20`) activable par interrupteur (« Mode sombre / Mode clair ») dans l'en-tête et mémorisé dans `localStorage`, ombres colorées douces et en-tête vitré fixe avec liens d'ancrage.
+- Mascotte Dju-Lye déclinée en 4 expressions SVG (accueil attentif, clin d'œil complice, sereine & patiente, ravie au survol) et 6 scènes illustrées en SVG multi-calques pour les cartes de services.
+- Offre et tarif : retrait provisoire de toute mention du crédit d'impôt de 50 % et du montant de 25 €/h en attendant la finalisation du statut Services à la Personne (décision du 17/11/2026) ; mise en avant de l'initiation et de l'installation en tête des services ; tarif affiché à 50 €/h avec le détail de ce qui est inclus dans la séance.
+- Nouveaux composants : section « Questions fréquentes » en accordéon (`<details>`), bouton « Copier l'adresse e-mail » en un clic à côté du bouton `mailto:`, message d'état explicite remplaçant le « merci ! » immédiat.
+- Technique et légal : mention de franchise de TVA (`art. L. 223 et s. du CIBS`) et `<meta name="description">` ajoutées sur `mentions-legales.html` ; script d'application immédiate du thème et de la pause des animations présent dans le `<head>` des 3 pages (`index.html`, `mentions-legales.html`, `404.html`) ; paramètres de version `?v=2026-11-17` sur `style.css` et `js/site.js` ; `sitemap.xml` et poids mesuré (124 Ko / 123 788 octets) mis à jour.
+
 ### Refonte neuve (branche `refonte-neuve-2026-11`)
 - Site réécrit : très grands titres Lexend en taille fluide avec mot clé miel, étiquettes et chiffres en JetBrains Mono, bande « le site en chiffres » (valeurs mesurées), sections qui se dévoilent au défilement en CSS seul (titres mot par mot, fil miel qui relie les 3 étapes, remboursement du tarif en second), mode sombre automatique.
 - Partage et référencement : Open Graph, Twitter, canonical, `theme-color`, JSON-LD `LocalBusiness` (sans adresse de domicile), `robots.txt`, `sitemap.xml`, `404.html`, `images/og-image` (SVG et PNG), icône tactile.

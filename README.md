@@ -15,26 +15,26 @@ Enregistrés chez Infomaniak le 29/10/2026.
 
 ## Organisation
 
-Refonte neuve de novembre 2026 (branche `refonte-neuve-2026-11`) : maquette C « fusion » (branche `maquette-c-fusion`) : présentation de « Pop de quartier » (patchwork de blocs, contours épais, ombres dures, mascotte, ruban de mots) aux couleurs de « Sombre vivant » : noir-aubergine #170f21, aubergine #4a2a6e, violet électrique #7a3cff, menthe #3de0c2, lilas #d9c8ff, miel #f5c33b, texte #f1ebfa. Sombre d'abord, mode clair automatique (crème #fbf5e6). La bande « Le site en chiffres » est en bas de page, avant le pied de page. Le thème Geek et les autres thèmes de saison (21 feuilles dans `saisons/`) ne sont plus chargés par la page ; leurs fichiers restent dans `saisons/` et `js/`, et dans l'historique git.
+Refonte « Studio de proximité » du 17 novembre 2026 (direction A + B de la charte v2) : mode clair par défaut (crème papier `#fbf6ec`, aubergine `#4a2a6e`, miel `#f5c33b`, menthe `#1db89a`, lilas `#e6dcff`, texte encre `#231730`), ombres colorées douces, en-tête vitré fixe et interrupteur vers le mode sombre (`#150d20`). La mascotte Dju-Lye est déclinée en 4 expressions (accueil, clin d'œil, sereine, ravie) et les 6 cartes de services sont illustrées par des scènes SVG multi-calques. Conformément à la décision du 17/11/2026, aucune mention du crédit d'impôt de 50 % n'est affichée tant que la déclaration Services à la Personne (Nova) n'est pas finalisée. Le thème Geek et les autres thèmes de saison (21 feuilles dans `saisons/`) restent conservés et non chargés.
 
-- `index.html` : page unique (accroche, services, déroulement, tarif, qui est Julie, contact, le site en chiffres), avec balises de partage (Open Graph, Twitter) et données structurées `LocalBusiness`.
-- `mentions-legales.html` : mentions légales.
+- `index.html` : page unique (barre de navigation vitrée, accroche, 6 services illustrés, déroulement en 3 étapes, tarif à 50 €/h, qui est Julie, questions fréquentes en accordéon, contact avec copie de l'adresse en un clic, le site en chiffres), avec balises de partage (Open Graph, Twitter) et données structurées `LocalBusiness`.
+- `mentions-legales.html` : mentions légales (SIRET et franchise de TVA renseignés).
 - `404.html`, `robots.txt`, `sitemap.xml` : page d'erreur, consignes aux robots, plan du site.
-- `style.css` : feuille de style unique, variables de couleur sur `:root`, sombre par défaut et mode clair automatique (`prefers-color-scheme`), révélation au défilement (`animation-timeline: view()`) avec repli complet sans mouvement.
-- `js/site.js` : bouton pause des animations (absent avec « moins de mouvement »), « merci ! » au clic sur le mail et pupilles de la mascotte qui suivent le curseur. Aucune bibliothèque. Un petit script en ligne dans le `<head>` de `index.html` applique la pause mémorisée (`localStorage`, clé `animations-arretees`) avant le premier rendu.
+- `style.css` : feuille de style unique, variables de couleur sur `:root` (clair par défaut) et `html[data-theme="sombre"]` (mode sombre), révélation au défilement (`animation-timeline: view()`) avec repli complet sans mouvement.
+- `js/site.js` : bascule Mode clair / Mode sombre (`localStorage`, clé `theme-dju-lye`), copie de `contact@dju-lye.fr` en un clic et annonce d'ouverture de messagerie, bouton pause des animations (absent avec « moins de mouvement ») et pupilles de la mascotte qui suivent le curseur. Aucune bibliothèque. Un petit script en ligne dans le `<head>` de chaque page applique le thème et la pause mémorisés avant le premier rendu.
 - `polices/` : Lexend SemiBold, Source Sans 3 Regular, JetBrains Mono Regular (Source Sans 3 SemiBold n'est plus chargée) (woff2, latin) et leurs licences OFL.
 - `images/` : symbole, image de partage `og-image` (SVG et PNG 1200x630), icône tactile.
 - `js/animations.js`, `js/geek.js`, thèmes de saison (`saisons/`, `js/*.js`, `js/vendor/`) : conservés, non chargés.
 
-Le poids de la page affiché dans la bande de chiffres (109 Ko, soit 109 371 octets mesurés avec `wc -c`, sans compression : HTML, CSS, JS, polices chargées, symbole) est une mesure : à refaire si un de ces fichiers change.
+Le poids de la page affiché dans la bande de chiffres (124 Ko, soit 123 788 octets mesurés avec `wc -c`, sans compression : HTML, CSS, JS, polices chargées, symbole) est une mesure : à refaire si un de ces fichiers change.
 
 HTML, CSS et un petit JavaScript : aucun chargement externe, aucun traceur.
 
 ## État
 
-- Page unique et mentions légales écrites ; SIRET renseigné dans les mentions légales.
-- Hébergement et DNS à faire.
-- Le logo est en SVG en ligne dans `index.html`, pour utiliser la police Lexend chargée par la page.
+- Page unique et mentions légales écrites ; SIRET et mention de franchise de TVA renseignés dans les mentions légales.
+- Site en ligne sur https://dju-lye.fr (GitHub Pages).
+- Le logo est en SVG en ligne dans `index.html` et `mentions-legales.html`, pour s'adapter au thème clair/sombre et utiliser la police Lexend chargée par la page.
 
 ## Thèmes de saison (archivés, non chargés)
 

@@ -1,31 +1,37 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-theme="clair">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Mentions légales · Dju-Lye</title>
+  <meta name="description" content="Mentions légales du site Dju-Lye, aide numérique de quartier à Laval (Mayenne).">
   <link rel="canonical" href="https://dju-lye.fr/mentions-legales.html">
   <meta name="theme-color" content="#4a2a6e">
-  <meta name="color-scheme" content="dark light">
+  <meta name="color-scheme" content="light dark">
   <link rel="icon" href="images/symbole.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
   <link rel="preload" href="polices/Lexend-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="style.css">
-  <script defer src="js/site.js"></script>
+  <link rel="stylesheet" href="style.css?v=2026-11-17">
+  <script>try { var t = localStorage.getItem("theme-dju-lye"); if (t === "sombre" || t === "clair") document.documentElement.setAttribute("data-theme", t); if (localStorage.getItem("animations-arretees") === "oui") document.documentElement.classList.add("sans-animation"); } catch (e) {}</script>
+  <script defer src="js/site.js?v=2026-11-17"></script>
 </head>
 <body class="mentions">
   <a class="aller-au-contenu" href="#contenu">Aller au contenu</a>
-  <header class="entete sombre">
-    <div class="contenu">
+  <header class="entete">
+    <div class="entete-barre">
       <a class="logo-lien" href="index.html" aria-label="Dju-Lye, retour à l'accueil">
-      <svg class="logo" role="img" aria-label="Dju-Lye" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 245 64">
-        <rect x="3" y="3" width="58" height="58" rx="17" fill="#4a2a6e" stroke="#ffffff" stroke-width="2"/>
-        <circle cx="21" cy="25" r="6" fill="#ffffff"/>
-        <circle cx="43" cy="25" r="6" fill="#ffffff"/>
-        <path d="M17 38 Q32 52 47 38" fill="none" stroke="#f5c33b" stroke-width="6" stroke-linecap="round"/>
-        <text x="85" y="45" font-family="Lexend, 'Segoe UI', sans-serif" font-size="40" font-weight="600" fill="#ffffff">Dju<tspan fill="#f5c33b" font-weight="700">-</tspan>Lye</text>
-      </svg>
+        <svg class="logo" role="img" aria-label="Dju-Lye" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 245 64">
+          <rect class="logo-carre" x="3" y="3" width="58" height="58" rx="17"/>
+          <circle cx="21" cy="25" r="6" fill="#ffffff"/>
+          <circle cx="43" cy="25" r="6" fill="#ffffff"/>
+          <path d="M17 38 Q32 52 47 38" fill="none" stroke="#f5c33b" stroke-width="6" stroke-linecap="round"/>
+          <text class="logo-texte" x="85" y="45" font-family="Lexend, 'Segoe UI', sans-serif" font-size="40" font-weight="600">Dju<tspan fill="#f5c33b" font-weight="700">-</tspan>Lye</text>
+        </svg>
       </a>
+      <div class="entete-actions">
+        <button type="button" class="bouton-theme" id="bascule-theme" aria-pressed="false">🌙 Mode sombre</button>
+        <a class="bouton-nav" href="index.html">Retour à l'accueil</a>
+      </div>
     </div>
   </header>
 
@@ -36,6 +42,7 @@
       <p>Julie Patureau, entrepreneur individuel (EI) — Dju-Lye, aide numérique de quartier.</p>
       <p>Laval (Mayenne).</p>
       <p>SIRET&nbsp;: 132 064 809 00016.</p>
+      <p>TVA non applicable, art. L. 223 et s. du code des impositions sur les biens et services.</p>
       <p>Contact&nbsp;: <a href="mailto:contact@dju-lye.fr">contact@dju-lye.fr</a></p>
 
       <h2>Directrice de la publication</h2>
@@ -50,7 +57,7 @@
       <h2>Propriété</h2>
       <p>Le logo et les textes de ce site appartiennent à Dju-Lye.</p>
 
-      <p><a href="index.html">Retour à l'accueil</a></p>
+      <p><a class="bouton-secondaire" href="index.html">Retour à l'accueil</a></p>
     </div>
   </main>
 
